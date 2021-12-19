@@ -13,22 +13,11 @@
 <a href="{{ url('/login/google') }}">Youtube Authentication</a>
 </div>
 </div>
-
-     <div class="flex">
-     @foreach($mainstats ?? ''['rows'] as $stat)
-    <x-embed url="https://www.youtube.com/watch?v={{$stat[0]}}" />
-@endforeach
-     </div>
-
-<pre>
-    <code>
-        @json($mainstats ?? '');
-    </code>
-</pre>
-
+@if (session()->has('mainstats'))
 <div id="app">
-   <example-component></example-component>
+   <youtube-simple-stats :stats='@json(session()->get("mainstats"))'></youtube-simple-stat>
 </div>
+@endif
         </div>
     </div>
 </div>

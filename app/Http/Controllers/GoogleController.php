@@ -27,6 +27,21 @@ class GoogleController extends Controller
                 'metrics' => 'views,comments,likes,dislikes,estimatedMinutesWatched,averageViewDuration',
                 'startDate' => '2010-01-01'
             ];
+            //At this point we have the basics stats for your Youtube Channel.
+            $response = $this->ytanalytics->reports->query($queryParams);
+            $request->session()->put('mainstats', $response);
+            return view('dashboard');
+
+        } else {
+            return redirect('/home')->with('error', 'you have not been authenticated');
+        }
+    }
+
+    public function getmostwatched(Request $request){
+        if ($request->session()->get('access_token')) {
+            $client = $this->client;
+            $client->setAccessToken($request->session()->get('access_token'));
+            $pageToken = NULL;
             // Top 10 – Most viewed videos for a content owner
             $queryParams = [
                 'ids' => 'channel==MINE',
@@ -39,11 +54,8 @@ class GoogleController extends Controller
             ];
             //At this point we have the basics stats for your Youtube Channel.
             $response = $this->ytanalytics->reports->query($queryParams);
-            print_r($response);
-            return view('dashboard', [
-                'mainstats' => $response
-             ]);
-
+            $request->session()->put('mainstats', $response);
+            return view('dashboard');
         } else {
             return redirect('/home')->with('error', 'you have not been authenticated');
         }
