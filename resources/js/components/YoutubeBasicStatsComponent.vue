@@ -1,13 +1,13 @@
 <template>
-  <v-container class="grey lighten-5">
-    <v-row no-gutters>
+  <v-container>
+    <v-row>
     <v-col v-for="item in stats.columnHeaders" :key="item.name">
-      <p>{{item.name}}</p>
+      {{item.name}}
     </v-col>
     </v-row>
     <v-row v-for="entry in stats.rows" :key="entry.value">
         <v-col v-for="field in entry" :key="field.value">
-        <p>{{field}}</p>
+        {{field}}
         </v-col>
     </v-row>
   </v-container>
@@ -16,11 +16,6 @@
 module.exports = {
     name:"YoutubeBasicStats",
     props: ['stats'],
-  data() {
-    return {
-      greeting: "Hello"
-    };
-  },
   mounted() {
       console.log(this);
       }

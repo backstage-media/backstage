@@ -22,7 +22,7 @@ class GoogleProvider
     }
     public function youtube($client)
     {
-        $youtube = new \Google_Service_Youtube($client);
+        $youtube = new \Google_Service_YouTube($client);
         return $youtube;
     }
 }

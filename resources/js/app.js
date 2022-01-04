@@ -19,8 +19,11 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('youtube-simple-stats', require('./components/YoutubeBasicStatsComponent.vue').default);
+var channelInfo = Vue.component('youtube-channel-info', require('./components/YoutubeChannelInfo.vue').default);
+var simpleStats = Vue.component('youtube-simple-stats', require('./components/YoutubeBasicStatsComponent.vue').default);
+var sideMenu = Vue.component('user-side-menu', require('./components/SideMenuComponent.vue').default);
+var youtubeComponent = Vue.component('youtube-card', require('./components/YoutubeVideoCardComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,8 +32,20 @@ Vue.component('youtube-simple-stats', require('./components/YoutubeBasicStatsCom
  */
 
 import vuetify from './vuetify';
+//import VueTube from './vuetube';
+
 
 const app = new Vue({
     vuetify,
+//    VueTube,
     el: '#app',
+    components: {
+        'youtube-channel-info': channelInfo,
+        'youtube-simple-stats': simpleStats,
+        'user-side-menu': sideMenu,
+        'youtube-card': youtubeComponent
+      },
+    icons: {
+        iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
+      },
 });

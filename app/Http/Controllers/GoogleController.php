@@ -7,18 +7,19 @@ use Illuminate\Http\Request;
 
 class GoogleController extends Controller
 {
-    public function __construct(GoogleProvider $google, Request $request)
+    public function __construct(GoogleProvider $google)
     {
         $this->client = $google->client();
         $this->ytanalytics = $google->ytanalytics($this->client);
+        $this->youtube = $google->youtube($this->client);
     }
 
-    public function getbasicstats(Request $request)
+    public function get_basic_stats(Request $request)
     {
-        global $image_url;
         if ($request->session()->get('access_token')) {
             $client = $this->client;
             $client->setAccessToken($request->session()->get('access_token'));
+            $client->refreshToken($request->session()->get('refresh_token'));
             //getting user general stats on Youtube
             $pageToken = NULL;
             $queryParams = [
@@ -30,17 +31,19 @@ class GoogleController extends Controller
             //At this point we have the basics stats for your Youtube Channel.
             $response = $this->ytanalytics->reports->query($queryParams);
             $request->session()->put('mainstats', $response);
-            return view('dashboard');
+            $request->session()->put('access_token', $client->getAccessToken());
+            return $response;
 
         } else {
             return redirect('/home')->with('error', 'you have not been authenticated');
         }
     }
 
-    public function getmostwatched(Request $request){
+    public function get_most_watched(Request $request){
         if ($request->session()->get('access_token')) {
             $client = $this->client;
             $client->setAccessToken($request->session()->get('access_token'));
+            $client->refreshToken($request->session()->get('refresh_token'));
             $pageToken = NULL;
             // Top 10 – Most viewed videos for a content owner
             $queryParams = [
@@ -54,8 +57,51 @@ class GoogleController extends Controller
             ];
             //At this point we have the basics stats for your Youtube Channel.
             $response = $this->ytanalytics->reports->query($queryParams);
-            $request->session()->put('mainstats', $response);
-            return view('dashboard');
+            $request->session()->put('access_token', $client->getAccessToken());
+            return $response;
+        } else {
+            return redirect('/home')->with('error', 'you have not been authenticated');
+        }
+    }
+
+    public function get_latest_videos(Request $request){
+        if ($request->session()->get('access_token')) {
+            $client = $this->client;
+            $client->setAccessToken($request->session()->get('access_token'));
+            $client->refreshToken($request->session()->get('refresh_token'));
+            $pageToken = NULL;
+            // Top 10 – Most viewed videos for a content owner
+            $queryParams = [
+                'channelId' => $request->session()->get('youtube_channel_id'),
+                'type' => 'video',
+                'maxResults' => 10,
+                'order' => 'date'
+            ];
+            //At this point we have the basics stats for your Youtube Channel.
+            $response = $this->youtube->search->listSearch('snippet', $queryParams);
+            $request->session()->put('access_token', $client->getAccessToken());
+            return $response;
+        } else {
+            return redirect('/home')->with('error', 'you have not been authenticated');
+        }
+    }
+
+    public function get_channels_info(Request $request){
+        if ($request->session()->get('access_token')) {
+            $client = $this->client;
+            $client->setAccessToken($request->session()->get('access_token'));
+            $client->refreshToken($request->session()->get('refresh_token'));
+            $queryParams = [
+                'mine' => true
+            ];
+            $response = $this->youtube->channels->listChannels('snippet,contentDetails,statistics',$queryParams);
+            $request->session()->put('channels', $response);
+            $request->session()->put('access_token', $client->getAccessToken());
+            // Maybe think to move this to a different function just to generate all the user session from youtube.
+            $request->session()->put('youtube_name',$response["items"][0]["snippet"]["title"]);
+            $request->session()->put('youtube_avatar',$response["items"][0]["snippet"]["thumbnails"]["default"]["url"]);
+            $request->session()->put('youtube_description',$response["items"][0]["snippet"]["description"]);
+            return $response;
         } else {
             return redirect('/home')->with('error', 'you have not been authenticated');
         }

@@ -32,7 +32,9 @@ class GoogleAuthController extends Controller
             $client = $this->client;
             $client->authenticate($request->input('code'));
             $token = $client->getAccessToken();
+            $refresh_token = $client->getRefreshToken();
             $request->session()->put('access_token', $token);
+            $request->session()->put('refresh_token', $refresh_token);
             return redirect('/home')->with('success', 'you have been authenticated');
         } else {
             $client = $google->client();

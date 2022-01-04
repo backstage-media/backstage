@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
-use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\GoogleAuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,22 +29,19 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
-    Route::get('/dashboard',[MediaController::class, 'index'])->name('dashboard');
-    Route::get('/media/youtube', [GoogleController::class,'getbasicstats']);
+    Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/content',[ContentController::class, 'index'])->name('content');
 
     Route::get('/media',[MediaController::class, 'add']);
     Route::post('/media',[MediaController::class, 'create']);
     
     Route::get('/media/{task}', [MediaController::class, 'edit']);
     Route::post('/media/{task}', [MediaController::class, 'update']);
-});
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/stats',[MediaController::class, 'index'])->name('stats');
 });
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/login/google', [GoogleAuthController::class,'redirectToGoogleProvider']);
 Route::get('/login/google/callback', [GoogleAuthController::class,'handleProviderGoogleCallback']);
