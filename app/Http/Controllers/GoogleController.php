@@ -69,16 +69,16 @@ class GoogleController extends Controller
             $client = $this->client;
             $client->setAccessToken($request->session()->get('access_token'));
             $client->refreshToken($request->session()->get('refresh_token'));
-            $pageToken = NULL;
-            // Top 10 – Most viewed videos for a content owner
+            $channelId = $request->session()->get('youtube_channel_id');
+            // Top 10 – Latest videos uploaded.
             $queryParams = [
-                'channelId' => $request->session()->get('youtube_channel_id'),
+                'channelId' => $channelId,
                 'type' => 'video',
                 'maxResults' => 10,
                 'order' => 'date'
             ];
             //At this point we have the basics stats for your Youtube Channel.
-            $response = $this->youtube->search->listSearch('snippet', $queryParams);
+            $response = $this->youtube->search->listSearch('snippet,id', $queryParams);
             $request->session()->put('access_token', $client->getAccessToken());
             return $response;
         } else {
@@ -101,6 +101,24 @@ class GoogleController extends Controller
             $request->session()->put('youtube_name',$response["items"][0]["snippet"]["title"]);
             $request->session()->put('youtube_avatar',$response["items"][0]["snippet"]["thumbnails"]["default"]["url"]);
             $request->session()->put('youtube_description',$response["items"][0]["snippet"]["description"]);
+            return $response;
+        } else {
+            return redirect('/home')->with('error', 'you have not been authenticated');
+        }
+    }
+
+    public function get_video_metadata(Request $request, $video_id){
+        if ($request->session()->get('access_token')) {
+            $client = $this->client;
+            $client->setAccessToken($request->session()->get('access_token'));
+            $client->refreshToken($request->session()->get('refresh_token'));
+            // Get metadata from specific video.
+            $queryParams = [
+                'id' => $video_id,
+            ];
+            //At this point we have the basics stats for your Youtube Channel.
+            $response = $this->youtube->videos->listVideos('snippet,contentDetails,statistics,status', $queryParams);
+            $request->session()->put('access_token', $client->getAccessToken());
             return $response;
         } else {
             return redirect('/home')->with('error', 'you have not been authenticated');

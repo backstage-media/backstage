@@ -25,14 +25,16 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
+        //Initialize main arrays first.
+        $channelStats = array();
+        $channelsInfo = array();
         // IMPORTANT! Avoid here this number of calls if the user already have the info (maybe create a checksum??)
         $channelsInfo = $this->youtubeController->get_channels_info($request);
         
         $channelStats = $this->youtubeController->get_basic_stats($request);
 
-        //Store the Channel ID at the user session.
-        
-        $request->session()->put('youtube_channel_id', $channelsInfo["items"][0]["id"]);
+        // In case we suceed at getting Google Stats, we create all the needed array structure.
+        if(is_array($channelsInfo)){
 
         $channelInfo = ['name' => $channelsInfo["items"][0]["snippet"]["title"], 
                             'description' => $channelsInfo["items"][0]["snippet"]["description"],
@@ -48,6 +50,10 @@ class DashboardController extends Controller
         "country"=>$channelsInfo["items"][0]["snippet"]["country"]);
 
         $channelsInfo = json_encode($channelInfo, JSON_FORCE_OBJECT);
+        }
+
+        // Set Channel ID for the current user session when you Open user dashboard.
+        session()->put('youtube_channel_id', $channelsInfo["items"][0]["id"]);
         
         return view('dashboard')->with('mainStats', [ 
             'channelStats' => $channelStats,

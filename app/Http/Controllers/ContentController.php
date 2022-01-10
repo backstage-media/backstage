@@ -25,8 +25,18 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
+        $latestVideosMetadata[] = array();
+        // Get latest videos uploaded.
         $latestVideos = $this->youtubeController->get_latest_videos($request);
-        return view('content')->with('latestYoutubeContent',$latestVideos);
+        
+        //Provide all the metadata of the latest videos
+        foreach ($latestVideos["items"] as $key => $value) {
+            $videoId = $latestVideos["items"][$key]["id"]["videoId"];
+            $videoMetadata = $this->youtubeController->get_video_metadata($request,$videoId);
+            array_push($latestVideosMetadata,$videoMetadata);
+        }
+        
+        return view('content')->with('latestYoutubeContent',$latestVideosMetadata);
     }
 
 }

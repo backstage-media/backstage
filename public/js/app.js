@@ -5295,9 +5295,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SideMenu",
-  props: ['youtube_name', 'youtube_avatar', 'youtube_description'],
+  props: {
+    youtube_name: {
+      "default": "Guest User",
+      type: String
+    },
+    youtube_avatar: {
+      "default": "https://avatars.dicebear.com/api/pixel-art-neutral/323232.svg",
+      type: String
+    },
+    youtube_description: {
+      "default": "Guest Account, link to Youtube <a href='http://localhost/login/google'/>here</a>",
+      type: String
+    }
+  },
   data: function data() {
     return {
       drawer: true,
@@ -29006,7 +29020,15 @@ var render = function () {
             [
               _c(
                 "v-list-item-avatar",
-                [_c("v-img", { attrs: { src: _vm.youtube_avatar } })],
+                [
+                  _c("v-img", {
+                    attrs: {
+                      src:
+                        _vm.youtube_avatar ||
+                        "https://avatars.dicebear.com/api/pixel-art-neutral/323232.svg",
+                    },
+                  }),
+                ],
                 1
               ),
             ],
@@ -29023,13 +29045,30 @@ var render = function () {
                   _c("v-list-item-title", { staticClass: "text-h6" }, [
                     _vm._v(
                       "\n              " +
-                        _vm._s(_vm.youtube_name) +
+                        _vm._s(_vm.youtube_name || "Guest User") +
                         "\n            "
                     ),
                   ]),
                   _vm._v(" "),
                   _c("v-list-item-subtitle", [
-                    _vm._v(_vm._s(_vm.youtube_description)),
+                    _vm._v(
+                      _vm._s(
+                        _vm.youtube_description ||
+                          "Guest Account, link your account to Youtube"
+                      )
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("v-list-item-subtitle", [
+                    _c(
+                      "a",
+                      {
+                        staticClass:
+                          "text-sm text-gray-700 dark:text-gray-500 underline",
+                        attrs: { href: "/login/google" },
+                      },
+                      [_vm._v("Youtube Login")]
+                    ),
                   ]),
                 ],
                 1
