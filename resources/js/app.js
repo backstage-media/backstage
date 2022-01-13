@@ -32,12 +32,11 @@ var youtubeComponent = Vue.component('youtube-card', require('./components/Youtu
  */
 
 import vuetify from './vuetify';
-//import VueTube from './vuetube';
+import 'vue-lazy-youtube-video/dist/style.css'
 
 
 const app = new Vue({
     vuetify,
-//    VueTube,
     el: '#app',
     components: {
         'youtube-channel-info': channelInfo,

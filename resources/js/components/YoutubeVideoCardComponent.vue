@@ -1,61 +1,41 @@
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="344"
-  >
-    <v-img
-      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-      height="200px"
-    ></v-img>
+  <v-card>
+    <LazyYoutubeVideo
+      aspect-ratio="16:9"
+      thumbnail-quality="standard"
+      :src="'https://www.youtube.com/embed/'+video_data.items[0].id"
+    />
+    <v-bottom-navigation :value="value" color="primary">
+      <v-btn>
+        <span>Recents</span>
 
-    <v-card-title>
-      Top western road trips
-    </v-card-title>
-
-    <v-card-subtitle>
-      1,000 miles of wonder
-    </v-card-subtitle>
-
-    <v-card-actions>
-      <v-btn
-        color="orange lighten-2"
-        text
-      >
-        Explore
+        <v-icon>mdi-history</v-icon>
       </v-btn>
 
-      <v-spacer></v-spacer>
+      <v-btn>
+        <span>Favorites</span>
 
-      <v-btn
-        icon
-        @click="show = !show"
-      >
-        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        <v-icon>mdi-heart</v-icon>
       </v-btn>
-    </v-card-actions>
 
-    <v-expand-transition>
-      <div v-show="show">
-        <v-divider></v-divider>
+      <v-btn>
+        <span>Share</span>
 
-        <v-card-text>
-          I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-        </v-card-text>
-      </div>
-    </v-expand-transition>
+        <v-icon>mdi-share</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
   </v-card>
 </template>
 <script>
-module.exports = {
-    name:"YoutubeVideoCard",
-    props: ['metadata'],
-  data() {
-    return {
-      greeting: "Hello"
-    };
+import LazyYoutubeVideo from "vue-lazy-youtube-video";
+export default {
+  name: "YoutubeVideoCardComponent",
+  props: ["video_data"],
+  components: {
+    LazyYoutubeVideo,
   },
   mounted() {
-      console.log(this);
-      }
+    console.log(this);
+  },
 };
 </script>
