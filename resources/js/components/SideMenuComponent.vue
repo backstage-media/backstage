@@ -26,25 +26,25 @@
         >
           <v-list-item link href="/dashboard">
             <v-list-item-icon>
-              <v-icon>mdi-home-analytics</v-icon>
+              <v-icon class="mr-4">mdi-home-analytics</v-icon>
             </v-list-item-icon>
             <v-list-item-title>My Stats</v-list-item-title>
           </v-list-item>
           <v-list-item link href="/content">
             <v-list-item-icon>
-              <v-icon>mdi-video</v-icon>
+              <v-icon class="mr-4">mdi-video</v-icon>
             </v-list-item-icon>
             <v-list-item-title>My Content</v-list-item-title>
           </v-list-item>
           <v-list-item link>
             <v-list-item-icon>
-              <v-icon>mdi-bell</v-icon>
+              <v-icon class="mr-4">mdi-bell</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Notifications</v-list-item-title>
           </v-list-item>
           <v-list-item link>
             <v-list-item-icon>
-              <v-icon>mdi-handshake</v-icon>
+              <v-icon class="mr-4">mdi-handshake</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Partners</v-list-item-title>
           </v-list-item>

@@ -5354,7 +5354,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 module.exports = {
   name: "YoutubeBasicStats",
-  props: ['stats'],
+  props: ["stats"],
   mounted: function mounted() {
     console.log(this);
   }
@@ -5438,6 +5438,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue_lazy_youtube_video__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-lazy-youtube-video */ "./node_modules/vue-lazy-youtube-video/dist/vue-lazy-youtube-video.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -29427,7 +29454,11 @@ var render = function () {
             [
               _c(
                 "v-list-item-icon",
-                [_c("v-icon", [_vm._v("mdi-home-analytics")])],
+                [
+                  _c("v-icon", { staticClass: "mr-4" }, [
+                    _vm._v("mdi-home-analytics"),
+                  ]),
+                ],
                 1
               ),
               _vm._v(" "),
@@ -29440,7 +29471,11 @@ var render = function () {
             "v-list-item",
             { attrs: { link: "", href: "/content" } },
             [
-              _c("v-list-item-icon", [_c("v-icon", [_vm._v("mdi-video")])], 1),
+              _c(
+                "v-list-item-icon",
+                [_c("v-icon", { staticClass: "mr-4" }, [_vm._v("mdi-video")])],
+                1
+              ),
               _vm._v(" "),
               _c("v-list-item-title", [_vm._v("My Content")]),
             ],
@@ -29451,7 +29486,11 @@ var render = function () {
             "v-list-item",
             { attrs: { link: "" } },
             [
-              _c("v-list-item-icon", [_c("v-icon", [_vm._v("mdi-bell")])], 1),
+              _c(
+                "v-list-item-icon",
+                [_c("v-icon", { staticClass: "mr-4" }, [_vm._v("mdi-bell")])],
+                1
+              ),
               _vm._v(" "),
               _c("v-list-item-title", [_vm._v("Notifications")]),
             ],
@@ -29464,7 +29503,11 @@ var render = function () {
             [
               _c(
                 "v-list-item-icon",
-                [_c("v-icon", [_vm._v("mdi-handshake")])],
+                [
+                  _c("v-icon", { staticClass: "mr-4" }, [
+                    _vm._v("mdi-handshake"),
+                  ]),
+                ],
                 1
               ),
               _vm._v(" "),
@@ -29504,12 +29547,13 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { attrs: { fluid: "" } },
     [
       _c(
         "v-row",
         _vm._l(_vm.stats.columnHeaders, function (item) {
           return _c("v-col", { key: item.name }, [
-            _vm._v("\n    " + _vm._s(item.name) + "\n  "),
+            _vm._v("\n      " + _vm._s(item.name) + "\n    "),
           ])
         }),
         1
@@ -29521,7 +29565,7 @@ var render = function () {
           { key: entry.value },
           _vm._l(entry, function (field) {
             return _c("v-col", { key: field.value }, [
-              _vm._v("\n      " + _vm._s(field) + "\n      "),
+              _vm._v("\n      " + _vm._s(field) + "\n    "),
             ])
           }),
           1
@@ -29661,7 +29705,49 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "v-card",
+    { staticClass: "ma-5" },
     [
+      _c(
+        "v-list-item",
+        { attrs: { link: "" } },
+        [
+          _c(
+            "v-list-item-content",
+            [
+              _c("v-list-item-title", { staticClass: "text-h4" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.video_data.items[0].snippet.title) +
+                    "\n              "
+                ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-list-item-subtitle",
+                _vm._l(_vm.video_data.items[0].snippet.tags, function (tag) {
+                  return _c(
+                    "v-chip",
+                    {
+                      key: tag,
+                      staticClass: "ma-1",
+                      attrs: { label: "", small: "", link: "", outlined: "" },
+                    },
+                    [
+                      _vm._v(
+                        "\n              " + _vm._s(tag) + "\n              "
+                      ),
+                    ]
+                  )
+                }),
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("LazyYoutubeVideo", {
         attrs: {
           "aspect-ratio": "16:9",
@@ -29671,36 +29757,57 @@ var render = function () {
       }),
       _vm._v(" "),
       _c(
-        "v-bottom-navigation",
-        { attrs: { value: _vm.value, color: "primary" } },
+        "v-card-actions",
         [
-          _c(
-            "v-btn",
-            [
-              _c("span", [_vm._v("Recents")]),
-              _vm._v(" "),
-              _c("v-icon", [_vm._v("mdi-history")]),
-            ],
-            1
-          ),
+          _vm.video_data.items[0].status.privacyStatus == "private"
+            ? _c(
+                "v-badge",
+                {
+                  attrs: {
+                    bordered: "",
+                    color: "#9C27B0",
+                    icon: "mdi-publish",
+                    overlap: "",
+                  },
+                },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "white--text",
+                      attrs: { color: "#9C27B0", depressed: "" },
+                    },
+                    [_vm._v("\n          Publish Video\n        ")]
+                  ),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("v-spacer"),
           _vm._v(" "),
           _c(
             "v-btn",
+            { attrs: { icon: "" } },
             [
-              _c("span", [_vm._v("Favorites")]),
-              _vm._v(" "),
               _c("v-icon", [_vm._v("mdi-heart")]),
+              _vm._v(" "),
+              _c("div", [_vm._v("12132")]),
             ],
             1
           ),
           _vm._v(" "),
           _c(
             "v-btn",
-            [
-              _c("span", [_vm._v("Share")]),
-              _vm._v(" "),
-              _c("v-icon", [_vm._v("mdi-share")]),
-            ],
+            { attrs: { icon: "" } },
+            [_c("v-icon", [_vm._v("mdi-bookmark")])],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            { attrs: { icon: "" } },
+            [_c("v-icon", [_vm._v("mdi-share-variant")])],
             1
           ),
         ],

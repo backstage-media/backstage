@@ -1,8 +1,14 @@
 <x-app-layout>
   <v-app>
-    <h2>This is the Content view</h2>
     <template>
-      <v-container class="grey lighten-5">
+      <v-container>
+      <div class="transition-swing text-h3 ma-4">
+      @if(session()->get('youtube_name'))
+      Youtube content from {{ session()->get('youtube_name') }} channel
+      @else
+      Connect your Youtube Account to see content.
+      @endif
+    </div>
         <v-row no-gutters>
           <template>
             @foreach ($latestYoutubeContent as $item)
