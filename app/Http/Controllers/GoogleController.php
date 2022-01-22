@@ -33,13 +33,13 @@ class GoogleController extends Controller
             $request->session()->put('mainstats', $response);
             $request->session()->put('access_token', $client->getAccessToken());
             return $response;
-
         } else {
             return redirect('/home')->with('error', 'you have not been authenticated');
         }
     }
 
-    public function get_most_watched(Request $request){
+    public function get_most_watched(Request $request)
+    {
         if ($request->session()->get('access_token')) {
             $client = $this->client;
             $client->setAccessToken($request->session()->get('access_token'));
@@ -64,7 +64,8 @@ class GoogleController extends Controller
         }
     }
 
-    public function get_latest_videos(Request $request){
+    public function get_latest_videos(Request $request)
+    {
         if ($request->session()->get('access_token')) {
             $client = $this->client;
             $client->setAccessToken($request->session()->get('access_token'));
@@ -72,9 +73,10 @@ class GoogleController extends Controller
             $channelId = $request->session()->get('youtube_channel_id');
             // Top 10 – Latest videos uploaded.
             $queryParams = [
-                'channelId' => $channelId,
+                #'channelId' => $channelId,
+                'forMine' => true,
                 'type' => 'video',
-                'maxResults' => 10,
+                'maxResults' => 20,
                 'order' => 'date'
             ];
             //At this point we have the basics stats for your Youtube Channel.
@@ -86,7 +88,8 @@ class GoogleController extends Controller
         }
     }
 
-    public function get_channels_info(Request $request){
+    public function get_channels_info(Request $request)
+    {
         if ($request->session()->get('access_token')) {
             $client = $this->client;
             $client->setAccessToken($request->session()->get('access_token'));
@@ -94,20 +97,21 @@ class GoogleController extends Controller
             $queryParams = [
                 'mine' => true
             ];
-            $response = $this->youtube->channels->listChannels('snippet,contentDetails,statistics',$queryParams);
+            $response = $this->youtube->channels->listChannels('snippet,contentDetails,statistics', $queryParams);
             $request->session()->put('channels', $response);
             $request->session()->put('access_token', $client->getAccessToken());
             // Maybe think to move this to a different function just to generate all the user session from youtube.
-            $request->session()->put('youtube_name',$response["items"][0]["snippet"]["title"]);
-            $request->session()->put('youtube_avatar',$response["items"][0]["snippet"]["thumbnails"]["default"]["url"]);
-            $request->session()->put('youtube_description',$response["items"][0]["snippet"]["description"]);
+            $request->session()->put('youtube_name', $response["items"][0]["snippet"]["title"]);
+            $request->session()->put('youtube_avatar', $response["items"][0]["snippet"]["thumbnails"]["default"]["url"]);
+            $request->session()->put('youtube_description', $response["items"][0]["snippet"]["description"]);
             return $response;
         } else {
             return redirect('/home')->with('error', 'you have not been authenticated');
         }
     }
 
-    public function get_video_metadata(Request $request, $video_id){
+    public function get_video_metadata(Request $request, $video_id)
+    {
         if ($request->session()->get('access_token')) {
             $client = $this->client;
             $client->setAccessToken($request->session()->get('access_token'));
@@ -118,6 +122,30 @@ class GoogleController extends Controller
             ];
             //At this point we have the basics stats for your Youtube Channel.
             $response = $this->youtube->videos->listVideos('snippet,contentDetails,statistics,status', $queryParams);
+            $request->session()->put('access_token', $client->getAccessToken());
+            return $response;
+        } else {
+            return redirect('/home')->with('error', 'you have not been authenticated');
+        }
+    }
+
+    public function get_video_advanced_metadata(Request $request, $video_id)
+    {
+        if ($request->session()->get('access_token')) {
+            $client = $this->client;
+            $client->setAccessToken($request->session()->get('access_token'));
+            $client->refreshToken($request->session()->get('refresh_token'));
+            $today = strval(date('Y-m-d'));
+            // Get Advanced metadata using YTAnalytics from specific video.
+            $queryParams = [
+                'endDate' => $today,
+                'filters' => 'video==' . $video_id,
+                'ids' => 'channel==MINE',
+                'metrics' => 'views,comments,likes,dislikes,estimatedMinutesWatched,averageViewDuration,subscribersGained,subscribersLost,averageViewPercentage',
+                'startDate' => '2014-05-01'
+            ];
+            //At this point we have the basics stats for your Youtube Channel.
+            $response = $this->ytanalytics->reports->query($queryParams);
             $request->session()->put('access_token', $client->getAccessToken());
             return $response;
         } else {

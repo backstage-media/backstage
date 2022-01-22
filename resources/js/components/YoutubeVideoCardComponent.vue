@@ -1,9 +1,9 @@
 <template>
-  <v-card class="ma-5">
-    <v-list-item link>
+  <v-card>
+    <v-list-item link :href="'/media/'+video_data.items[0].id">
             <v-list-item-content>
               <v-list-item-title class="text-h4">
-                {{video_data.items[0].snippet.title}}
+                {{video_data.items[0].snippet.title}}<v-icon class="float-right">mdi-open-in-new</v-icon>
               </v-list-item-title>
               <v-list-item-subtitle>
               <v-chip class="ma-1"  

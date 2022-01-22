@@ -34,11 +34,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
     Route::get('/media',[MediaController::class, 'add']);
     Route::post('/media',[MediaController::class, 'create']);
-    
-    Route::get('/media/{task}', [MediaController::class, 'edit']);
-    Route::post('/media/{task}', [MediaController::class, 'update']);
+    Route::get('/media/{id}',[MediaController::class, 'view']);
 
     Route::get('/stats',[MediaController::class, 'index'])->name('stats');
+    
 });
 
 

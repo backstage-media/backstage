@@ -14,7 +14,7 @@
             @foreach ($latestYoutubeContent as $item)
             @if(is_object($item))
             <v-col>
-              <youtube-card :video_data='@json($item)'></youtube-card>
+              <youtube-card :video_data='@json($item)' class="ma-5"></youtube-card>
             </v-col>
             @endif
             @if($loop->iteration % 2 == 0)

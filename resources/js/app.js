@@ -23,6 +23,7 @@ var channelInfo = Vue.component('youtube-channel-info', require('./components/Yo
 var simpleStats = Vue.component('youtube-simple-stats', require('./components/YoutubeBasicStatsComponent.vue').default);
 var sideMenu = Vue.component('user-side-menu', require('./components/SideMenuComponent.vue').default);
 var youtubeComponent = Vue.component('youtube-card', require('./components/YoutubeVideoCardComponent.vue').default);
+var youtubeChatComponent = Vue.component('youtube-chat', require('./components/YoutubeChatComponent.vue').default);
 
 
 /**
@@ -42,7 +43,8 @@ const app = new Vue({
         'youtube-channel-info': channelInfo,
         'youtube-simple-stats': simpleStats,
         'user-side-menu': sideMenu,
-        'youtube-card': youtubeComponent
+        'youtube-card': youtubeComponent,
+        'youtube-chat':youtubeChatComponent
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
