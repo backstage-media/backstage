@@ -13,7 +13,7 @@
 
                 <v-list-item-subtitle
                   class="text--primary"
-                  v-text="item.snippet.type"
+                  v-text="item.snippet.type+' event'"
                 ></v-list-item-subtitle>
 
                 <v-list-item-subtitle
@@ -28,7 +28,7 @@
               </v-list-item-action>
             </template>
           </v-list-item>
-          <v-divider v-if="index < items.length - 1" :key="index"></v-divider>
+          <v-divider v-if="index < event_data.length - 1" :key="index"></v-divider>
         </template>
       </v-list-item-group>
     </v-list>
@@ -38,45 +38,8 @@
 export default {
   name: "YoutubeActivityEvent",
   props: ["event_data"],
-  data: () => ({
-    selected: [2],
-    items: [
-      {
-        action: "15 min",
-        headline: "Brunch this weekend?",
-        subtitle: `I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
-        title: "Ali Connors",
-      },
-      {
-        action: "2 hr",
-        headline: "Summer BBQ",
-        subtitle: `Wish I could come, but I'm out of town this weekend.`,
-        title: "me, Scrott, Jennifer",
-      },
-      {
-        action: "6 hr",
-        headline: "Oui oui",
-        subtitle: "Do you have Paris recommendations? Have you ever been?",
-        title: "Sandra Adams",
-      },
-      {
-        action: "12 hr",
-        headline: "Birthday gift",
-        subtitle:
-          "Have any ideas about what we should get Heidi for her birthday?",
-        title: "Trevor Hansen",
-      },
-      {
-        action: "18hr",
-        headline: "Recipe to try",
-        subtitle:
-          "We should eat this: Grate, Squash, Corn, and tomatillo Tacos.",
-        title: "Britta Holt",
-      },
-    ],
     mounted() {
       console.log(this);
-    },
-  }),
+    }
 };
 </script>
