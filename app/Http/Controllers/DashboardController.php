@@ -33,6 +33,7 @@ class DashboardController extends Controller
         // IMPORTANT! Avoid here this number of calls if the user already have the info (maybe create a checksum??)
         $channelsInfo = $this->youtubeController->get_channels_info($request);
         $channelStats = $this->youtubeController->get_basic_stats($request);
+        $channelActivity = $this->youtubeController->get_channel_activity($request);
 
         // In case we suceed at getting Google Stats, we create all the needed array structure.
         if(is_array($channelsInfo)){
@@ -58,7 +59,9 @@ class DashboardController extends Controller
         }
         return view('dashboard')->with('mainStats', [ 
             'channelStats' => $channelStats,
-            'channelsInfo' => $channelsInfo
+            'channelsInfo' => $channelsInfo,
+            // Example of the data structure - https://developers.google.com/youtube/v3/docs/activities/list?apix=true&apix_params=%7B"part"%3A%5B"id%2Csnippet%2CcontentDetails%20"%5D%2C"maxResults"%3A10%2C"mine"%3Atrue%7D
+            'channelActivity' => $channelActivity["items"]
         ]);
     }
 

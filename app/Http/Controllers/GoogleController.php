@@ -152,4 +152,21 @@ class GoogleController extends Controller
             return redirect('/home')->with('error', 'you have not been authenticated');
         }
     }
+
+    public function get_channel_activity(Request $request)
+    {
+        $response ="";
+        if ($request->session()->get('access_token')) {
+            $client = $this->client;
+            $client->setAccessToken($request->session()->get('access_token'));
+            $client->refreshToken($request->session()->get('refresh_token'));
+            // Get latest activity for the channel.
+            $queryParams = [
+                'maxResults' => 10,
+                'mine' => true
+            ];
+            $response =  $this->youtube->activities->listActivities('id,snippet,contentDetails ', $queryParams);
+        }
+        return $response;
+    }
 }

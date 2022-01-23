@@ -10,7 +10,7 @@
             <youtube-chat ></youtube-chat>
         </v-col>
       </v-row>
-      <v-row><youtube-simple-stats :stats='@json($youtubeVideoAnalytics)'></youtube-simple-stat></v-row>
+      <v-row><youtube-simple-stats :stats='@json($youtubeVideoAnalytics)'></youtube-simple-stats></v-row>
     </v-container>
   </v-app>
   @endif

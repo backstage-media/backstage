@@ -4,7 +4,7 @@
       <v-container>
       <div class="transition-swing text-h3 ma-4">
       @if(session()->get('youtube_name'))
-      Youtube content from {{ session()->get('youtube_name') }} channel
+      {{ session()->get('youtube_name') }} channel
       @else
       Connect your Youtube Account to see content.
       @endif

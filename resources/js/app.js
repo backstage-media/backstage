@@ -19,11 +19,12 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-var channelInfo = Vue.component('youtube-channel-info', require('./components/YoutubeChannelInfo.vue').default);
-var simpleStats = Vue.component('youtube-simple-stats', require('./components/YoutubeBasicStatsComponent.vue').default);
+var channelInfo = Vue.component('youtube-channel-info', require('./components/youtube/YoutubeChannelInfo.vue').default);
+var simpleStats = Vue.component('youtube-simple-stats', require('./components/youtube/YoutubeBasicStatsComponent.vue').default);
 var sideMenu = Vue.component('user-side-menu', require('./components/SideMenuComponent.vue').default);
-var youtubeComponent = Vue.component('youtube-card', require('./components/YoutubeVideoCardComponent.vue').default);
-var youtubeChatComponent = Vue.component('youtube-chat', require('./components/YoutubeChatComponent.vue').default);
+var youtubeComponent = Vue.component('youtube-card', require('./components/youtube/YoutubeVideoCardComponent.vue').default);
+var youtubeChatComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeChatComponent.vue').default);
+var youtubeActivityEventComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeActivityEventComponent.vue').default);
 
 
 /**
@@ -44,7 +45,8 @@ const app = new Vue({
         'youtube-simple-stats': simpleStats,
         'user-side-menu': sideMenu,
         'youtube-card': youtubeComponent,
-        'youtube-chat':youtubeChatComponent
+        'youtube-chat':youtubeChatComponent,
+        'youtube-activity-event':youtubeActivityEventComponent
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
