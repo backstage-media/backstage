@@ -2,7 +2,7 @@
   <v-app>
     <template>
       <v-container>
-      <div class="transition-swing text-h3 ma-4">
+      <div class="transition-swing text-h5 ma-4">
       @if(session()->get('youtube_name'))
       {{ session()->get('youtube_name') }} channel
       @else
