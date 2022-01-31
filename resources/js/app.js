@@ -25,6 +25,7 @@ var sideMenu = Vue.component('user-side-menu', require('./components/SideMenuCom
 var youtubeComponent = Vue.component('youtube-card', require('./components/youtube/YoutubeVideoCardComponent.vue').default);
 var youtubeChatComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeChatComponent.vue').default);
 var youtubeActivityEventComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeActivityEventComponent.vue').default);
+var wizard = Vue.component('wizard', require('./components/WizardComponent.vue').default);
 
 
 /**
@@ -46,7 +47,8 @@ const app = new Vue({
         'user-side-menu': sideMenu,
         'youtube-card': youtubeComponent,
         'youtube-chat':youtubeChatComponent,
-        'youtube-activity-event':youtubeActivityEventComponent
+        'youtube-activity-event':youtubeActivityEventComponent,
+        'wizard': wizard
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'

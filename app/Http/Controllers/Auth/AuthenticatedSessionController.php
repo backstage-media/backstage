@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -32,7 +33,18 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $user = DB::table('users')->where('email', $request->user()->email)->get();
+        // Check if a role is already assigned to this user, in case not. The Wizard was not completed, redirect to it.
+        $role_id = $user[0]->role_id;
+
+        $redirect = redirect()->intended(RouteServiceProvider::HOME);
+
+        if ($role_id == 0) {
+            $request->session()->put('wizard', true);
+            $redirect = redirect()->intended('/wizard');
+        }
+
+        return $redirect;
     }
 
     /**

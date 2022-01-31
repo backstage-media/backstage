@@ -5,6 +5,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\WizardController;
 
 
 /*
@@ -26,21 +27,21 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function(){
-    Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/content',[ContentController::class, 'index'])->name('content');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/content', [ContentController::class, 'index'])->name('content');
 
-    Route::get('/media',[MediaController::class, 'add']);
-    Route::post('/media',[MediaController::class, 'create']);
-    Route::get('/media/{id}',[MediaController::class, 'view']);
+    Route::get('/media', [MediaController::class, 'add']);
+    Route::post('/media', [MediaController::class, 'create']);
+    Route::get('/media/{id}', [MediaController::class, 'view']);
 
-    Route::get('/stats',[MediaController::class, 'index'])->name('stats');
-    
+    Route::get('/stats', [MediaController::class, 'index'])->name('stats');
+    Route::get('/wizard', [WizardController::class, 'index'])->name('wizard');
 });
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/login/google', [GoogleAuthController::class,'redirectToGoogleProvider']);
-Route::get('/login/google/callback', [GoogleAuthController::class,'handleProviderGoogleCallback']);
+Route::get('/login/google', [GoogleAuthController::class, 'redirectToGoogleProvider']);
+Route::get('/login/google/callback', [GoogleAuthController::class, 'handleProviderGoogleCallback']);
