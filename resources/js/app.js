@@ -25,6 +25,7 @@ var sideMenu = Vue.component('user-side-menu', require('./components/SideMenuCom
 var youtubeComponent = Vue.component('youtube-card', require('./components/youtube/YoutubeVideoCardComponent.vue').default);
 var youtubeChatComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeChatComponent.vue').default);
 var youtubeActivityEventComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeActivityEventComponent.vue').default);
+var youtubeLoginComponent = Vue.component('youtube-login-button', require('./components/youtube/YoutubeLoginButton.vue').default);
 var wizard = Vue.component('wizard', require('./components/WizardComponent.vue').default);
 
 
@@ -35,12 +36,13 @@ var wizard = Vue.component('wizard', require('./components/WizardComponent.vue')
  */
 
 import vuetify from './vuetify';
+import VueRouter from 'vue-router';
 import 'vue-lazy-youtube-video/dist/style.css'
 
-
 const app = new Vue({
-    vuetify,
+    vuetify,  
     el: '#app',
+    router: VueRouter,
     components: {
         'youtube-channel-info': channelInfo,
         'youtube-simple-stats': simpleStats,
@@ -48,6 +50,7 @@ const app = new Vue({
         'youtube-card': youtubeComponent,
         'youtube-chat':youtubeChatComponent,
         'youtube-activity-event':youtubeActivityEventComponent,
+        'youtube-login-button':youtubeLoginComponent,
         'wizard': wizard
       },
     icons: {

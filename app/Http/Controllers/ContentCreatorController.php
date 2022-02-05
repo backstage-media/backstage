@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContentCreator;
+use App\Models\Creator;
 use Illuminate\Http\Request;
 
 class ContentCreatorController extends Controller
@@ -22,9 +22,9 @@ class ContentCreatorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Creator $creator)
     {
-        //
+        $creator->save();
     }
 
     /**
@@ -44,7 +44,7 @@ class ContentCreatorController extends Controller
      * @param  \App\Models\ContentCreator  $contentCreator
      * @return \Illuminate\Http\Response
      */
-    public function show(ContentCreator $contentCreator)
+    public function show(Creator $contentCreator)
     {
         //
     }
@@ -55,7 +55,7 @@ class ContentCreatorController extends Controller
      * @param  \App\Models\ContentCreator  $contentCreator
      * @return \Illuminate\Http\Response
      */
-    public function edit(ContentCreator $contentCreator)
+    public function edit(Creator $contentCreator)
     {
         //
     }
@@ -67,7 +67,7 @@ class ContentCreatorController extends Controller
      * @param  \App\Models\ContentCreator  $contentCreator
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ContentCreator $contentCreator)
+    public function update(Request $request, Creator $contentCreator)
     {
         //
     }
@@ -78,7 +78,7 @@ class ContentCreatorController extends Controller
      * @param  \App\Models\ContentCreator  $contentCreator
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ContentCreator $contentCreator)
+    public function destroy(Creator $contentCreator)
     {
         //
     }

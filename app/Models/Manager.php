@@ -11,7 +11,7 @@ class Manager extends Model
     use HasFactory;
 
     protected $table = 'managers';
-    protected $primaryKey = 'manager_id';
+    protected $primaryKey = 'id';
     protected $casts = [
         'likes' => 'integer',
         'country_longitude' => 'float'
@@ -33,5 +33,10 @@ class Manager extends Model
     public function contentcreator()
     {
         return $this->hasMany(ContentCreator::class);
+    }
+
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'manager_id');
     }
 }

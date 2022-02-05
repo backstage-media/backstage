@@ -39,6 +39,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/stats', [MediaController::class, 'index'])->name('stats');
     Route::get('/wizard', [WizardController::class, 'index'])->name('wizard');
+
+    Route::post('wizard/submit', [WizardController::class, 'submit']); 
 });
 
 

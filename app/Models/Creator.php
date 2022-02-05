@@ -9,7 +9,7 @@ class Creator extends Model
 {
     use HasFactory;
 
-    use HasFactory;
+    protected $primaryKey = 'id';
 
     protected $casts = [
         'likes' => 'integer',
@@ -21,8 +21,8 @@ class Creator extends Model
         'description'
     ];
 
-    public function manager()
+    public function role()
     {
-        return $this->hasOne(Manager::class);
+        return $this->hasOne(Role::class, 'creator_id');
     }
 }

@@ -24,7 +24,6 @@
     @if(!session()->has('wizard'))
     <user-side-menu :youtube_description="'{{session()->get('youtube_description')}}'" :youtube_name="'{{session()->get('youtube_name')}}'" :youtube_avatar="'{{session()->get('youtube_avatar')}}'"></user-side-menu>
     @endif
-
     <!-- End Side menu -->
     <!-- Header bar -->
     <v-app-bar app hide-on-scroll color="#673AB7">

@@ -17,7 +17,7 @@ class MediaController extends Controller
 
     public function index()
     {
-        $media = auth()->user()->media();
+        //$media = auth()->user()->media();
         return view('dashboard', compact('media'));
     }
 

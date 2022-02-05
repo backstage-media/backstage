@@ -49,6 +49,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        $request->session()->put('wizard', true);
+
+        return redirect()->intended('/wizard');
     }
 }
