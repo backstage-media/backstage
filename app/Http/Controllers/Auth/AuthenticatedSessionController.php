@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ContentCreatorController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
@@ -39,9 +41,23 @@ class AuthenticatedSessionController extends Controller
 
         $redirect = redirect()->intended(RouteServiceProvider::HOME);
 
+        // In case the user doesn't have any role assigned yet, let's go to the wizard.
         if ($role_id == 0) {
             $request->session()->put('wizard', true);
             $redirect = redirect()->intended('/wizard');
+        } else {
+            // Set profile type and profile object for the entire session.
+            $roleController = new RoleController;
+            $roleController->initialize($request);
+
+            // In case the user is Content Creator, let's initialize all the required.
+            if ($request->session()->get("profile_type") == 1) {
+                $profile = $request->session()->get("profile");
+                $creatorController = new ContentCreatorController($profile);
+                if ($creatorController->isGoogleConnected()) {
+                    $request->session()->put('youtubeHandler', $creatorController);
+                }
+            }
         }
 
         return $redirect;

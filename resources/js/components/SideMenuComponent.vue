@@ -52,17 +52,11 @@
         </v-list-item-icon>
         <v-list-item-title>Notifications</v-list-item-title>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link href="/managers">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-account-supervisor</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Find Content Managers</v-list-item-title>
-      </v-list-item>
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon class="mr-4">mdi-handshake</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Partners</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

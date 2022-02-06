@@ -1,5 +1,5 @@
 <template>
-  <v-btn href="http://localhost/login/google">
+  <v-btn href="/login/google">
     <v-icon class="mr-4">mdi-youtube</v-icon>
-    here</v-btn>
+    Connect Youtube Account</v-btn>
 </template>

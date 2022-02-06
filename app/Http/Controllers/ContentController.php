@@ -27,7 +27,7 @@ class ContentController extends Controller
     {
         $latestVideosMetadata[] = array();
         
-        if ($request->session()->get('access_token')) {
+        if ($request->session()->get('youtubeHandler')) {
         // Get latest videos uploaded.
         $latestVideos = $this->youtubeController->get_latest_videos($request);
         

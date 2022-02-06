@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\WizardController;
+use App\Http\Controllers\FindContentManagerController;
 
 
 /*
@@ -40,7 +41,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/stats', [MediaController::class, 'index'])->name('stats');
     Route::get('/wizard', [WizardController::class, 'index'])->name('wizard');
 
-    Route::post('wizard/submit', [WizardController::class, 'submit']); 
+    Route::post('wizard/submit', [WizardController::class, 'submit']);
+    
+    Route::get('/managers', [FindContentManagerController::class, 'index'])->name('findmanagers');
 });
 
 

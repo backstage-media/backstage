@@ -27,6 +27,7 @@ var youtubeChatComponent = Vue.component('youtube-chat', require('./components/y
 var youtubeActivityEventComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeActivityEventComponent.vue').default);
 var youtubeLoginComponent = Vue.component('youtube-login-button', require('./components/youtube/YoutubeLoginButton.vue').default);
 var wizard = Vue.component('wizard', require('./components/WizardComponent.vue').default);
+var managerCard = Vue.component('manager-card', require('./components/ManagerCardComponent.vue').default);
 
 
 /**
@@ -51,7 +52,8 @@ const app = new Vue({
         'youtube-chat':youtubeChatComponent,
         'youtube-activity-event':youtubeActivityEventComponent,
         'youtube-login-button':youtubeLoginComponent,
-        'wizard': wizard
+        'wizard': wizard,
+        'manager-card': managerCard
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'

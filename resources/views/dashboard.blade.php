@@ -10,12 +10,12 @@
       @else
       <v-app>
          @if(session()->get('profile_type') == 1)
-         <div class="transition-swing text-h3 ma-4">Hello {{session()->get('profile')->real_name}}</div>
+         <div class="transition-swing text-h3 ma-4">Welcome {{session()->get('profile')->real_name}}</div>
          <div class="transition-swing ma-4">Connect your Youtube Account to see stats and activity</div>
          <youtube-login-button></youtube-login-button>
          @endif
       </v-app>
-      @endif
+      @endif   
 
    </v-container>
 </x-app-layout>

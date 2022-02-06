@@ -12,6 +12,13 @@ class ContentCreatorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct($profile)
+    {
+        $this->creatorController = $profile;
+    }
+
+
     public function index()
     {
         //
@@ -28,14 +35,35 @@ class ContentCreatorController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store Google credetials for a Content Creator.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+    public function isGoogleConnected()
     {
-        //
+        $isConnected = false;
+        $token = self::getGoogleAccessToken();
+        if (strlen($token) > 0) {
+            $isConnected = true;
+        }
+        return $isConnected;
+    }
+
+    public function storeGoogleCredentials($access_key, $refresh_token)
+    {
+        $this->creatorController->google_access_token = $access_key;
+        $this->creatorController->google_refresh_token = $refresh_token;
+        $this->creatorController->save();
+    }
+
+    public function getGoogleAccessToken()
+    {
+        return $this->creatorController->google_access_token;
+    }
+
+    public function getGoogleRefreshToken()
+    {
+        return $this->creatorController->google_refresh_token;
     }
 
     /**

@@ -30,7 +30,7 @@ class DashboardController extends Controller
         $channelsInfo = array();
         $channelActivity = array("items" => "");
         // If we have an active Google Session, we can show Dashboard stats
-        if ($request->session()->get('access_token')) {
+        if ($request->session()->get('profile_type') == 1 && $request->session()->get('youtubeHandler')) {
         // IMPORTANT! Avoid here this number of calls if the user already have the info (maybe create a checksum??)
         $channelsInfo = $this->youtubeController->get_channels_info($request);
         $channelStats = $this->youtubeController->get_basic_stats($request);

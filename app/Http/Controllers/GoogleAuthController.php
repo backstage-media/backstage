@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use App\Providers\GoogleProvider;
+use App\Http\Controllers\ContentCreatorController;
 
 class GoogleAuthController extends Controller
 {
@@ -33,8 +34,13 @@ class GoogleAuthController extends Controller
             $client->authenticate($request->input('code'));
             $token = $client->getAccessToken();
             $refresh_token = $client->getRefreshToken();
-            $request->session()->put('access_token', $token);
-            $request->session()->put('refresh_token', $refresh_token);
+            $user_type = $request->session()->get('profile_type');
+            if($user_type == 1){
+                $profile = $request->session()->get('profile');
+                $creatorHandler = new ContentCreatorController($profile);
+                $creatorHandler->storeGoogleCredentials($token['access_token'], $refresh_token);
+                $request->session()->put('youtubeHandler', $creatorHandler);
+            }
             return redirect('/home')->with('success', 'you have been authenticated');
         } else {
             $client = $google->client();
