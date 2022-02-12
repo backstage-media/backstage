@@ -22,7 +22,11 @@
 <div id="app">
     <!-- Side menu -->
     @if(!session()->has('wizard'))
-    <user-side-menu :youtube_description="'{{session()->get('youtube_description')}}'" :youtube_name="'{{session()->get('youtube_name')}}'" :youtube_avatar="'{{session()->get('youtube_avatar')}}'"></user-side-menu>
+      @if(session()->get('profile_type') == 1)
+        <creator-side-menu :youtube_description="'{{session()->get('youtube_description')}}'" :youtube_name="'{{session()->get('youtube_name')}}'" :youtube_avatar="'{{session()->get('youtube_avatar')}}'"></creator-side-menu>
+      @elseif(session()->get('profile_type') == 2)
+        <manager-side-menu></manager-side-menu>
+      @endif
     @endif
     <!-- End Side menu -->
     <!-- Header bar -->

@@ -7,7 +7,7 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\WizardController;
 use App\Http\Controllers\FindContentManagerController;
-
+use App\Http\Controllers\PlansController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +44,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('wizard/submit', [WizardController::class, 'submit']);
     
     Route::get('/managers', [FindContentManagerController::class, 'index'])->name('findmanagers');
+
+    Route::get('/plans', [PlansController::class, 'index'])->name('plans');
 });
 
 

@@ -16,15 +16,22 @@
             <v-card-title>{{ manager_data.name }}</v-card-title>
           </v-img>
 
-          <v-card-subtitle class="pb-0">Lorem ipsum</v-card-subtitle>
+          <v-card-subtitle class="pb-0">Monthly Contract</v-card-subtitle>
+          <v-card-text class="text--primary">
+            <v-btn color="accent">Monthly - 39 $</v-btn>
+          </v-card-text>
+          <v-card-subtitle class="pb-0">Contract Bundles</v-card-subtitle>
 
           <v-card-text class="text--primary">
-            <div>Lorem ipsum</div>
-            <div>Lorem ipsum</div>
+            <div>
+              <v-btn color="accent">6 Months - 210,6 $ (10 % discount)</v-btn>
+            </div>
+            <div>
+              <v-btn color="accent">3 Months - 105,3 $ (10 % discount)</v-btn>
+            </div>
           </v-card-text>
 
           <v-card-actions>
-            <v-btn color="accent">Engage!</v-btn>
             <v-dialog v-model="dialog" persistent max-width="600px">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -39,7 +46,9 @@
               </template>
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">Send a message to {{ manager_data.name }}</span>
+                  <span class="text-h5"
+                    >Send a message to {{ manager_data.name }}</span
+                  >
                 </v-card-title>
                 <v-card-text>
                   <v-container>

@@ -21,13 +21,16 @@ window.Vue = require('vue').default;
 
 var channelInfo = Vue.component('youtube-channel-info', require('./components/youtube/YoutubeChannelInfo.vue').default);
 var simpleStats = Vue.component('youtube-simple-stats', require('./components/youtube/YoutubeBasicStatsComponent.vue').default);
-var sideMenu = Vue.component('user-side-menu', require('./components/SideMenuComponent.vue').default);
+var creatorSideMenu = Vue.component('creator-side-menu', require('./components/CreatorSideMenuComponent.vue').default);
+var managerSideMenu = Vue.component('manager-side-menu', require('./components/ManagerSideMenuComponent.vue').default);
 var youtubeComponent = Vue.component('youtube-card', require('./components/youtube/YoutubeVideoCardComponent.vue').default);
 var youtubeChatComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeChatComponent.vue').default);
 var youtubeActivityEventComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeActivityEventComponent.vue').default);
 var youtubeLoginComponent = Vue.component('youtube-login-button', require('./components/youtube/YoutubeLoginButton.vue').default);
 var wizard = Vue.component('wizard', require('./components/WizardComponent.vue').default);
 var managerCard = Vue.component('manager-card', require('./components/ManagerCardComponent.vue').default);
+var agreementsList = Vue.component('agreements-list', require('./components/AgreementsListComponent.vue').default);
+var agreementsForm = Vue.component('agreements-form', require('./components/AddAgreementComponent.vue').default);
 
 
 /**
@@ -47,13 +50,16 @@ const app = new Vue({
     components: {
         'youtube-channel-info': channelInfo,
         'youtube-simple-stats': simpleStats,
-        'user-side-menu': sideMenu,
+        'creator-side-menu': creatorSideMenu,
+        'manager-side-menu': managerSideMenu,
         'youtube-card': youtubeComponent,
         'youtube-chat':youtubeChatComponent,
         'youtube-activity-event':youtubeActivityEventComponent,
         'youtube-login-button':youtubeLoginComponent,
         'wizard': wizard,
-        'manager-card': managerCard
+        'manager-card': managerCard,
+        'agreements-list': agreementsList,
+        'agreements-form': agreementsForm
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
