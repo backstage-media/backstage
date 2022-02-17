@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
-use App\Models\Manager;
-use App\Models\User;
 use App\Models\Role;
 
 

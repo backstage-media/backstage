@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Providers\GoogleProvider;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class DashboardController extends Controller
 {

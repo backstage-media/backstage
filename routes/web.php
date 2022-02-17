@@ -46,6 +46,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/managers', [FindContentManagerController::class, 'index'])->name('findmanagers');
 
     Route::get('/plans', [PlansController::class, 'index'])->name('plans');
+    Route::post('/plans/create', [PlansController::class, 'submit']);
 });
 
 

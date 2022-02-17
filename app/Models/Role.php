@@ -15,12 +15,12 @@ class Role extends Model
 
     public function creator()
     {
-        return $this->HasOne(Creator::class, 'id');
+        return $this->HasOne(Creator::class, 'id', 'creator_id');
     }
 
     public function manager()
     {
-        return $this->HasOne(Manager::class, 'id');
+        return $this->hasOne(Manager::class,'id','manager_id');
     }
 
     public function user()

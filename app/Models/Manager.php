@@ -37,6 +37,11 @@ class Manager extends Model
 
     public function role()
     {
-        return $this->hasOne(Role::class, 'manager_id');
+        return $this->belongsTo(Role::class, 'manager_id');
+    }
+
+    public function agreement()
+    {
+        return $this->hasMany(Agreement::class, 'manager_id');
     }
 }

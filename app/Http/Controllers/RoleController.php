@@ -14,11 +14,13 @@ class RoleController extends Controller
         $user = User::find($id);
         // Bring the FK until I obtain the Manager object
         $user_type = $user->role->user_type_id;
+        $profile ="";
         if ($user_type == 1) {
             $profile = $user->role->creator;
+
         } else if ($user_type == 2) {
             $profile = $user->role->manager;
-        }
+        }   
         $request->session()->put("profile_type", $user_type);
         $request->session()->put("profile", $profile);
     }
