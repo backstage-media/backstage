@@ -14,9 +14,9 @@ class FindContentManagerController extends Controller
         $roles = Role::with('user','manager')->where('user_type_id', 2)->get();
 
         foreach ($roles as $role) {
-            array_push($users, $role->user);
-            $manager = $role->manager;
-            echo $manager;            
+            // Force the agreements to be populated at the user.
+            $role->manager->agreement;
+            array_push($users, $role);       
         }
         return view('findmanagers')->with('managers', $users);
     }

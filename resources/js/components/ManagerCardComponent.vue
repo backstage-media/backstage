@@ -13,21 +13,63 @@
                 src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
               ></v-img>
             </v-avatar>
-            <v-card-title>{{ manager_data.name }}</v-card-title>
+            <v-card-title>{{ manager_data.user.name }}</v-card-title>
           </v-img>
-
-          <v-card-subtitle class="pb-0">Monthly Contract</v-card-subtitle>
-          <v-card-text class="text--primary">
-            <v-btn color="accent">Monthly - 39 $</v-btn>
-          </v-card-text>
           <v-card-subtitle class="pb-0">Contract Bundles</v-card-subtitle>
 
           <v-card-text class="text--primary">
-            <div>
-              <v-btn color="accent">6 Months - 210,6 $ (10 % discount)</v-btn>
+            <div v-if="manager_data.manager.agreement == 0">
+              No bundles available for this Manager
             </div>
-            <div>
-              <v-btn color="accent">3 Months - 105,3 $ (10 % discount)</v-btn>
+            <div v-for="item in manager_data.manager.agreement">
+              <v-dialog transition="dialog-top-transition" max-width="600">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn color="accent" v-bind="attrs" v-on="on"
+                    >{{ item.months }} Months -
+                    {{ total(item.months, item.price_per_month) }} $ ({{
+                      item.discount
+                    }}
+                    % discount)</v-btn
+                  >
+                </template>
+                <template v-slot:default="dialog">
+                  <v-card>
+                    <v-card-title class="text-h6">
+                      Contract confirmation (ID {{item.id}})
+                    </v-card-title>
+                    <v-card-text
+                      >You are about to start an agreement process with
+                      {{ manager_data.user.name }} within a period of
+                      {{ item.months }} Months and total price of
+                      {{
+                        total_with_discount(
+                          item.months,
+                          item.price_per_month,
+                          item.discount
+                        )
+                      }}
+                      $</v-card-text
+                    >
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="dialog = false"
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        :href="'/contract/'+item.id"
+                      >
+                        Continue
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </template>
+              </v-dialog>
             </div>
           </v-card-text>
 
@@ -47,7 +89,7 @@
               <v-card>
                 <v-card-title>
                   <span class="text-h5"
-                    >Send a message to {{ manager_data.name }}</span
+                    >Send a message to {{ manager_data.user.name }}</span
                   >
                 </v-card-title>
                 <v-card-text>
@@ -135,10 +177,26 @@ export default {
 
   props: ["manager_data"],
   mounted() {
-    console.log(this);
+    console.log(this.manager_data.manager);
   },
   data: () => ({
     dialog: false,
   }),
+  methods: {
+    total: function (months, price) {
+      var total_price = parseInt(months) * parseInt(price);
+      return total_price;
+    },
+    total_with_discount: function (months, price, discount) {
+      var final_discount = 0;
+      var total_price = 0;
+      var total_price = parseInt(months) * parseInt(price);
+      if (discount > 0) {
+        final_discount = discount / 100;
+        total_price = total_price - total_price * final_discount;
+      }
+      return total_price;
+    },
+  },
 };
 </script>

@@ -27,6 +27,6 @@ class Agreement extends Model
 
     public function manager()
     {
-        return $this->hasOne(Role::class, 'manager_id');
+        return $this->hasOne(Manager::class, 'id');
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\WizardController;
 use App\Http\Controllers\FindContentManagerController;
@@ -47,6 +48,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/plans', [PlansController::class, 'index'])->name('plans');
     Route::post('/plans/create', [PlansController::class, 'submit']);
+
+    Route::get('/contract/{id}', [ContractController::class, 'view']);
 });
 
 

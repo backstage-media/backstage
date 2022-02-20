@@ -25,7 +25,7 @@ class PlansController extends Controller
         
         $plan_price = $request->post('plan-price');
         print_r($request->post());
-        $plan_month = $request->post('plan-month');
+        $plan_month = $request->post('plan-months');
         $plan_discount = $request->post('plan-discount');
 
         $agreement = new Agreement();

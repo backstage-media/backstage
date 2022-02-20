@@ -28,6 +28,7 @@ var youtubeChatComponent = Vue.component('youtube-chat', require('./components/y
 var youtubeActivityEventComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeActivityEventComponent.vue').default);
 var youtubeLoginComponent = Vue.component('youtube-login-button', require('./components/youtube/YoutubeLoginButton.vue').default);
 var wizard = Vue.component('wizard', require('./components/WizardComponent.vue').default);
+var contractwizard = Vue.component('wizard', require('./components/ContractWizardComponent.vue').default);
 var managerCard = Vue.component('manager-card', require('./components/ManagerCardComponent.vue').default);
 var agreementsList = Vue.component('agreements-list', require('./components/AgreementsListComponent.vue').default);
 var agreementsForm = Vue.component('agreements-form', require('./components/AddAgreementComponent.vue').default);
@@ -57,6 +58,7 @@ const app = new Vue({
         'youtube-activity-event':youtubeActivityEventComponent,
         'youtube-login-button':youtubeLoginComponent,
         'wizard': wizard,
+        'contract-wizard': contractwizard,
         'manager-card': managerCard,
         'agreements-list': agreementsList,
         'agreements-form': agreementsForm

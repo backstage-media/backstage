@@ -25,7 +25,7 @@
           <td>{{ item.price_per_month }} $</td>
           <td>{{ item.months }}</td>
           <td>{{ item.discount }}</td>
-          <td>{{ total(item.months, item.price_per_month,item.discount ) }}</td>
+          <td>{{ total_with_discount(item.months, item.price_per_month,item.discount ) }} $ <del>({{total(item.months,item.price_per_month)}}$)</del></td>
         </tr>
       </tbody>
     </template>
@@ -35,12 +35,18 @@
 export default {
    props: ["agreements"],
    methods: {
-    total: function (months,price, discount) {
+    total_with_discount: function (months,price,discount) {
+      var final_discount = 0;
+      var total_price = 0;
       var total_price = parseInt(months) * parseInt(price);
       if(discount > 0){
-        final_discount = (total_price * 100) / discount;
-        total_price = total_price - final_discount;
+        final_discount = discount / 100; 
+        total_price = total_price - (total_price * final_discount)
       }
+      return total_price;
+    },
+      total: function (months,price) {
+      var total_price = parseInt(months) * parseInt(price);
       return total_price;
     },
   }
