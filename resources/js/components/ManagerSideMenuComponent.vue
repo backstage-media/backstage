@@ -15,18 +15,17 @@
       <v-list-item link>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
-            {{ youtube_name || "Guest User" }}
+            {{ user_profile.real_name }}
           </v-list-item-title>
           <v-list-item-subtitle>{{
-            youtube_description || "Guest Account, link your account to Youtube"
+            user_profile.description
           }}</v-list-item-subtitle>
-          <v-list-item-subtitle
-            ><a
-              href="/login/google"
-              class="text-sm text-gray-700 dark:text-gray-500 underline"
-              >Youtube Login</a
-            ></v-list-item-subtitle
-          >
+          <v-list-item-subtitle>
+            <v-chip color="pink" class="pa-1" label text-color="white">
+              <v-icon class="mr-2">mdi-account-supervisor</v-icon>
+              Content Manager
+            </v-chip>
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -45,7 +44,7 @@
         </v-list-item-icon>
         <v-list-item-title>Plans</v-list-item-title>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link href="/creators/assigned">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-account-group</v-icon>
         </v-list-item-icon>
@@ -75,21 +74,7 @@
 <script>
 export default {
   name: "SideMenu",
-  props: {
-    youtube_name: {
-      default: "Guest User",
-      type: String,
-    },
-    youtube_avatar: {
-      default: "https://avatars.dicebear.com/api/pixel-art-neutral/323232.svg",
-      type: String,
-    },
-    youtube_description: {
-      default:
-        "Guest Account, link to Youtube <a href='http://localhost/login/google'/>here</a>",
-      type: String,
-    },
-  },
+  props: ["user_profile"],
   data() {
     return {
       drawer: true,

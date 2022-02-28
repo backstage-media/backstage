@@ -30,8 +30,10 @@ var youtubeLoginComponent = Vue.component('youtube-login-button', require('./com
 var wizard = Vue.component('wizard', require('./components/WizardComponent.vue').default);
 var contractwizard = Vue.component('wizard', require('./components/ContractWizardComponent.vue').default);
 var managerCard = Vue.component('manager-card', require('./components/ManagerCardComponent.vue').default);
+var creatorCard = Vue.component('manager-card', require('./components/CreatorCardComponent.vue').default);
 var agreementsList = Vue.component('agreements-list', require('./components/AgreementsListComponent.vue').default);
 var agreementsForm = Vue.component('agreements-form', require('./components/AddAgreementComponent.vue').default);
+var CardPaymentMethod = Vue.component('payment-card', require('./components/payment/CardPaymentComponent.vue').default);
 
 
 /**
@@ -44,10 +46,14 @@ import vuetify from './vuetify';
 import VueRouter from 'vue-router';
 import 'vue-lazy-youtube-video/dist/style.css'
 
+var VueResource = require('vue-resource');
+
+
 const app = new Vue({
     vuetify,  
     el: '#app',
     router: VueRouter,
+    VueResource,
     components: {
         'youtube-channel-info': channelInfo,
         'youtube-simple-stats': simpleStats,
@@ -60,8 +66,10 @@ const app = new Vue({
         'wizard': wizard,
         'contract-wizard': contractwizard,
         'manager-card': managerCard,
+        'creator-card': creatorCard,
         'agreements-list': agreementsList,
-        'agreements-form': agreementsForm
+        'agreements-form': agreementsForm,
+        'card-payment-method': CardPaymentMethod
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'

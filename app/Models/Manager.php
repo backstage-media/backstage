@@ -44,4 +44,9 @@ class Manager extends Model
     {
         return $this->hasMany(Agreement::class, 'manager_id');
     }
+
+    public function contract()
+    {
+        return $this->hasMany(Contract::class);
+    }
 }

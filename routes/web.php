@@ -50,6 +50,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/plans/create', [PlansController::class, 'submit']);
 
     Route::get('/contract/{id}', [ContractController::class, 'view']);
+    Route::post('contract/add', [ContractController::class, 'add']);
+
+    Route::get('/creators/assigned', [ContractController::class, 'list_from_manager'])->name('manager/creators');
 });
 
 

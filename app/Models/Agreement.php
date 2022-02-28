@@ -27,6 +27,11 @@ class Agreement extends Model
 
     public function manager()
     {
-        return $this->hasOne(Manager::class, 'id');
+        return $this->hasOne(Manager::class,'id','manager_id');
+    }
+
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
     }
 }

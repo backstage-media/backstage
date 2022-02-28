@@ -25,4 +25,9 @@ class Creator extends Model
     {
         return $this->hasOne(Role::class, 'creator_id');
     }
+
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
 }

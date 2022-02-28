@@ -27,6 +27,12 @@
               >Youtube Login</a
             ></v-list-item-subtitle
           >
+          <v-list-item-subtitle>
+            <v-chip color="pink" class="pa-1" label text-color="white">
+              <v-icon class="mr-2">mdi-account-circle</v-icon>
+              Content Creator
+            </v-chip>
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>

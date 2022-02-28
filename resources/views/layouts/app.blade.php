@@ -21,13 +21,15 @@
 
 <div id="app">
     <!-- Side menu -->
+    <v-app>
     @if(!session()->has('wizard'))
       @if(session()->get('profile_type') == 1)
         <creator-side-menu :youtube_description="'{{session()->get('youtube_description')}}'" :youtube_name="'{{session()->get('youtube_name')}}'" :youtube_avatar="'{{session()->get('youtube_avatar')}}'"></creator-side-menu>
       @elseif(session()->get('profile_type') == 2)
-        <manager-side-menu></manager-side-menu>
+        <manager-side-menu :user_profile="{{  json_encode(session()->get('profile')) }}"></manager-side-menu>
       @endif
     @endif
+    <v-app>
     <!-- End Side menu -->
     <!-- Header bar -->
     <v-app-bar app hide-on-scroll color="#673AB7">
