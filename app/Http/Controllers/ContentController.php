@@ -34,6 +34,7 @@ class ContentController extends Controller
         //Provide all the metadata of the latest videos
         foreach ($latestVideos["items"] as $key => $value) {
             $videoId = $latestVideos["items"][$key]["id"]["videoId"];
+            $this->youtubeController->get_channels_info($request);
             $videoMetadata = $this->youtubeController->get_video_metadata($request,$videoId);
             array_push($latestVideosMetadata,$videoMetadata);
         }

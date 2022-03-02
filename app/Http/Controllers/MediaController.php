@@ -36,7 +36,7 @@ class MediaController extends Controller
         if (isset($request->id)) {
             $videoMetadata = "";
 
-            if ($request->session()->get('access_token')) {
+            if ($request->session()->get('youtubeHandler')) {
                 $videoId = $request->id;
                 $videoMetadata = $this->youtubeController->get_video_metadata($request, $videoId);
                 $videoAnalytics = $this->youtubeController->get_video_advanced_metadata($request, $videoId);

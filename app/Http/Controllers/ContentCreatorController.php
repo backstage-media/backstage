@@ -77,6 +77,17 @@ class ContentCreatorController extends Controller
         //
     }
 
+      /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\ContentCreator  $contentCreator
+     * @return \Illuminate\Http\Response
+     */
+    public function get($creator_id)
+    {
+        return Creator::find($creator_id);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

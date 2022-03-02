@@ -50,6 +50,22 @@ class ContractController extends Controller
     {
         $profile = $request->session()->get("profile");
         $contracts = Contract::with('creator')->where('manager_id', $profile->id)->get();
-        return view('manager/creators')->with('contracts',$contracts);
+        return view('manager/creators')->with('contracts', $contracts);
+    }
+
+    public function manager_is_allowed($manager_id, $creator_id)
+    {
+        $contract_valid = false;
+        $current_date = date('Y-m-d H:i:s');
+        $rows = Contract::with('creator')->where('manager_id', $manager_id)->where('creator_id', $creator_id)->where('end_date', '>', $current_date)->count();
+        if ($rows > 0) {
+            $contract_valid = true;
+        }
+        return $contract_valid;
+    }
+
+    public function get_contract_creator($creator_id){
+        $creator = Contract::with('creator')->where('creator_id', $creator_id)->get();
+        return $creator;
     }
 }

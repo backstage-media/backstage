@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col col="12">
-        <v-card class="mx-auto" max-width="400">
+        <v-card class="mx-auto" max-width="400" :href="'/manage/'+user_data.creator.id">
           <v-img
             class="white--text align-end"
             height="200px"

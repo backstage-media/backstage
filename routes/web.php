@@ -9,6 +9,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\WizardController;
 use App\Http\Controllers\FindContentManagerController;
 use App\Http\Controllers\PlansController;
+use App\Http\Controllers\ManageContentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('contract/add', [ContractController::class, 'add']);
 
     Route::get('/creators/assigned', [ContractController::class, 'list_from_manager'])->name('manager/creators');
+
+    Route::get('/manage/{creator_id}', [ManageContentController::class, 'manage']);
 });
 
 
