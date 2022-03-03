@@ -17,24 +17,35 @@ class ManageContentController extends Controller
         $profile = $request->session()->get("profile");
         $contract = new ContractController();
         $creator_profile = $contract->get_contract_creator($creator_id);
-        print("<pre>".print_r($creator_profile[0]['creator'],true)."</pre>");
-        $final_redirect = '/dashboard';
-        
+        $final_redirect = view('dashboard');
 
         if($contract->manager_is_allowed($profile->id,$creator_id)){
             $creatorController = new ContentCreatorController($creator_profile[0]['creator']);
             if ($creatorController->isGoogleConnected()) {
                 $request->session()->put('youtubeHandler', $creatorController);
-                $final_redirect = '/content';
+                //Get some context from our creator channel.
+                $googleProvider = new GoogleProvider();
+                $youtubeController = new GoogleController($googleProvider);
+                $channelsInfo = $youtubeController->get_channels_info($request);
+
+                $request->session()->put('channel_name', $channelsInfo["items"][0]["snippet"]["title"]);
+                $request->session()->put('channel_thumbnail', $channelsInfo["items"][0]["snippet"]["thumbnails"]["default"]["url"]);
+
+                $final_redirect = view('dashboard');
             }
         }
 
-        return redirect($final_redirect);
+        return $final_redirect;
         
     }
 
     public function update(Request $request, Media $media)
     {
 
+    }
+
+    public function exit(Request $request){
+        $request->session()->forget('youtubeHandler');
+        return redirect('/dashboard');
     }
 }

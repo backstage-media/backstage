@@ -73,8 +73,11 @@
 </template>
 <script>
 export default {
-  name: "SideMenu",
+  name: "ManagerSideMenu",
   props: ["user_profile"],
+  mounted(){
+    console.log(this.name);
+  },
   data() {
     return {
       drawer: true,

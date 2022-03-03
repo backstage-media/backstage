@@ -55,7 +55,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/creators/assigned', [ContractController::class, 'list_from_manager'])->name('manager/creators');
 
+    Route::get('/manage/exit', [ManageContentController::class, 'exit'])->name('exit');
     Route::get('/manage/{creator_id}', [ManageContentController::class, 'manage']);
+    
+
 });
 
 

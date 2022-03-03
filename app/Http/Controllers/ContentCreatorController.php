@@ -121,4 +121,8 @@ class ContentCreatorController extends Controller
     {
         //
     }
+
+    public function toString(){
+        return $this->creatorController->google_access_token;
+    }
 }

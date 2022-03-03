@@ -23,6 +23,7 @@ var channelInfo = Vue.component('youtube-channel-info', require('./components/yo
 var simpleStats = Vue.component('youtube-simple-stats', require('./components/youtube/YoutubeBasicStatsComponent.vue').default);
 var creatorSideMenu = Vue.component('creator-side-menu', require('./components/CreatorSideMenuComponent.vue').default);
 var managerSideMenu = Vue.component('manager-side-menu', require('./components/ManagerSideMenuComponent.vue').default);
+var creatorManagementSideMenu = Vue.component('creator-management-side-menu', require('./components/CreatorManagementSideMenuComponent.vue').default);
 var youtubeComponent = Vue.component('youtube-card', require('./components/youtube/YoutubeVideoCardComponent.vue').default);
 var youtubeChatComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeChatComponent.vue').default);
 var youtubeActivityEventComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeActivityEventComponent.vue').default);
@@ -59,6 +60,7 @@ const app = new Vue({
         'youtube-simple-stats': simpleStats,
         'creator-side-menu': creatorSideMenu,
         'manager-side-menu': managerSideMenu,
+        'creator-management-side-menu': creatorManagementSideMenu,
         'youtube-card': youtubeComponent,
         'youtube-chat':youtubeChatComponent,
         'youtube-activity-event':youtubeActivityEventComponent,
