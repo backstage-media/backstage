@@ -29,6 +29,7 @@ var youtubeChatComponent = Vue.component('youtube-chat', require('./components/y
 var youtubeActivityEventComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeActivityEventComponent.vue').default);
 var youtubeLoginComponent = Vue.component('youtube-login-button', require('./components/youtube/YoutubeLoginButton.vue').default);
 var youtubeAddCommentComponent = Vue.component('youtube-add-comment', require('./components/youtube/YoutubeAddCommentComponent.vue').default);
+var youtubeCommentComponent = Vue.component('youtube-comment', require('./components/youtube/YoutubeCommentComponent.vue').default);
 var wizard = Vue.component('wizard', require('./components/WizardComponent.vue').default);
 var contractwizard = Vue.component('wizard', require('./components/ContractWizardComponent.vue').default);
 var managerCard = Vue.component('manager-card', require('./components/ManagerCardComponent.vue').default);
@@ -67,6 +68,7 @@ const app = new Vue({
         'youtube-activity-event':youtubeActivityEventComponent,
         'youtube-login-button':youtubeLoginComponent,
         'youtube-add-comment':youtubeAddCommentComponent,
+        'youtube-comment':youtubeCommentComponent,
         'wizard': wizard,
         'contract-wizard': contractwizard,
         'manager-card': managerCard,

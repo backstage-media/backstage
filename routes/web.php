@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
@@ -52,6 +53,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/contract/{id}', [ContractController::class, 'view']);
     Route::post('contract/add', [ContractController::class, 'add']);
+
+    Route::post('comment/add', [CommentsController::class, 'add']);
 
     Route::get('/creators/assigned', [ContractController::class, 'list_from_manager'])->name('manager/creators');
 

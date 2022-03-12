@@ -16,6 +16,10 @@
   <link rel="stylesheet" href="{{ asset('css/general-theme.css') }}">
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
+  <!-- Needed to manage Youtube videos from the site -->
+  <script src="https://www.youtube.com/player_api"></script>
+  <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <!-- App.vue -->
 
@@ -49,6 +53,7 @@
       <v-footer app>
         <!-- -->
       </v-footer>
+      @stack('scripts')
 </div>
 
 </html>

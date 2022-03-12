@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Providers\GoogleProvider;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CommentsController;
 use App\Models\Media;
 
 class MediaController extends Controller
@@ -35,17 +36,33 @@ class MediaController extends Controller
     {
         if (isset($request->id)) {
             $videoMetadata = "";
+            $videoAnalytics = "";
+            $videoId = "";
+            $comments = "";
+            $scroll = false;
+            $message= "";
 
             if ($request->session()->get('youtubeHandler')) {
                 $videoId = $request->id;
                 $videoMetadata = $this->youtubeController->get_video_metadata($request, $videoId);
                 $videoAnalytics = $this->youtubeController->get_video_advanced_metadata($request, $videoId);
+                //List all the comments on backstage associated to a youtube video.
+                $commentsController = new CommentsController();
+                $comments = $commentsController->list_by_id($videoId);
+                if($request->get('comment')){
+                    $message = $request->get('comment');
+                    $scroll = true;
+                }
             }
 
-            //return view('media')->with('youtubeVideoContent', $videoMetadata);
+            
             return view('media')
             ->with('youtubeVideoContent', $videoMetadata)
-            ->with('youtubeVideoAnalytics', $videoAnalytics);
+            ->with('youtubeVideoAnalytics', $videoAnalytics)
+            ->with('youtubeVideoID',$videoId)
+            ->with('comments',$comments)
+            ->with('scroll',$scroll)
+            ->with('message',$message);
         } else {
             return redirect('/dashboard');
         }
