@@ -23,8 +23,6 @@
   @push('scripts')
   <script>
     var message = "{{ $message }}";
-    console.log("me traigoe l commentte4te");
-    console.log(message);
     // Small jquery code just to go to the required comment and highlight it.
     $(document).ready(function() {
       @if($scroll)

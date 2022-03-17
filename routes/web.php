@@ -9,6 +9,7 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\WizardController;
 use App\Http\Controllers\FindContentManagerController;
+use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\ManageContentController;
 
@@ -60,6 +61,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/manage/exit', [ManageContentController::class, 'exit'])->name('exit');
     Route::get('/manage/{creator_id}', [ManageContentController::class, 'manage']);
+
+    Route::get('/partners', [PartnerController::class, 'index']);
     
 
 });

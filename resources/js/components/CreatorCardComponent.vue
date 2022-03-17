@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col col="12">
-        <v-card class="mx-auto" max-width="400" :href="'/manage/'+user_data.creator.id">
+        <v-card class="mx-auto" max-width="400">
           <v-img
             class="white--text align-end"
             height="200px"
@@ -33,15 +33,6 @@
                   class="ml-2"
                 >
                   Send message
-                </v-btn>
-                <v-btn
-                  color="accent"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-                  class="ml-2"
-                >
-                  Manage Content
                 </v-btn>
               </template>
               <v-card>
@@ -122,6 +113,16 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
+            <v-btn
+              color="accent"
+              dark
+              v-bind="attrs"
+              v-on="on"
+              class="ml-2"
+              :href="'/manage/' + user_data.creator.id"
+            >
+              Manage Content
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
