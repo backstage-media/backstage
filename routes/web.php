@@ -63,7 +63,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/manage/{creator_id}', [ManageContentController::class, 'manage']);
 
     Route::get('/partners', [PartnerController::class, 'index']);
-    
+    Route::post('/partner/submit', [PartnerController::class, 'submit']);
 
 });
 
