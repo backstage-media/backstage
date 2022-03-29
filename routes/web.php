@@ -54,6 +54,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/contract/{id}', [ContractController::class, 'view']);
     Route::post('contract/add', [ContractController::class, 'add']);
+    Route::get('/contract', [ContractController::class, 'get_manager']);
 
     Route::post('comment/add', [CommentsController::class, 'add']);
 
@@ -62,6 +63,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/manage/exit', [ManageContentController::class, 'exit'])->name('exit');
     Route::get('/manage/{creator_id}', [ManageContentController::class, 'manage']);
 
+    Route::get('/partners/contract/{file_id}', [PartnerController::class, 'get_document']);
     Route::get('/partners', [PartnerController::class, 'index']);
     Route::post('/partner/submit', [PartnerController::class, 'submit']);
 

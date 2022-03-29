@@ -1,6 +1,11 @@
 <template>
-  <v-form v-model="valid" action="/partner/submit" method="post" enctype="multipart/form-data">
-  <input type="hidden" name="_token" :value="csrf">
+  <v-form
+    v-model="valid"
+    action="/partner/submit"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <input type="hidden" name="_token" :value="csrf" />
     <v-container>
       <v-row>
         <v-col cols="12" md="4">
@@ -27,7 +32,14 @@
         </v-col>
 
         <v-col cols="12" md="4">
-          <v-file-input show-size label="File input" id="partner-file" name="partner-file"></v-file-input>
+          <v-file-input
+            show-size
+            label="File input"
+            id="partner-file"
+            name="partner-file"
+            accept="application/pdf"
+            @change="file_to_blob"
+          ></v-file-input>
         </v-col>
         <v-btn type="submit">Create partner</v-btn>
       </v-row>
@@ -38,9 +50,16 @@
 export default {
   data() {
     return {
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       e6: 1,
     };
+  },
+  methods: {
+    file_to_blob: function (files) {
+      console.log(files)
+    },
   },
 };
 </script>

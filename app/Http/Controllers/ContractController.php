@@ -19,6 +19,14 @@ class ContractController extends Controller
         }
     }
 
+    public function get_manager(Request $request)
+    {
+        $profile = $request->session()->get("profile");
+        $contract = Contract::with('manager')->where('creator_id', $profile->id)->first();
+        $contract->manager();
+        return view('contract')->with('contract', $contract); 
+    }
+
     public function add(Request $request)
     {
         $profile = $request->session()->get("profile");

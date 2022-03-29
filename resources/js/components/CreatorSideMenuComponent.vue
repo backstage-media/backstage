@@ -64,6 +64,12 @@
         </v-list-item-icon>
         <v-list-item-title>Find Content Managers</v-list-item-title>
       </v-list-item>
+      <v-list-item link href="/contract">
+        <v-list-item-icon>
+          <v-icon class="mr-4">mdi-file-sign</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>My Contract</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>

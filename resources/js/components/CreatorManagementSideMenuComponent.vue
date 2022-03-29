@@ -42,7 +42,7 @@
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-home-analytics</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Activity</v-list-item-title>
+        <v-list-item-title>Dashboard</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/content">
         <v-list-item-icon>

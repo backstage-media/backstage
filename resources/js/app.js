@@ -31,8 +31,10 @@ var youtubeLoginComponent = Vue.component('youtube-login-button', require('./com
 var youtubeAddCommentComponent = Vue.component('youtube-add-comment', require('./components/youtube/YoutubeAddCommentComponent.vue').default);
 var youtubeCommentComponent = Vue.component('youtube-comment', require('./components/youtube/YoutubeCommentComponent.vue').default);
 var wizard = Vue.component('wizard', require('./components/WizardComponent.vue').default);
-var contractwizard = Vue.component('wizard', require('./components/ContractWizardComponent.vue').default);
+var contractwizard = Vue.component('contractWizard', require('./components/ContractWizardComponent.vue').default);
+var contractComponent = Vue.component('contract', require('./components/ContractComponent.vue').default);
 var partnerCreation = Vue.component('partner-creation', require('./components/AddPartnerComponent.vue').default);
+var partnersList = Vue.component('partners-list', require('./components/PartnersListComponent.vue').default);
 var managerCard = Vue.component('manager-card', require('./components/ManagerCardComponent.vue').default);
 var creatorCard = Vue.component('manager-card', require('./components/CreatorCardComponent.vue').default);
 var agreementsList = Vue.component('agreements-list', require('./components/AgreementsListComponent.vue').default);
@@ -72,12 +74,14 @@ const app = new Vue({
         'youtube-comment':youtubeCommentComponent,
         'wizard': wizard,
         'contract-wizard': contractwizard,
+        'contract': contractComponent,
         'manager-card': managerCard,
         'creator-card': creatorCard,
         'agreements-list': agreementsList,
         'agreements-form': agreementsForm,
         'card-payment-method': CardPaymentMethod,
-        'partner-creation':partnerCreation
+        'partner-creation':partnerCreation,
+        'partners-list': partnersList
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'

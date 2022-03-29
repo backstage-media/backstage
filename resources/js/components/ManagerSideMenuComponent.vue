@@ -32,11 +32,11 @@
 
     <v-divider></v-divider>
     <v-list nav dense>
-      <v-list-item link href="/manager">
+      <v-list-item link href="/creators/assigned">
         <v-list-item-icon>
-          <v-icon class="mr-4">mdi-home-analytics</v-icon>
+          <v-icon class="mr-4">mdi-account-group</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Creators Activity</v-list-item-title>
+        <v-list-item-title>Your Content Creators</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/plans">
         <v-list-item-icon>
@@ -44,19 +44,13 @@
         </v-list-item-icon>
         <v-list-item-title>Plans</v-list-item-title>
       </v-list-item>
-      <v-list-item link href="/creators/assigned">
-        <v-list-item-icon>
-          <v-icon class="mr-4">mdi-account-group</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Your Content Creators</v-list-item-title>
-      </v-list-item>
       <v-list-item link href="/managers">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-account-search</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Find Content Creators</v-list-item-title>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link href="/partners">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-handshake</v-icon>
         </v-list-item-icon>
@@ -75,7 +69,7 @@
 export default {
   name: "ManagerSideMenu",
   props: ["user_profile"],
-  mounted(){
+  mounted() {
     console.log(this.name);
   },
   data() {
