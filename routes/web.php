@@ -12,6 +12,7 @@ use App\Http\Controllers\FindContentManagerController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\ManageContentController;
+use App\Http\Controllers\GoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/partners/contract/{file_id}', [PartnerController::class, 'get_document']);
     Route::get('/partners', [PartnerController::class, 'index']);
     Route::post('/partner/submit', [PartnerController::class, 'submit']);
+
+    
+    Route::post('/youtube/update', [GoogleController::class, 'change_video_visibility']);
 
 });
 

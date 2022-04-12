@@ -2,7 +2,7 @@
    <v-container>
       @if(!empty($mainStats["channelStats"]))
       <v-app>
-         <div class="transition-swing text-h3 ma-4">Main Stats</div>
+         <div class="transition-swing text-h3 ma-4">Channel Main Stats</div>
          <youtube-simple-stats :stats='@json($mainStats["channelStats"])'></youtube-simple-stats>
          <div class="transition-swing text-h3 ma-4">Activity</div>
          <youtube-activity-event :event_data='@json($mainStats["channelActivity"])'></youtube-activity-event>

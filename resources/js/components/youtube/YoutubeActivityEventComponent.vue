@@ -9,11 +9,13 @@
           >
             <template v-slot:default="{ active }">
               <v-list-item-content>
-                <v-list-item-title v-text="item.snippet.title"></v-list-item-title>
+                <v-list-item-title
+                  v-text="item.snippet.title"
+                ></v-list-item-title>
 
                 <v-list-item-subtitle
                   class="text--primary"
-                  v-text="item.snippet.type+' event'"
+                  ><v-chip color="purple text-white">{{item.snippet.type + ' event'}}</v-chip
                 ></v-list-item-subtitle>
 
                 <v-list-item-subtitle
@@ -28,7 +30,10 @@
               </v-list-item-action>
             </template>
           </v-list-item>
-          <v-divider v-if="index < event_data.length - 1" :key="index"></v-divider>
+          <v-divider
+            v-if="index < event_data.length - 1"
+            :key="index"
+          ></v-divider>
         </template>
       </v-list-item-group>
     </v-list>
@@ -38,8 +43,8 @@
 export default {
   name: "YoutubeActivityEvent",
   props: ["event_data"],
-    mounted() {
-      console.log(this);
-    }
+  mounted() {
+    console.log(this);
+  },
 };
 </script>

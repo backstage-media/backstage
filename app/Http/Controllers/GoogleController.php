@@ -158,7 +158,7 @@ class GoogleController extends Controller
 
     public function get_channel_activity(Request $request)
     {
-        $response ="";
+        $response = "";
         if ($request->session()->get('youtubeHandler')) {
             $client = $this->client;
             $youtubeHandler = $request->session()->get('youtubeHandler');
@@ -172,5 +172,36 @@ class GoogleController extends Controller
             $response =  $this->youtube->activities->listActivities('id,snippet,contentDetails ', $queryParams);
         }
         return $response;
+    }
+
+    public function change_video_visibility(Request $request)
+    {
+        if ($request->session()->get('youtubeHandler')) {
+            $id = $request->post('video_id');
+            $visibility = $request->post('visibility');
+            $client = $this->client;
+            $youtubeHandler = $request->session()->get('youtubeHandler');
+            $client->setAccessToken($youtubeHandler->getGoogleAccessToken());
+            $client->refreshToken($youtubeHandler->getGoogleRefreshToken());
+
+            // Get metadata from specific video.
+            $queryParams = [
+                'id' => $id,
+            ];
+            // Update privacy status on a certain video
+            $videoResponse = $this->youtube->videos->listVideos('snippet', $queryParams);
+            $video = $videoResponse[0];
+            $videoStatus = $video['status'];
+            $videoStatus->privacyStatus = $visibility;
+            $video->setStatus($videoStatus);
+
+            $queryParams = [
+                'id' => $id,
+                'status.privacyStatus' => $visibility
+            ];
+
+            $this->youtube->videos->update('status', $video);
+        } else {
+        }
     }
 }

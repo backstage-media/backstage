@@ -9,20 +9,17 @@
       Connect your Youtube Account to see content.
       @endif
     </div>
-        <v-row no-gutters>
+    <v-layout row wrap>
           <template>
             @foreach ($latestYoutubeContent as $item)
             @if(is_object($item))
-            <v-col>
-              <youtube-card :video_data='@json($item)' class="ma-5"></youtube-card>
-            </v-col>
-            @endif
-            @if($loop->iteration % 2 == 0)
-            <v-responsive width="100%"></v-responsive>
+            <v-flex md6>
+              <youtube-card :video_data='@json($item)' class="ma-5 w-100"></youtube-card>
+            </v-flex>
             @endif
             @endforeach
           </template>
-        </v-row>
+    </v-layout>
       </v-container>
     </template>
   </v-app>
