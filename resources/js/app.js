@@ -40,6 +40,7 @@ var creatorCard = Vue.component('manager-card', require('./components/CreatorCar
 var agreementsList = Vue.component('agreements-list', require('./components/AgreementsListComponent.vue').default);
 var agreementsForm = Vue.component('agreements-form', require('./components/AddAgreementComponent.vue').default);
 var CardPaymentMethod = Vue.component('payment-card', require('./components/payment/CardPaymentComponent.vue').default);
+var notificationsComponent = Vue.component('contract', require('./components/NotificationsComponent.vue').default);
 
 
 /**
@@ -81,7 +82,8 @@ const app = new Vue({
         'agreements-form': agreementsForm,
         'card-payment-method': CardPaymentMethod,
         'partner-creation':partnerCreation,
-        'partners-list': partnersList
+        'partners-list': partnersList,
+        'notifications': notificationsComponent
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'

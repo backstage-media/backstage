@@ -65,5 +65,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function received_notifications(){
+        return $this->hasMany(Notification::class,'to_user');
+    }
+
+    public function sent_notifications(){
+        return $this->hasMany(Notification::class,'from_user');
+    }
+
     
 }

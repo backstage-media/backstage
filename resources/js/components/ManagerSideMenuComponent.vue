@@ -56,9 +56,9 @@
         </v-list-item-icon>
         <v-list-item-title>Partners</v-list-item-title>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link href="/notifications">
         <v-list-item-icon>
-          <v-icon class="mr-4">mdi-bell</v-icon>
+          <v-icon class="mr-4" >mdi-bell</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Notifications</v-list-item-title>
       </v-list-item>

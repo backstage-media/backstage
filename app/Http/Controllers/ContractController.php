@@ -23,8 +23,10 @@ class ContractController extends Controller
     {
         $profile = $request->session()->get("profile");
         $contract = Contract::with('manager')->where('creator_id', $profile->id)->first();
-        $contract->manager();
-        return view('contract')->with('contract', $contract); 
+        if ($contract != null) {
+            $contract->manager();
+        }
+        return view('contract')->with('contract', $contract);
     }
 
     public function add(Request $request)
@@ -72,8 +74,15 @@ class ContractController extends Controller
         return $contract_valid;
     }
 
-    public function get_contract_creator($creator_id){
-        $creator = Contract::with('creator')->where('creator_id', $creator_id)->get();
+    public function get_contract_creator($creator_id)
+    {
+        $creator = Contract::with('creator')->where('creator_id', $creator_id)->first();
         return $creator;
+    }
+
+    public function get_contract_manager($creator_id){
+        $contract = Contract::with('manager')->where('creator_id', $creator_id)->first();
+        $manager = $contract->manager;
+        return $manager;
     }
 }

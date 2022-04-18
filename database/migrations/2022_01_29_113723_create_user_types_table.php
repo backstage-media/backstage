@@ -20,13 +20,12 @@ class CreateUserTypesTable extends Migration
             $table->text('type_name');
         });
 
-            // Insert some production data
-    DB::table('user_types')->insert(
-        ['type_name' => 'Creator'],
-        ['type_name' => 'Manager'],
-        ['type_name' => 'Admin']
-    );
-
+        // Insert some production data
+        DB::table('user_types')->insert(
+            ['type_name' => 'Creator'],
+            ['type_name' => 'Manager'],
+            ['type_name' => 'Admin']
+        );
     }
 
     /**

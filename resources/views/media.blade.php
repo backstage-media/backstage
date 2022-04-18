@@ -9,7 +9,7 @@
         <youtube-simple-stats :stats='@json($youtubeVideoAnalytics)'></youtube-simple-stats>
       </v-row>
       <v-row>
-        <youtube-add-comment :video_id="'{{ $youtubeVideoID }}'"></youtube-add-comment>
+        <youtube-add-comment :video_id="'{{ $youtubeVideoID }}'" :video_metadata='@json($youtubeVideoContent)'></youtube-add-comment>
       </v-row>
       <v-row>
         @forelse($comments as $comment)

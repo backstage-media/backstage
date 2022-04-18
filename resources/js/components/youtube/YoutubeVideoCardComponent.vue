@@ -30,49 +30,99 @@
     />
     <v-spacer></v-spacer>
     <v-card-actions height="30px">
-      <v-badge
-        v-if="video_data.items[0].status.privacyStatus == 'private'"
-        bordered
-        color="#9C27B0"
-        icon="mdi-eye-off-outline"
-        overlap
-      >
-        <v-btn class="white--text" color="#9C27B0" depressed
-        v-on:click="update_video(video_data.items[0].id, 'unlisted')">
-          Change to Hidden
-        </v-btn>
-      </v-badge>
+      <v-dialog transition="dialog-bottom-transition" max-width="600">
+        <template v-slot:activator="{ on, attrs }">
+          <v-badge
+            v-if="video_data.items[0].status.privacyStatus == 'private'"
+            bordered
+            color="#9C27B0"
+            icon="mdi-eye-off-outline"
+            overlap
+          >
+            <v-btn
+              class="white--text"
+              color="#9C27B0"
+              depressed
+              v-bind="attrs"
+              v-on="on"
+              v-on:click="update_video(video_data.items[0].id, 'unlisted')"
+            >
+              Change to Hidden
+            </v-btn>
+          </v-badge>
+        </template>
+        <template v-slot:default="dialog">
+          <v-card>
+            <v-toolbar color="primary" dark>Video Privacy Changed</v-toolbar>
+            <v-card-text>
+              <div class="text-h4 pa-12">
+                Video Privacy changed to Hidden for
+                <a :href="'/media/' + video_data.items[0].id">this</a> video
+              </div>
+            </v-card-text>
+            <v-card-actions class="justify-end">
+              <v-btn text @click="dialog.value = false">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>
+      <v-dialog transition="dialog-bottom-transition" max-width="600">
+        <template v-slot:activator="{ on, attrs }">
+          <v-badge
+            v-if="video_data.items[0].status.privacyStatus == 'unlisted'"
+            bordered
+            color="#9C27B0"
+            icon="mdi-publish"
+            overlap
+          >
+            <v-btn
+              class="white--text"
+              color="#9C27B0"
+              depressed
+              v-bind="attrs"
+              v-on="on"
+              v-on:click="update_video(video_data.items[0].id, 'public')"
+            >
+              Publish Video
+            </v-btn>
+          </v-badge>
+        </template>
+        <template v-slot:default="dialog">
+          <v-card>
+            <v-toolbar color="primary" dark>Video Privacy Changed</v-toolbar>
+            <v-card-text>
+              <div class="text-h4 pa-12">
+                Video Privacy changed to Published for
+                <a :href="'/media/' + video_data.items[0].id">this</a> video
+              </div>
+            </v-card-text>
+            <v-card-actions class="justify-end">
+              <v-btn text @click="dialog.value = false">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>
+      <v-spacer></v-spacer>
       <v-icon
-        v-if="video_data.items[0].status.privacyStatus == 'private'"
-        class="ma-2"
-        alt="private"
-        >mdi-lock-outline</v-icon
+        v-if="video_data.items[0].status.privacyStatus == 'public'"
+        class="ma-3"
+        alt="Public"
+        >mdi-eye-outline</v-icon
       >
-      <v-badge
-        v-if="video_data.items[0].status.privacyStatus == 'unlisted'"
-        bordered
-        color="#9C27B0"
-        icon="mdi-publish"
-        overlap
-      >
-        <v-btn class="white--text" color="#9C27B0" depressed
-        v-on:click="update_video(video_data.items[0].id, 'public')">
-          Publish Video
-        </v-btn>
-      </v-badge>
       <v-icon
         v-if="video_data.items[0].status.privacyStatus == 'unlisted'"
         class="ma-3"
         alt="hidden"
         >mdi-eye-off-outline</v-icon
       >
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-bookmark</v-icon>
-      </v-btn>
-
-      <v-btn icon>
+      <v-icon
+        v-if="video_data.items[0].status.privacyStatus == 'private'"
+        class="ma-2"
+        alt="private"
+        >mdi-lock-outline</v-icon
+      >
+      <v-btn icon
+      v-on:click="copy_link(video_data.items[0].id)">
         <v-icon>mdi-share-variant</v-icon>
       </v-btn>
     </v-card-actions>
@@ -103,10 +153,13 @@ export default {
       console.log(player);
       this.player = player;
     },
+    copy_link: function (text) {
+      navigator.clipboard.writeText("http://localhost/media/"+text);
+    },
     seek: function (sec) {
       this.player.instance.seekTo(sec, true);
     },
-    update_video: function (id,visibility) {
+    update_video: function (id, visibility) {
       let token = document.head.querySelector('meta[name="csrf-token"]');
 
       if (token) {
@@ -127,7 +180,7 @@ export default {
         _token: token.content,
         text: this.text,
         video_id: id,
-        visibility: visibility
+        visibility: visibility,
       });
       console.log(response);
     },

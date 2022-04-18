@@ -16,6 +16,9 @@ export default {
   props: {
     video_id: {
       type: String,
+    },
+    video_metadata: {
+      type: Array,
     }
   },
   data() {
@@ -50,6 +53,7 @@ export default {
         _token: token.content,
         text: this.text,
         video_id: this.video_id,
+        video_title: this.video_metadata.items[0].snippet.title
       });
       console.log(response);
     },

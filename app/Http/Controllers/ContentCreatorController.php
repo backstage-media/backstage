@@ -88,6 +88,10 @@ class ContentCreatorController extends Controller
         return Creator::find($creator_id);
     }
 
+    public function hasManager(){
+        
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

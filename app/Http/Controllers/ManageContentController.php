@@ -20,7 +20,7 @@ class ManageContentController extends Controller
         $final_redirect = view('dashboard');
 
         if($contract->manager_is_allowed($profile->id,$creator_id)){
-            $creatorController = new ContentCreatorController($creator_profile[0]['creator']);
+            $creatorController = new ContentCreatorController($creator_profile['creator']);
             if ($creatorController->isGoogleConnected()) {
                 $request->session()->put('youtubeHandler', $creatorController);
                 //Get some context from our creator channel.
@@ -30,6 +30,8 @@ class ManageContentController extends Controller
 
                 $request->session()->put('channel_name', $channelsInfo["items"][0]["snippet"]["title"]);
                 $request->session()->put('channel_thumbnail', $channelsInfo["items"][0]["snippet"]["thumbnails"]["default"]["url"]);
+                $request->session()->put('creator_profile',$creator_profile);
+                $request->session()->put('management',true);
 
                 $final_redirect = view('dashboard');
             }
@@ -46,6 +48,8 @@ class ManageContentController extends Controller
 
     public function exit(Request $request){
         $request->session()->forget('youtubeHandler');
+        $request->session()->forget('creator_profile');
+        $request->session()->put('management',false);
         return redirect('/dashboard');
     }
 }
