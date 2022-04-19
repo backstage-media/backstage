@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 
 class NotificationController extends Controller
 {
@@ -50,15 +51,26 @@ class NotificationController extends Controller
         $notification->to()->save();
     }
 
-    public function list_received(Request $request){
+    public function list_received(Request $request)
+    {
+        $notifications = [];
+        $user_type = $request->session()->get('profile_type');
         $user_id = $request->user()->id;
-        $notifications = Notification::with('from_user','notification_type')->where([
-            ['to_user', '=', $user_id],
-            ['read', false]
-        ])->get();
 
-        //print("<pre>".print_r($notifications,true)."</pre>");
-        
+        if ($user_type == 2) {
+            $notifications = Notification::with('from_user.role.creator', 'notification_type')->where([
+                ['to_user', '=', $user_id],
+                ['read', false]
+            ])->get();
+        } else if ($user_type == 1) {
+            $notifications = Notification::with('from_user.role.manager', 'notification_type')->where([
+                ['to_user', '=', $user_id],
+                ['read', false]
+            ])->get();
+        }
+
+        //print("<pre>" . print_r($notifications, true) . "</pre>");
+
         return view('notifications')->with('notifications',$notifications);
     }
 

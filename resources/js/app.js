@@ -23,6 +23,7 @@ var channelInfo = Vue.component('youtube-channel-info', require('./components/yo
 var simpleStats = Vue.component('youtube-simple-stats', require('./components/youtube/YoutubeBasicStatsComponent.vue').default);
 var creatorSideMenu = Vue.component('creator-side-menu', require('./components/CreatorSideMenuComponent.vue').default);
 var managerSideMenu = Vue.component('manager-side-menu', require('./components/ManagerSideMenuComponent.vue').default);
+var adminSideMenu = Vue.component('admin-side-menu', require('./components/admin/AdminSideMenuComponent.vue').default);
 var creatorManagementSideMenu = Vue.component('creator-management-side-menu', require('./components/CreatorManagementSideMenuComponent.vue').default);
 var youtubeComponent = Vue.component('youtube-card', require('./components/youtube/YoutubeVideoCardComponent.vue').default);
 var youtubeChatComponent = Vue.component('youtube-chat', require('./components/youtube/YoutubeChatComponent.vue').default);
@@ -39,8 +40,10 @@ var managerCard = Vue.component('manager-card', require('./components/ManagerCar
 var creatorCard = Vue.component('manager-card', require('./components/CreatorCardComponent.vue').default);
 var agreementsList = Vue.component('agreements-list', require('./components/AgreementsListComponent.vue').default);
 var agreementsForm = Vue.component('agreements-form', require('./components/AddAgreementComponent.vue').default);
-var CardPaymentMethod = Vue.component('payment-card', require('./components/payment/CardPaymentComponent.vue').default);
 var notificationsComponent = Vue.component('contract', require('./components/NotificationsComponent.vue').default);
+var adminUsersTable = Vue.component('admin-users-table', require('./components/admin/UsersTableComponent.vue').default);
+var adminUsersCRUDTable = Vue.component('admin-users-crud-table', require('./components/admin/UsersTableCRUDComponent.vue').default);
+var adminProfilesCRUDTable = Vue.component('admin-profiles-crud-table', require('./components/admin/ProfilesTableCRUDComponent.vue').default);
 
 
 /**
@@ -66,6 +69,7 @@ const app = new Vue({
         'youtube-simple-stats': simpleStats,
         'creator-side-menu': creatorSideMenu,
         'manager-side-menu': managerSideMenu,
+        'admin-side-menu': adminSideMenu,
         'creator-management-side-menu': creatorManagementSideMenu,
         'youtube-card': youtubeComponent,
         'youtube-chat':youtubeChatComponent,
@@ -80,10 +84,11 @@ const app = new Vue({
         'creator-card': creatorCard,
         'agreements-list': agreementsList,
         'agreements-form': agreementsForm,
-        'card-payment-method': CardPaymentMethod,
         'partner-creation':partnerCreation,
         'partners-list': partnersList,
-        'notifications': notificationsComponent
+        'notifications': notificationsComponent,
+        'admin-users-table': adminUsersTable,
+        'admin-users-crud-table': adminUsersCRUDTable
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'

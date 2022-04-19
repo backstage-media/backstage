@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Providers\GoogleProvider;
 use Illuminate\Http\Request;
 use App\Models\Media;
+use App\Models\Creator;
 use App\Http\Controllers\ContentCreatorController;
+use App\Http\Controllers\UserController;
 
 class ManageContentController extends Controller
 {
@@ -26,12 +28,15 @@ class ManageContentController extends Controller
                 //Get some context from our creator channel.
                 $googleProvider = new GoogleProvider();
                 $youtubeController = new GoogleController($googleProvider);
+                $userController = new UserController;
                 $channelsInfo = $youtubeController->get_channels_info($request);
+                $creator = Creator::find($creator_id);
+                $creatorUserProfile = $userController->get_user_from_creator($creator);
 
                 $request->session()->put('channel_name', $channelsInfo["items"][0]["snippet"]["title"]);
                 $request->session()->put('channel_thumbnail', $channelsInfo["items"][0]["snippet"]["thumbnails"]["default"]["url"]);
                 $request->session()->put('creator_profile',$creator_profile);
-                $request->session()->put('management',true);
+                $request->session()->put('creator_user_profile',$creatorUserProfile);
 
                 $final_redirect = view('dashboard');
             }
@@ -49,7 +54,6 @@ class ManageContentController extends Controller
     public function exit(Request $request){
         $request->session()->forget('youtubeHandler');
         $request->session()->forget('creator_profile');
-        $request->session()->put('management',false);
         return redirect('/dashboard');
     }
 }

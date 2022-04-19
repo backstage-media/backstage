@@ -15,7 +15,6 @@
          <youtube-login-button></youtube-login-button>
          @endif
       </v-app>
-      @endif   
-
+      @endif
    </v-container>
 </x-app-layout>

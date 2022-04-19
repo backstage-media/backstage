@@ -19,7 +19,7 @@ export default {
     },
     video_metadata: {
       type: Array,
-    }
+    },
   },
   data() {
     return {
@@ -43,19 +43,23 @@ export default {
         );
       }
 
-      var response = this.$http.post("/comment/add", {
-        headers: {
-          "Content-Type": "application/json",
-          "X-Requested-With": "XMLHttpRequest",
-        },
-        emulateJSON: true,
-        _method: "post",
-        _token: token.content,
-        text: this.text,
-        video_id: this.video_id,
-        video_title: this.video_metadata.items[0].snippet.title
-      });
-      console.log(response);
+      var response = this.$http
+        .post("/comment/add", {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          emulateJSON: true,
+          _method: "post",
+          _token: token.content,
+          text: this.text,
+          video_id: this.video_id,
+          video_title: this.video_metadata.items[0].snippet.title,
+        })
+        .then((res) => res.json())
+        .then((res) => {
+          window.location = '/media/'+this.video_id+'?comment='+res;
+        });
     },
   },
 };

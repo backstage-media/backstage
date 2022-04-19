@@ -14,6 +14,7 @@ use App\Http\Controllers\PlansController;
 use App\Http\Controllers\ManageContentController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,8 +72,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/notifications', [NotificationController::class, 'list_received']);
 
-    
     Route::post('/youtube/update', [GoogleController::class, 'change_video_visibility']);
+
+    ## Admin Actions
+
+    Route::get('/admin/users', [UserController::class, 'admin_users']);
+    Route::get('/admin/profiles', [UserController::class, 'admin_profiles']);
 
 });
 

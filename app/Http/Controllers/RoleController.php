@@ -17,10 +17,11 @@ class RoleController extends Controller
         $profile ="";
         if ($user_type == 1) {
             $profile = $user->role->creator;
-
         } else if ($user_type == 2) {
             $profile = $user->role->manager;
-        }   
+        } else if ($user_type == 3) {
+            $profile = $user;
+        }  
         $request->session()->put("profile_type", $user_type);
         $request->session()->put("profile", $profile);
     }

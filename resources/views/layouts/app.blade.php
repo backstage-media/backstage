@@ -33,6 +33,8 @@
     <manager-side-menu :user_profile="{{  json_encode(session()->get('profile')) }}"></manager-side-menu>
     @elseif(session()->get('profile_type') == 2 && null !== session()->get('youtubeHandler'))
     <creator-management-side-menu :user_profile="{{  json_encode(session()->get('profile')) }}" :channel_name="'{{session()->get('channel_name')}}'" :channel_thumbnail="'{{session()->get('channel_thumbnail')}}'"></creator-management-side-menu>
+    @elseif(session()->get('profile_type') == 3)
+    <admin-side-menu :admin_profile="{{  json_encode(session()->get('profile')) }}"></admin-side-menu>
     @endif
     @endif
     <v-app>
