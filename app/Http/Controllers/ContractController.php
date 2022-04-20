@@ -80,9 +80,22 @@ class ContractController extends Controller
         return $creator;
     }
 
-    public function get_contract_manager($creator_id){
+    public function get_contract_manager($creator_id)
+    {
         $contract = Contract::with('manager')->where('creator_id', $creator_id)->first();
         $manager = $contract->manager;
         return $manager;
+    }
+
+    public function admin_contracts(Request $request)
+    {
+        $profile = $request->session()->get('profile_type');
+        $contracts = Contract::with('manager', 'creator', 'agreement')->get();
+
+        if ($profile == 3) {
+            return view('admin/contracts')->with('contracts', $contracts);
+        } else {
+            return view('dashboard');
+        }
     }
 }

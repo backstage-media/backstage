@@ -77,7 +77,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     ## Admin Actions
 
     Route::get('/admin/users', [UserController::class, 'admin_users']);
+    Route::get('/admin/users/add', [UserController::class, 'add']); # Pendiente de añadir esta funcion
+    Route::post('/admin/users/edit', [UserController::class, 'edit']);
+    Route::post('/admin/users/delete', [UserController::class, 'delete']);
+
     Route::get('/admin/profiles', [UserController::class, 'admin_profiles']);
+
+    # Pendiente añadir estas funciones
+    Route::get('/admin/contracts', [ContractController::class, 'admin_contracts']);
+    Route::get('/admin/contracts/edit', [ContractController::class, 'edit']);
+    Route::get('/admin/contracts/delete', [ContractController::class, 'delete']);
+
 
 });
 

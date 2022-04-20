@@ -43,7 +43,9 @@ var agreementsForm = Vue.component('agreements-form', require('./components/AddA
 var notificationsComponent = Vue.component('contract', require('./components/NotificationsComponent.vue').default);
 var adminUsersTable = Vue.component('admin-users-table', require('./components/admin/UsersTableComponent.vue').default);
 var adminUsersCRUDTable = Vue.component('admin-users-crud-table', require('./components/admin/UsersTableCRUDComponent.vue').default);
-var adminProfilesCRUDTable = Vue.component('admin-profiles-crud-table', require('./components/admin/ProfilesTableCRUDComponent.vue').default);
+var adminManagersCRUDTable = Vue.component('admin-managers-crud-table', require('./components/admin/ManagersTableCRUDComponent.vue').default);
+var adminCreatorsCRUDTable = Vue.component('admin-creators-crud-table', require('./components/admin/CreatorsTableCRUDComponent.vue').default);
+var adminContractsCRUDTable = Vue.component('admin-contracts-crud-table', require('./components/admin/ContractsTableCRUDComponent.vue').default);
 
 
 /**
@@ -88,7 +90,10 @@ const app = new Vue({
         'partners-list': partnersList,
         'notifications': notificationsComponent,
         'admin-users-table': adminUsersTable,
-        'admin-users-crud-table': adminUsersCRUDTable
+        'admin-users-crud-table': adminUsersCRUDTable,
+        'admin-managers-crud-table': adminManagersCRUDTable,
+        'admin-creators-crud-table': adminCreatorsCRUDTable,
+        'admin-contracts-crud-table': adminContractsCRUDTable,
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'

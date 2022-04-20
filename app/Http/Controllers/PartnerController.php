@@ -23,6 +23,8 @@ class PartnerController extends Controller
         $partner->description = '';
 
         $partner->save();
+
+        return view('partners');
     }
 
     public function index()

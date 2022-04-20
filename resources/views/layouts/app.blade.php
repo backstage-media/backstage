@@ -28,7 +28,7 @@
   <v-app>
     @if(!session()->has('wizard'))
     @if(session()->get('profile_type') == 1)
-    <creator-side-menu :youtube_description="'{{session()->get('youtube_description')}}'" :youtube_name="'{{session()->get('youtube_name')}}'" :youtube_avatar="'{{session()->get('youtube_avatar')}}'"></creator-side-menu>
+    <creator-side-menu :user_profile="{{  json_encode(session()->get('profile')) }}" :youtube_description="'{{session()->get('youtube_description')}}'" :youtube_name="'{{session()->get('youtube_name')}}'" :youtube_avatar="'{{session()->get('youtube_avatar')}}'"></creator-side-menu>
     @elseif(session()->get('profile_type') == 2 && null == session()->get('youtubeHandler'))
     <manager-side-menu :user_profile="{{  json_encode(session()->get('profile')) }}"></manager-side-menu>
     @elseif(session()->get('profile_type') == 2 && null !== session()->get('youtubeHandler'))

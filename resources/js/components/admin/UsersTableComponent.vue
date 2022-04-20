@@ -39,6 +39,7 @@
         search: '',
         calories: '',
         users: this.users,
+        token: "{{ csrf_token() }}",
       }
     },
     computed: {

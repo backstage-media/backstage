@@ -46,6 +46,7 @@ class UserController extends Controller
     public function admin_users(Request $request){
         $users = User::with("role.user_type")->get();
         $profile = $request->session()->get('profile_type');
+        //If you don't have permissions for this, redirect to the dashboard.
         if($profile == 3){
         return view('admin/users')->with('users',$users);
         }else{
@@ -54,7 +55,44 @@ class UserController extends Controller
     }
 
     public function admin_profiles(Request $request){
-        $profiles = Role::with("Profile")->get();
-        return view('admin/profiles')->with('profiles',$profiles);
+        $creators = [];
+        $managers = [];
+
+        $profiles = Role::with("creator","manager")->where('creator_id','!=',null)->orWhere('manager_id','!=',null)->get();
+
+        $profiles->each(function($user) use (&$creators, &$managers) {
+            $user_type = $user->user_type_id;
+            if($user_type == 1){
+                array_push($creators, $user->creator); 
+            }else if($user_type == 2){
+                array_push($managers, $user->manager); 
+            }
+        });
+
+        return view('admin/profiles')->with(['creators'=>$creators,'managers'=>$managers]);
     }
+    
+    // Edit user on the database based on POST values.
+    public function edit(Request $request){
+        $user_id = $request->post('user_id');
+        $new_name = $request->post('name');
+        $new_email = $request->post('email');
+        $user = User::find($user_id);
+        $user->name = $new_name;
+        $user->email = $new_email;
+        $user->save();
+
+        return $user->id;
+    }
+
+    // Edit user on the database based on POST values.
+    public function delete(Request $request){
+        $user_id = $request->post('user_id');
+        $user = User::find($user_id);
+        $user->delete();
+        //return $user->id;
+    }
+
+
 }
+ 

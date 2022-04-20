@@ -38,7 +38,7 @@ class Role extends Model
               ->when($this->type_name === 'Creator',function($q){
                   return $q->with('creator');
              })
-             ->when($this->type === 'Manager',function($q){
+             ->when($this->type_name === 'Manager',function($q){
                   return $q->with('manager');
              });
     }
