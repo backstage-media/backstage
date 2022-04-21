@@ -1,8 +1,6 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col col="12">
-        <v-card class="mx-auto" max-width="400">
+        <v-card class="mx-auto" max-width="800px">
           <v-img
             class="white--text align-end"
             height="200px"
@@ -21,15 +19,19 @@
             <div v-if="manager_data.manager.agreement == 0">
               No bundles available for this Manager
             </div>
-            <div v-for="item in manager_data.manager.agreement">
-              <v-dialog transition="dialog-top-transition" max-width="600">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn color="accent" v-bind="attrs" v-on="on"
-                    >{{ item.months }} Months -
+            <div width="100px">
+            <v-list v-for="item in manager_data.manager.agreement" :key="item">
+              <v-list-item>
+               {{ item.months }} Months -
                     {{ total(item.months, item.price_per_month) }} $ ({{
                       item.discount
                     }}
-                    % discount)</v-btn
+                    % discount)
+                    <v-spacer></v-spacer>
+              <v-dialog transition="dialog-top-transition" max-width="600px">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="accent" v-bind="attrs" v-on="on"
+                    >mdi-cart-arrow-right</v-icon
                   >
                 </template>
                 <template v-slot:default="dialog">
@@ -70,9 +72,11 @@
                   </v-card>
                 </template>
               </v-dialog>
+              </v-list-item>
+            </v-list>
+            </div>
             </div>
           </v-card-text>
-
           <v-card-actions>
             <v-dialog v-model="dialog" persistent max-width="600px">
               <template v-slot:activator="{ on, attrs }">
@@ -166,8 +170,6 @@
             </v-dialog>
           </v-card-actions>
         </v-card>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 

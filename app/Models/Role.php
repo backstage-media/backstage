@@ -32,16 +32,5 @@ class Role extends Model
         return $this->belongsTo(UserTypes::class,'user_type_id','id');
     }
 
-    public function scopeProfile($query)
-    {
-        return $query
-              ->when($this->type_name === 'Creator',function($q){
-                  return $q->with('creator');
-             })
-             ->when($this->type_name === 'Manager',function($q){
-                  return $q->with('manager');
-             });
-    }
-
 }
 

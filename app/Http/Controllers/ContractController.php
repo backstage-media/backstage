@@ -7,6 +7,8 @@ use App\Models\Agreement;
 use App\Models\Manager;
 use App\Models\Creator;
 use App\Models\Contract;
+use App\Http\Controllers\NotificationController;
+use App\Models\Notification;
 
 class ContractController extends Controller
 {
@@ -32,6 +34,7 @@ class ContractController extends Controller
     public function add(Request $request)
     {
         $profile = $request->session()->get("profile");
+        $user_id = $request->user()->id;
         $contract = new Contract;
         $agreement_id = (int)$request->agreement["id"];
         $manager_id = (int)$request->manager["id"];
@@ -47,6 +50,24 @@ class ContractController extends Controller
         $contract->creator()->associate($creator);
         $contract->agreement()->associate($agreement);
         $contract->save();
+
+        //Enviar notificacion al Manager de su nuevo contrato.
+
+        $notification = new Notification;
+        $userController = new UserController;
+
+        $manager_user = $userController->get_user_from_manager($manager);
+        $user = $userController->get_user_from_id($user_id);
+
+        $notification->from_user = $user->id;
+        $notification->to_user = $manager_user->id;
+        $notification->notification_type = 4;
+        $notification->message = $user->name. ' Started a new contract with you until ' . $request->end_date;
+        $notification->target_id = $contract->id;
+        $notification->save();
+
+        return view('dashboard');
+
     }
 
     public function list()
@@ -97,5 +118,14 @@ class ContractController extends Controller
         } else {
             return view('dashboard');
         }
+    }
+
+    public function creator_has_contract(Creator $creator){
+        $hasContract = false;
+        $contract = Contract::where('creator_id',$creator->id)->count();
+        if($contract > 0){
+            $hasContract = true;
+        }
+        return $hasContract;
     }
 }

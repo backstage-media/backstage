@@ -18,9 +18,9 @@ class AgreementController extends Controller
         $agreement->save();
     }
 
-    public function list()
+    public function list($manager_id)
     {
-        $agreements = Agreement::all();
+        $agreements = Agreement::where('manager_id',$manager_id)->get();
 
         return $agreements;
     }

@@ -14,7 +14,7 @@ class PlansController extends Controller
         $manager = $request->session()->get('profile');
         $agreementController = new AgreementController($manager);
 
-        $agreements = $agreementController->list();
+        $agreements = $agreementController->list($manager->id);
 
         return view('plans')->with('agreements',$agreements);
     }
@@ -24,7 +24,6 @@ class PlansController extends Controller
         $manager = $request->session()->get('profile');
         
         $plan_price = $request->post('plan-price');
-        print_r($request->post());
         $plan_month = $request->post('plan-months');
         $plan_discount = $request->post('plan-discount');
 
@@ -37,6 +36,6 @@ class PlansController extends Controller
         $manager_db = Manager::find($manager->id);
         $manager_db->agreement()->save($agreement);
 
-        return view('dashboard');
+        return $this->index($request);
     }
 }

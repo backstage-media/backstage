@@ -83,8 +83,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/admin/profiles', [UserController::class, 'admin_profiles']);
 
-    # Pendiente añadir estas funciones
     Route::get('/admin/contracts', [ContractController::class, 'admin_contracts']);
+    # Pendiente añadir estas funciones
     Route::get('/admin/contracts/edit', [ContractController::class, 'edit']);
     Route::get('/admin/contracts/delete', [ContractController::class, 'delete']);
 
