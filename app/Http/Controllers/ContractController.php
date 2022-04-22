@@ -28,9 +28,10 @@ class ContractController extends Controller
         $contract = Contract::with('manager')->where('creator_id', $profile->id)->latest('id')->first();
         if ($contract != null) {
             $contract->manager();
-        }
-        array_push($main_contract,$contract->id);
+            array_push($main_contract,$contract->id);
         $previous_contracts = Contract::with('manager')->where('creator_id', $profile->id)->WhereNotIn('id',$main_contract)->get();
+        }
+        
         return view('contract')->with('contract', $contract);
     }
 
