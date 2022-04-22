@@ -58,6 +58,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/contract/{id}', [ContractController::class, 'view']);
     Route::post('contract/add', [ContractController::class, 'add']);
     Route::get('/contract', [ContractController::class, 'get_manager']);
+    Route::get('/contract/download/{id}', [ContractController::class, 'download_invoice']);
+    Route::get('/contract/cancel/{id}', [ContractController::class, 'cancel_subscription']);
 
     Route::post('comment/add', [CommentsController::class, 'add']);
 

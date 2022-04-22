@@ -13,17 +13,26 @@
                   contract.manager.description
                 }}</v-list-item-subtitle>
               </v-list-item-content>
-
-              <v-avatar>
-                <img
-                  src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  alt="John"
-                />
-              </v-avatar>
             </v-list-item>
-
             <v-card-actions>
-              <v-btn outlined rounded text> Send Private Message </v-btn>
+              <v-btn depressed v-on:click="download_contract(contract.id)"
+                >Download Invoce</v-btn
+              >
+              <v-btn
+                depressed
+                color="error"
+                v-if="contract.status"
+                v-on:click="cancel_contract(contract.id)"
+                >Cancel Subscription
+              </v-btn>
+              <v-chip
+                v-if="contract.status == false"
+                class="ma-2"
+                color="red"
+                text-color="white"
+              >
+                Subscription cancelled
+              </v-chip>
             </v-card-actions>
           </v-card>
 
@@ -68,7 +77,7 @@
           </v-list-item>
         </v-list>
 
-        <v-img src="https://picsum.photos/700?image=996" height="200px"></v-img>
+        <v-img src="https://picsum.photos/700?image=0" height="250px"></v-img>
       </v-card>
     </v-col>
   </v-row>
@@ -80,6 +89,39 @@ export default {
   mounted() {
     //this.agreement.manager = JSON.parse(this.agreement.manager);
     console.log(this);
+  },
+
+  methods: {
+    download_contract: function (id) {
+      window.open("/contract/download/" + id, "_blank").focus();
+    },
+
+    cancel_contract: function (id) {
+      let token = document.head.querySelector('meta[name="csrf-token"]');
+
+      if (token) {
+        window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
+      } else {
+        console.error(
+          "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
+        );
+      }
+
+      var response = this.$http
+        .get("/contract/cancel/" + id, {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          emulateJSON: true,
+          _method: "get",
+          _token: token.content,
+        })
+        .then((res) => res.json())
+        .then((res) => {
+          
+        });
+    },
   },
 };
 </script>

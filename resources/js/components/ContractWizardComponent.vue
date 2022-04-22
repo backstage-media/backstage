@@ -164,7 +164,7 @@ export default {
         status: true,
         automatic_renewal: true,
       });
-      console.log(response);
+       window.location = "/contract";
     },
   },
 };

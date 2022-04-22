@@ -5,7 +5,17 @@
       label="Comment"
       v-model="text"
     ></v-textarea>
+    <v-card class="mx-auto pa-4" max-width="350px">
+      <v-card-title>Set Video minute (seconds)</v-card-title>
+    <v-text-field
+      v-model="second"
+      hide-details
+      single-line
+      type="number"
+    />
+    </v-card>
     <v-card-actions>
+      <v-spacer></v-spacer>
       <v-btn v-on:click="submit()">Add Comment</v-btn>
     </v-card-actions>
   </v-card>
@@ -26,6 +36,7 @@ export default {
       text: "",
       current_date: "",
       token: "{{ csrf_token() }}",
+      second: 0,
     };
   },
   mounted() {
@@ -55,10 +66,11 @@ export default {
           text: this.text,
           video_id: this.video_id,
           video_title: this.video_metadata.items[0].snippet.title,
+          second: this.second
         })
         .then((res) => res.json())
         .then((res) => {
-          window.location = '/media/'+this.video_id+'?comment='+res;
+          window.location = "/media/" + this.video_id + "?comment=" + res;
         });
     },
   },

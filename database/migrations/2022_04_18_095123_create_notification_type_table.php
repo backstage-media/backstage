@@ -30,7 +30,7 @@ class CreateNotificationTypeTable extends Migration
         DB::table('notification_types')->insert(
             ['type_name' => 'Private Message']
         );
-    }
+    
     }
 
     /**

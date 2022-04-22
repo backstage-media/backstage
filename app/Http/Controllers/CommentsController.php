@@ -22,10 +22,12 @@ class CommentsController extends Controller
         $commentText = $request->post('text');
         $video_id = $request->post('video_id');
         $video_title = $request->post('video_title');
+        $second = $request->post('second');
 
         $comment = new Comment();
         $comment->text = $commentText;
         $comment->video_id = $video_id;
+        $comment->youtube_second = $second;
 
         $user_comment = User::find($user_id);
         $user_comment->comment()->save($comment);

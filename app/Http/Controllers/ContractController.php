@@ -23,11 +23,14 @@ class ContractController extends Controller
 
     public function get_manager(Request $request)
     {
+        $main_contract = Array();
         $profile = $request->session()->get("profile");
-        $contract = Contract::with('manager')->where('creator_id', $profile->id)->first();
+        $contract = Contract::with('manager')->where('creator_id', $profile->id)->latest('id')->first();
         if ($contract != null) {
             $contract->manager();
         }
+        array_push($main_contract,$contract->id);
+        $previous_contracts = Contract::with('manager')->where('creator_id', $profile->id)->WhereNotIn('id',$main_contract)->get();
         return view('contract')->with('contract', $contract);
     }
 
@@ -62,12 +65,11 @@ class ContractController extends Controller
         $notification->from_user = $user->id;
         $notification->to_user = $manager_user->id;
         $notification->notification_type = 4;
-        $notification->message = $user->name. ' Started a new contract with you until ' . $request->end_date;
+        $notification->message = $user->name . ' Started a new contract with you until ' . $request->end_date;
         $notification->target_id = $contract->id;
         $notification->save();
 
         return view('dashboard');
-
     }
 
     public function list()
@@ -80,7 +82,8 @@ class ContractController extends Controller
     public function list_from_manager(Request $request)
     {
         $profile = $request->session()->get("profile");
-        $contracts = Contract::with('creator')->where('manager_id', $profile->id)->get();
+        $current_date = date('Y-m-d H:i:s');
+        $contracts = Contract::with('creator')->where('manager_id', $profile->id)->where('status',true)->where('end_date', '>', $current_date)->get();
         return view('manager/creators')->with('contracts', $contracts);
     }
 
@@ -88,7 +91,7 @@ class ContractController extends Controller
     {
         $contract_valid = false;
         $current_date = date('Y-m-d H:i:s');
-        $rows = Contract::with('creator')->where('manager_id', $manager_id)->where('creator_id', $creator_id)->where('end_date', '>', $current_date)->count();
+        $rows = Contract::with('creator')->where('manager_id', $manager_id)->where('creator_id', $creator_id)->where('end_date', '>', $current_date)->where('status',true)->count();
         if ($rows > 0) {
             $contract_valid = true;
         }
@@ -120,12 +123,62 @@ class ContractController extends Controller
         }
     }
 
-    public function creator_has_contract(Creator $creator){
+    public function creator_has_contract(Creator $creator)
+    {
         $hasContract = false;
-        $contract = Contract::where('creator_id',$creator->id)->count();
-        if($contract > 0){
+        $contract = Contract::where('creator_id', $creator->id)->where('status',true)->count();
+        if ($contract > 0) {
             $hasContract = true;
         }
         return $hasContract;
+    }
+
+    public function download_invoice(Request $request)
+    {
+
+        if (isset($request->id)) {
+            $document_id = $request->id;
+
+            $contract = Contract::with('agreement','manager','creator')->where('id', $document_id)->first();
+            $current_profile = $request->session()->get('profile');
+            //DomPDF Variables.
+
+            $start_date = $contract->start_date;
+            $end_date = $contract->end_date;
+            $creator = $contract->creator;
+            $manager = $contract->manager;
+            $generated_on = date('Y-m-d H:i:s');
+            $id = sprintf('%08d', $document_id);
+            $duration = $contract->agreement->months;
+            $price_per_month = $contract->agreement->price_per_month;
+            $discount = $contract->agreement->discount;
+            // Calcular precio final.
+            $final_price = $price_per_month - ($price_per_month * ($discount / 100));
+            $final_total = $final_price * $duration;
+            $client_name = $current_profile->real_name;
+            
+
+            ob_start();
+            require(__DIR__ . "/dompdf/invoice.php");
+            $html = ob_get_contents();
+            ob_get_clean();
+
+            $dompdf = app('dompdf.wrapper');
+            $dompdf->addInfo(['Title' => 'Invoice']);
+            $dompdf->loadHtml($html);
+
+            $dompdf->render();
+
+            return $dompdf->stream('factura-contrato-'.$id.'.pdf');
+        }
+    }
+
+    public function cancel_subscription(Request $request){
+        if (isset($request->id)) {
+            $contract = Contract::find($request->id);
+            $contract->status = false;
+            $contract->automatic_renewal = false;
+            $contract->save();
+        }
     }
 }

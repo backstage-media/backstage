@@ -11,7 +11,9 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>{{message.user.name || 'Guest User'}}</v-list-item-title>
+          <v-list-item-title>{{
+            message.user.name || "Guest User"
+          }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-card-actions>
@@ -22,23 +24,49 @@
       {{ message.created_at }}
     </v-card-subtitle>
     <v-card-actions>
-      <v-btn>Reply</v-btn>
-      <v-btn v-on:click="goto(30)">Go to second 30</v-btn>
-      <v-btn icon :href="'/media/' + message.video_id + '?comment='+message.id" class="ma-2">
+      <v-btn
+        v-if="message.youtube_second > 0"
+        v-on:click="goto(message.youtube_second)"
+        >Go to Video Moment</v-btn
+      >
+      <v-spacer></v-spacer>
+      <v-btn
+        icon
+        :href="'/media/' + message.video_id + '?comment=' + message.id"
+        class="ma-2"
+      >
         <v-icon>mdi-share-variant</v-icon>
       </v-btn>
     </v-card-actions>
+    <v-snackbar v-model="snackbar">
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-card>
 </template>
 <script>
 module.exports = {
   name: "YoutubeChannelInfo",
-  props: ["message"],  
+  props: ["message"],
+  data: () => ({
+    snackbar: false,
+    text: `Por favor, reproduce el video primero.`,
+  }),
   mounted() {},
   methods: {
-        goto: function(sec) {
-            this.$root.$refs.videoController.seek(sec, true);
-        }
-    }
+    goto: function (sec) {
+      try {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        this.$root.$refs.videoController.seek(sec, true);
+      } catch (err) {
+        this.snackbar = true;
+      }
+    },
+  },
 };
 </script>
