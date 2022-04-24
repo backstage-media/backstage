@@ -44,12 +44,6 @@
         </v-list-item-icon>
         <v-list-item-title>Plans</v-list-item-title>
       </v-list-item>
-      <v-list-item link href="/partners">
-        <v-list-item-icon>
-          <v-icon class="mr-4">mdi-handshake</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Partners</v-list-item-title>
-      </v-list-item>
       <v-list-item link href="/notifications">
         <v-list-item-icon>
           <v-icon class="mr-4" >mdi-bell</v-icon>

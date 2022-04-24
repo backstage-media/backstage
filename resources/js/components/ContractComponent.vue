@@ -113,13 +113,13 @@ export default {
             "Content-Type": "application/json",
             "X-Requested-With": "XMLHttpRequest",
           },
-          emulateJSON: true,
+          emulateJSON: false,
           _method: "get",
           _token: token.content,
         })
         .then((res) => res.json())
         .then((res) => {
-          
+        location.reload();
         });
     },
   },

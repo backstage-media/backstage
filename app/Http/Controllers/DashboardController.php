@@ -55,6 +55,8 @@ class DashboardController extends Controller
             session()->put('youtube_channel_id', $channelsInfo["items"][0]["id"]);
         }
 
+        
+
         return view('dashboard')->with('mainStats', [
             'channelStats' => $channelStats,
             'channelsInfo' => $channelsInfo,

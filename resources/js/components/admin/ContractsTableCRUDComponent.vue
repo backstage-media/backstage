@@ -11,8 +11,7 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
-          </template>
+          <template v-slot:activator="{ on, attrs }"> </template>
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -68,9 +67,18 @@
         {{ isAvailable(item.automatic_renewal) }}
       </v-chip>
     </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+    <template v-slot:item.status="{ item }">
+      <v-chip :color="getColor(item.status)" dark>
+        {{ isAvailable(item.status) }}
+      </v-chip>
+    </template>
+    <template v-slot:item.contract_actions="{ item }">
+      <v-icon small class="mr-2" @click="cancel_contract(item.id)">
+        mdi-cancel
+      </v-icon>
+      <v-icon small class="mr-2" @click="download_contract(item.id)">
+        mdi-file-download
+      </v-icon>
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize"> Reset </v-btn>
@@ -98,7 +106,8 @@ export default {
       { text: "Contract Start Date", value: "start_date" },
       { text: "Contract End Date", value: "end_date" },
       { text: "Automatic Renewal", value: "automatic_renewal" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Contract Status", value: "status" },
+      { text: "Actions", value: "contract_actions", sortable: false },
     ],
     contracts: [],
     editedIndex: -1,
@@ -138,6 +147,34 @@ export default {
   },
 
   methods: {
+    download_contract: function (id) {
+      window.open("/contract/download/" + id, "_blank").focus();
+    },
+
+    cancel_contract: function (id) {
+      let token = document.head.querySelector('meta[name="csrf-token"]');
+
+      if (token) {
+        window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
+      } else {
+        console.error(
+          "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
+        );
+      }
+
+      var response = this.$http
+        .get("/contract/cancel/" + id, {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          _method: "get",
+          _token: token.content,
+        })
+        .then((res) => {
+          location.reload();
+        });
+    },
     getColor(available) {
       if (available == 1) return "green";
       else if (available == 0) return "red";
@@ -145,8 +182,8 @@ export default {
     },
 
     isAvailable(item) {
-      if (item == 1) return "Yes";
-      else return "No";
+      if (item == 1) return "Enabled";
+      else return "Disabled";
     },
     initialize() {
       this.contracts = this.contracts;

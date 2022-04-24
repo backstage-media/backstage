@@ -78,4 +78,9 @@ class CommentsController extends Controller
         $comments = Comment::with('user')->where('video_id', $video_id)->get();
         return $comments;
     }
+
+    public function admin_list(Request $request){
+        $comments = Comment::with('user')->get();
+        return view('admin/comments')->with('comments',$comments);
+    }
 }

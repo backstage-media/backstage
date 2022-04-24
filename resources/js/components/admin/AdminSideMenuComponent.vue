@@ -36,6 +36,12 @@
         </v-list-item-icon>
         <v-list-item-title>Contracts</v-list-item-title>
       </v-list-item>
+      <v-list-item link href="/admin/comments">
+        <v-list-item-icon>
+          <v-icon class="mr-4">mdi-comment</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Comments</v-list-item-title>
+      </v-list-item>
       <v-list-item link href="/partners">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-handshake</v-icon>

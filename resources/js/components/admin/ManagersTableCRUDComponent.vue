@@ -11,11 +11,7 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-              New Manager Profile
-            </v-btn>
-          </template>
+          <template v-slot:activator="{ on, attrs }"> </template>
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -25,15 +21,23 @@
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field
-                      v-model="editedItem.name"
-                      label="Name"
+                      v-model="editedItem.real_name"
+                      label="Real Name"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="20" sm="12" md="8">
                     <v-text-field
-                      v-model="editedItem.email"
-                      label="Email"
+                      v-model="editedItem.description"
+                      label="Description"
                     ></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <v-checkbox
+                      v-model="editedItem.available"
+                      label='Manager Available'
+                    ></v-checkbox>
                   </v-col>
                 </v-row>
               </v-container>
@@ -72,7 +76,6 @@
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize"> Reset </v-btn>
@@ -138,6 +141,36 @@ export default {
   },
 
   methods: {
+    update_data: function (item) {
+      let token = document.head.querySelector('meta[name="csrf-token"]');
+
+      if (token) {
+        window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
+      } else {
+        console.error(
+          "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
+        );
+      }
+
+      var response = this.$http
+        .post("/admin/profiles/manager/edit", {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          emulateJSON: true,
+          _method: "post",
+          _token: token.content,
+          manager_id: item.id,
+          real_name: item.real_name,
+          description: item.description,
+          available: item.available
+        })
+        .then((res) => res.json())
+        .then((res) => {
+          location.reload();
+        });
+    },
     getColor(available) {
       if (available == 1) return "green";
       else if (available == 0) return "red";
@@ -189,6 +222,7 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.managers[this.editedIndex], this.editedItem);
+        this.update_data(this.editedItem);
       } else {
         this.managers.push(this.editedItem);
       }

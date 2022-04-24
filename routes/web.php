@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\ContentCreatorController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\WizardController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\ManageContentController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
 
@@ -84,12 +86,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/admin/users/delete', [UserController::class, 'delete']);
 
     Route::get('/admin/profiles', [UserController::class, 'admin_profiles']);
+    Route::post('/admin/profiles/manager/edit', [ManagerController::class, 'edit']);
+    Route::post('/admin/profiles/creator/edit', [ContentCreatorController::class, 'edit']);
 
     Route::get('/admin/contracts', [ContractController::class, 'admin_contracts']);
-    # Pendiente añadir estas funciones
-    Route::get('/admin/contracts/edit', [ContractController::class, 'edit']);
-    Route::get('/admin/contracts/delete', [ContractController::class, 'delete']);
 
+    Route::get('/admin/comments',[CommentsController::class, 'admin_list']);
 
 });
 

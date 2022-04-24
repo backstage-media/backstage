@@ -10,13 +10,12 @@
             <template v-slot:default="{ active }">
               <v-list-item-content>
                 <v-list-item-title
-                  v-text="item.snippet.title"
+                >{{item.snippet.title}}<v-chip class="ma-2" color="purple text-white">{{item.snippet.type + ' event'}}</v-chip
                 ></v-list-item-title>
 
                 <v-list-item-subtitle
                   class="text--primary"
-                  ><v-chip color="purple text-white">{{item.snippet.type + ' event'}}</v-chip
-                ></v-list-item-subtitle>
+                  ></v-list-item-subtitle>
 
                 <v-list-item-subtitle
                   v-text="item.snippet.description"

@@ -46,6 +46,7 @@ var adminUsersCRUDTable = Vue.component('admin-users-crud-table', require('./com
 var adminManagersCRUDTable = Vue.component('admin-managers-crud-table', require('./components/admin/ManagersTableCRUDComponent.vue').default);
 var adminCreatorsCRUDTable = Vue.component('admin-creators-crud-table', require('./components/admin/CreatorsTableCRUDComponent.vue').default);
 var adminContractsCRUDTable = Vue.component('admin-contracts-crud-table', require('./components/admin/ContractsTableCRUDComponent.vue').default);
+var adminCommentsTable = Vue.component('admin-comments-table', require('./components/admin/CommentsTableComponent.vue').default);
 
 
 /**
@@ -94,6 +95,7 @@ const app = new Vue({
         'admin-managers-crud-table': adminManagersCRUDTable,
         'admin-creators-crud-table': adminCreatorsCRUDTable,
         'admin-contracts-crud-table': adminContractsCRUDTable,
+        'admin-comments-table': adminCommentsTable
       },
     icons: {
         iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'

@@ -13,8 +13,9 @@ class ContentCreatorController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct($profile)
+    public function __construct($profile = null)
     {
+        if (empty($profile)) { $profile = ''; }
         $this->creatorController = $profile;
     }
 
@@ -72,61 +73,33 @@ class ContentCreatorController extends Controller
      * @param  \App\Models\ContentCreator  $contentCreator
      * @return \Illuminate\Http\Response
      */
-    public function show(Creator $contentCreator)
-    {
-        //
-    }
-
-      /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ContentCreator  $contentCreator
-     * @return \Illuminate\Http\Response
-     */
     public function get($creator_id)
     {
         return Creator::find($creator_id);
     }
 
-    public function hasManager(){
-        
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ContentCreator  $contentCreator
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return \App\Models\ContentCreator->id
      */
-    public function edit(Creator $contentCreator)
+    // Edit user on the database based on POST values.
+    public function edit(Request $request)
     {
-        //
+        $user_id = $request->post('creator_id');
+        $new_name = $request->post('real_name');
+        $new_email = $request->post('description');
+        $user = Creator::find($user_id);
+        $user->real_name = $new_name;
+        $user->description = $new_email;
+        $user->save();
+
+        return $user->id;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ContentCreator  $contentCreator
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Creator $contentCreator)
+    public function toString()
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ContentCreator  $contentCreator
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Creator $contentCreator)
-    {
-        //
-    }
-
-    public function toString(){
         return $this->creatorController->google_access_token;
     }
 }
