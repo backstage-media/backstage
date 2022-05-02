@@ -75,7 +75,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/partner/submit', [PartnerController::class, 'submit']);
 
     Route::get('/notifications', [NotificationController::class, 'list_received']);
-    Route::get('/notifications/{id}', [NotificationController::class, 'goto']);
+    Route::get('/notifications/read/{id}', [NotificationController::class, 'mark_read']);
 
     Route::post('/youtube/update', [GoogleController::class, 'change_video_visibility']);
 

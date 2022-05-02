@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Providers\GoogleProvider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\ManageContentController;
 use App\Models\Media;
 
 class MediaController extends Controller
@@ -52,6 +53,11 @@ class MediaController extends Controller
             $comments = "";
             $scroll = false;
             $message= "";
+
+            if($request->get('creator')){
+                $manageContent = New ManageContentController;
+                $manageContent->set_permission($request);
+            }
 
             if ($request->session()->get('youtubeHandler')) {
                 $videoId = $request->id;

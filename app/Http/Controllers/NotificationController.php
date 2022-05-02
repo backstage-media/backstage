@@ -57,28 +57,13 @@ class NotificationController extends Controller
      *  
      */
 
-    public function goto(Request $request)
+    public function mark_read(Request $request)
     {
         $notification_id = $request->id;
-        $user_type = $request->session()->get('profile_type');
 
         $notification = Notification::find($notification_id);
         $notification->read = true;
         $notification->save();
         // Si el usuario es gestor de contenidos.
-
-        $userController = New UserController;
-        if ($user_type == 2) {
-            $creator = $userController->get_creator_from_user($notification->from_user);
-            $response = Http::get('http://localhost/manage/'. $creator->id);
-            // Notificacion del tipo comentario en video
-            if ($notification->type == 1) {
-                $parts = explode(":", $notification->target_id);
-                return redirect('http://localhost/media/'.$parts[0].'?comment='.$parts[1]);
-            }else if($notification->type == 2){
-
-            }
-        } else if ($user_type == 1) {
-        }
     }
 }

@@ -25,7 +25,7 @@ class ManageContentController extends Controller
         $creator_profile = $contract->get_contract_creator($creator_id);
         $final_redirect = view('dashboard');
 
-        if($contract->manager_is_allowed($profile->id,$creator_id)){
+        if ($contract->manager_is_allowed($profile->id, $creator_id)) {
             $creatorController = new ContentCreatorController($creator_profile['creator']);
             if ($creatorController->isGoogleConnected()) {
                 $request->session()->put('youtubeHandler', $creatorController);
@@ -39,18 +39,47 @@ class ManageContentController extends Controller
 
                 $request->session()->put('channel_name', $channelsInfo["items"][0]["snippet"]["title"]);
                 $request->session()->put('channel_thumbnail', $channelsInfo["items"][0]["snippet"]["thumbnails"]["default"]["url"]);
-                $request->session()->put('creator_profile',$creator_profile);
-                $request->session()->put('creator_user_profile',$creatorUserProfile);
+                $request->session()->put('creator_profile', $creator_profile);
+                $request->session()->put('creator_user_profile', $creatorUserProfile);
 
                 $final_redirect = view('dashboard');
             }
         }
 
         return $final_redirect;
-        
     }
 
-    public function exit(Request $request){
+    public function set_permission(Request $request)
+    {
+        //Primero confirmamos que el administrador de contenido tiene permisos sobre ese creador de contenido.
+        $creator_id = $request->get("creator");
+        $profile = $request->session()->get("profile");
+        $contract = new ContractController();
+        $creator_profile = $contract->get_contract_creator($creator_id);
+        $final_redirect = view('dashboard');
+
+        if ($contract->manager_is_allowed($profile->id, $creator_id)) {
+            $creatorController = new ContentCreatorController($creator_profile['creator']);
+            if ($creatorController->isGoogleConnected()) {
+                $request->session()->put('youtubeHandler', $creatorController);
+                //Inicializamos todo lo necesario para ver y administrar el contenido del creador.
+                $googleProvider = new GoogleProvider();
+                $youtubeController = new GoogleController($googleProvider);
+                $userController = new UserController;
+                $channelsInfo = $youtubeController->get_channels_info($request);
+                $creator = Creator::find($creator_id);
+                $creatorUserProfile = $userController->get_user_from_creator($creator);
+
+                $request->session()->put('channel_name', $channelsInfo["items"][0]["snippet"]["title"]);
+                $request->session()->put('channel_thumbnail', $channelsInfo["items"][0]["snippet"]["thumbnails"]["default"]["url"]);
+                $request->session()->put('creator_profile', $creator_profile);
+                $request->session()->put('creator_user_profile', $creatorUserProfile);
+            }
+        }
+    }
+
+    public function exit(Request $request)
+    {
         $request->session()->forget('youtubeHandler');
         $request->session()->forget('creator_profile');
         return redirect('/dashboard');
