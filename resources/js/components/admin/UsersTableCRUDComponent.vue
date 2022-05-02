@@ -7,13 +7,13 @@
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>Users Admin</v-toolbar-title>
+        <v-toolbar-title>Administracion de Usuarios</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-              New User
+              Nuevo Usuario
             </v-btn>
           </template>
           <v-card>
@@ -27,7 +27,7 @@
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field
                       v-model="editedItem.name"
-                      label="Name"
+                      label="Nombre"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="20" sm="12" md="8">
@@ -37,25 +37,43 @@
                     ></v-text-field>
                   </v-col>
                 </v-row>
+                <v-row>
+                  <v-col cols="auto">
+                    <v-text-field
+                      type="password"
+                      v-model="password"
+                      label="Contraseña"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="auto">
+                    <v-text-field
+                      type="password"
+                      v-model="confirm_password"
+                      label="Confirm Password"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
               </v-container>
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-              <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+              <v-btn color="blue darken-1" text @click="close">
+                Cancelar
+              </v-btn>
+              <v-btn color="blue darken-1" text @click="save"> Guardar </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5"
-              >Are you sure you want to delete this item?</v-card-title
+              >¿Estas seguro de eliminar el elemento?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeDelete"
-                >Cancel</v-btn
+                >Cancelar</v-btn
               >
               <v-btn color="blue darken-1" text @click="deleteItemConfirm"
                 >OK</v-btn
@@ -78,9 +96,12 @@
 export default {
   props: ["users"],
   data: () => ({
+    password: "",
+    confirm_password: "",
     token: "{{ csrf_token() }}",
     dialog: false,
     dialogDelete: false,
+    roles: ["Creador", "Gestor"],
     headers: [
       {
         text: "ID",
@@ -88,19 +109,24 @@ export default {
         sortable: true,
         value: "id",
       },
-      { text: "Name", value: "name" },
+      { text: "Nombre", value: "name" },
       { text: "Email", value: "email" },
-      { text: "Created At", value: "created_at" },
-      { text: "Updated At", value: "updated_at" },
-      { text: "Role Name", value: "role.user_type.type_name", sortable: false },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Creado En", value: "created_at" },
+      { text: "Actualizado En", value: "updated_at" },
+      { text: "Contraseña", value: "password"},
+      {
+        text: "Tipo de Rol",
+        value: "role.user_type.type_name",
+        sortable: false,
+      },
+      { text: "Acciones", value: "actions", sortable: false },
     ],
     users: [],
     editedIndex: -1,
     editedItem: {
       name: "",
-      calories: 0,
-      fat: 0,
+      password: "",
+      confirm_password: "",
       carbs: 0,
       protein: 0,
     },
@@ -115,7 +141,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "Crear Registro" : "Editar Registro";
     },
     console: () => console,
     window: () => window,
@@ -135,6 +161,38 @@ export default {
   },
 
   methods: {
+    create_data: function (item) {
+      let token = document.head.querySelector('meta[name="csrf-token"]');
+
+      if (token) {
+        window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
+      } else {
+        console.error(
+          "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
+        );
+      }
+
+      console.log("creating dataaa...");
+      console.log(item.name);
+      console.log(item.email);
+      console.log(this.password);
+
+      this.$http
+        .post("/admin/users/add", {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          _method: "post",
+          _token: token.content,
+          name: item.name,
+          email: item.email,
+          password: this.password
+        })
+        .then((res) => {
+          window.reload;
+        });
+    },
     update_data: function (item) {
       let token = document.head.querySelector('meta[name="csrf-token"]');
 
@@ -176,17 +234,16 @@ export default {
         );
       }
 
-      var response = this.$http
-        .post("/admin/users/delete", {
-          headers: {
-            "Content-Type": "application/json",
-            "X-Requested-With": "XMLHttpRequest",
-          },
-          emulateJSON: true,
-          _method: "post",
-          _token: token.content,
-          user_id: item.id
-        })
+      var response = this.$http.post("/admin/users/delete", {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        emulateJSON: true,
+        _method: "post",
+        _token: token.content,
+        user_id: item.id,
+      });
     },
 
     initialize() {
@@ -234,6 +291,7 @@ export default {
         this.update_data(this.editedItem);
       } else {
         this.users.push(this.editedItem);
+        this.create_data(this.editedItem);
       }
       this.close();
     },

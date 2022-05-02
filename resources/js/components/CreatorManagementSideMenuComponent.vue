@@ -28,7 +28,7 @@
                   alt="Avatar Channel"
                 />
               </v-avatar>
-              Managing {{ channel_name }}
+              Administrando {{ channel_name }}
             </v-chip>
           </v-list-item-subtitle>
         </v-list-item-content>
@@ -48,13 +48,13 @@
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-video</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Content</v-list-item-title>
+        <v-list-item-title>Contenido</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/manage/exit">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-exit-run</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Exit</v-list-item-title>
+        <v-list-item-title>Salir</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

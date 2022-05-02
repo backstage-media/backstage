@@ -12,7 +12,7 @@
 
         <v-list-item-content>
           <v-list-item-title>{{
-            message.user.name || "Guest User"
+            message.user.name || "Usuario Invitado"
           }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -27,7 +27,7 @@
       <v-btn
         v-if="message.youtube_second > 0"
         v-on:click="goto(message.youtube_second)"
-        >Go to Video Moment</v-btn
+        >Ir al minuto del video</v-btn
       >
       <v-spacer></v-spacer>
       <v-btn
@@ -43,7 +43,7 @@
 
       <template v-slot:action="{ attrs }">
         <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-          Close
+          Cerrar
         </v-btn>
       </template>
     </v-snackbar>

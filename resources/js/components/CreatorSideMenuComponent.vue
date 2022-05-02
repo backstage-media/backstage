@@ -24,17 +24,17 @@
           <v-list-item-subtitle>
             <v-chip color="pink" class="pa-1" label text-color="white">
               <v-icon class="mr-2">mdi-account-circle</v-icon>
-              Content Creator
+              Creador de contenido
             </v-chip>
           </v-list-item-subtitle>
           <v-list-item-subtitle v-if="youtube_name">
-            <v-icon>mdi-youtube</v-icon> Youtube Connected
+            <v-icon>mdi-youtube</v-icon> Youtube Conectado
           </v-list-item-subtitle>
           <v-list-item-subtitle v-if="!youtube_name">
-            Youtube Account not connected
+            No hay cuenta de Youtube conectada.
           </v-list-item-subtitle>
           <v-list-item-subtitle v-if="!youtube_name">
-            <v-icon link href="/login/google">mdi-youtube</v-icon> <a href="/login/google">click</a> to connect
+            <v-icon link href="/login/google">mdi-youtube</v-icon> <a href="/login/google">click</a> para conectarla
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -47,31 +47,31 @@
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-home-analytics</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Activity</v-list-item-title>
+        <v-list-item-title>Actividad</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/content">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-video</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>My Content</v-list-item-title>
+        <v-list-item-title>Mi Contenido</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/notifications">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-bell</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Notifications</v-list-item-title>
+        <v-list-item-title>Notificaciones</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/managers">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-account-supervisor</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Find Content Managers</v-list-item-title>
+        <v-list-item-title>Buscar Gestores</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/contract">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-file-sign</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>My Contract</v-list-item-title>
+        <v-list-item-title>Mi Contrato</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

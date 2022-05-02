@@ -12,7 +12,12 @@ use App\Models\Notification;
 
 class ContractController extends Controller
 {
-
+    /**
+     * Listar el contrato pasando el ID a traves de la peticion GET HTTP
+     *
+     * @return \Illuminate\Http\View
+     * @param \Illuminate\Http\Request
+     */
     public function view(Request $request)
     {
         if (isset($request->id)) {
@@ -21,6 +26,12 @@ class ContractController extends Controller
         }
     }
 
+     /**
+     * Obtener el contrato y manager asociado basandome en el Creador de contenido que lo esta solicitando.
+     *
+     * @return \Illuminate\Http\View
+     * @param \Illuminate\Http\Request
+     */
     public function get_manager(Request $request)
     {
         $main_contract = Array();
@@ -34,6 +45,12 @@ class ContractController extends Controller
         
         return view('contract')->with('contract', $contract);
     }
+    /**
+     * Crear un contrato y mandar notificacion al administrador de contenidos para que conozca el nuevo contenido que debe administrar.
+     *
+     * @return \Illuminate\Http\View
+     * @param \Illuminate\Http\Request
+     */
 
     public function add(Request $request)
     {
@@ -72,6 +89,12 @@ class ContractController extends Controller
 
         return view('dashboard');
     }
+       /**
+     * Listar todos los contratos disponibles en la plataforma
+     *
+     * @return \App\Models\Agreement
+     * 
+     */
 
     public function list()
     {
@@ -80,6 +103,13 @@ class ContractController extends Controller
         return $agreements;
     }
 
+     /**
+     * Obtener contrato basandose en el Administrador de contenido y comprobado que aun es vigente por su estado y fecha de fin de contrato.
+     *
+     * @return \Illuminate\Http\View
+     * @param \Illuminate\Http\Request
+     */
+
     public function list_from_manager(Request $request)
     {
         $profile = $request->session()->get("profile");
@@ -87,6 +117,13 @@ class ContractController extends Controller
         $contracts = Contract::with('creator')->where('manager_id', $profile->id)->where('status',true)->where('end_date', '>', $current_date)->get();
         return view('manager/creators')->with('contracts', $contracts);
     }
+     /**
+     * Funcion para saber si el contrato entre creador de contenido y manager es aun valido.
+     *
+     * @return \Illuminate\Http\View
+     * @param Integer $manager_id
+     * @param Integer $creator_id
+     */
 
     public function manager_is_allowed($manager_id, $creator_id)
     {
@@ -99,11 +136,27 @@ class ContractController extends Controller
         return $contract_valid;
     }
 
+    /**
+     * Obtener creador de contenido de un contrato.
+     *
+     * @return \App\Models\Creator
+     * @param Integer $creator_id
+     * 
+     */
+
     public function get_contract_creator($creator_id)
     {
         $creator = Contract::with('creator')->where('creator_id', $creator_id)->first();
         return $creator;
     }
+
+    /**
+     * Obtener administrador de contenido de un contrato.
+     *
+     * @return \App\Models\Creator
+     * @param Integer $creator_id
+     * 
+     */
 
     public function get_contract_manager($creator_id)
     {
@@ -111,6 +164,14 @@ class ContractController extends Controller
         $manager = $contract->manager;
         return $manager;
     }
+
+    /**
+     * Si eres administrador de la plataforma, esta funcion te llevara a la administracion de contratos.
+     *
+     * @return \Illuminate\Http\View
+     * @param \Illuminate\Http\Request
+     * 
+     */
 
     public function admin_contracts(Request $request)
     {
@@ -124,6 +185,14 @@ class ContractController extends Controller
         }
     }
 
+     /**
+     * Funcion que comprueba si como creador de contenido tienes algun contrato en la plataforma.
+     *
+     * @return boolean
+     * @param \\App\Models\Creator
+     * 
+     */
+
     public function creator_has_contract(Creator $creator)
     {
         $hasContract = false;
@@ -133,6 +202,14 @@ class ContractController extends Controller
         }
         return $hasContract;
     }
+
+    /**
+     * Usando la libreria DomPDF genero la Factura del contrato entre el creador de contenido y el administrador. 
+     *
+     * @return DomPDF->stream
+     * @param \Illuminate\Http\Request
+     * 
+     */
 
     public function download_invoice(Request $request)
     {
@@ -173,6 +250,14 @@ class ContractController extends Controller
             return $dompdf->stream('factura-contrato-'.$id.'.pdf');
         }
     }
+
+    /**
+     * Funcion creada para cancelar un contrato vigente.
+     *
+     * 
+     * @param \Illuminate\Http\Request
+     * 
+     */
 
     public function cancel_subscription(Request $request){
         if (isset($request->id)) {

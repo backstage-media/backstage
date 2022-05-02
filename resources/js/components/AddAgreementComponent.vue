@@ -5,10 +5,10 @@
       <v-list-item two-line>
         <v-list-item-content>
           <v-list-item-title class="text-h5">
-            Add new billing plan
+            Añadir nueva suscripcion
           </v-list-item-title>
           <v-list-item-subtitle
-            >Plans available for content creators.</v-list-item-subtitle
+            >Suscripciones disponibles para creadores de contenido:</v-list-item-subtitle
           >
         </v-list-item-content>
       </v-list-item>
@@ -16,7 +16,7 @@
         <v-list-item>
           <v-select
             :items="items"
-            label="Billing Period (Months)"
+            label="Periodo de suscripcion (Meses)"
             name="plan-months"
             id="plan-months"
             v-model="selected"
@@ -28,7 +28,7 @@
             v-model="plan_price"
             :max="price_max"
             :min="price_min"
-            label="Price per month"
+            label="Precio por mes"
             thumb-label="always"
             id="plan-price"
           >
@@ -51,7 +51,7 @@
           name="plan-discount"
           v-model="plan_discount"
           :rules="rules"
-          label="Discount?"
+          label="Descuento"
           step="10"
           thumb-label="Apply discount to your plan"
           ticks
@@ -71,7 +71,7 @@
         </v-slider>
         </v-list-item>      
         <v-list-item-action>
-      <v-btn type="submit" color="primary">Add Plan</v-btn>
+      <v-btn type="submit" color="primary">Crear suscripcion</v-btn>
         </v-list-item-action>
       </v-list>
     </v-form>

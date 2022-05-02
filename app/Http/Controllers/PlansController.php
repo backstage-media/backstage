@@ -9,7 +9,9 @@ use App\Models\Manager;
 
 class PlansController extends Controller
 {
-    //
+    /**
+     * Funcion para listar todos los Planes disponibles por un Administrador de contenidos-
+     */
     public function index(Request $request){
         $manager = $request->session()->get('profile');
         $agreementController = new AgreementController($manager);
@@ -18,6 +20,10 @@ class PlansController extends Controller
 
         return view('plans')->with('agreements',$agreements);
     }
+
+    /**
+     * Funcion para dar de alta un nuevo plan por parte del administrador de contenido.
+     */
 
     public function submit(Request $request)
     {

@@ -75,13 +75,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/partner/submit', [PartnerController::class, 'submit']);
 
     Route::get('/notifications', [NotificationController::class, 'list_received']);
+    Route::get('/notifications/{id}', [NotificationController::class, 'goto']);
 
     Route::post('/youtube/update', [GoogleController::class, 'change_video_visibility']);
 
     ## Admin Actions
 
     Route::get('/admin/users', [UserController::class, 'admin_users']);
-    Route::get('/admin/users/add', [UserController::class, 'add']); # Pendiente de añadir esta funcion
+    Route::post('/admin/users/add', [UserController::class, 'create']);
     Route::post('/admin/users/edit', [UserController::class, 'edit']);
     Route::post('/admin/users/delete', [UserController::class, 'delete']);
 

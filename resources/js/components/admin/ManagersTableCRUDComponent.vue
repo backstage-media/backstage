@@ -7,7 +7,7 @@
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>Content Managers Admin</v-toolbar-title>
+        <v-toolbar-title>Administracion de Gestores de contenido</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
@@ -45,20 +45,20 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-              <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+              <v-btn color="blue darken-1" text @click="close"> Cancelar </v-btn>
+              <v-btn color="blue darken-1" text @click="save"> Guardar </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5"
-              >Are you sure you want to delete this item?</v-card-title
+              >¿Estas seguro de eliminar el elemento?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeDelete"
-                >Cancel</v-btn
+                >Cancelar</v-btn
               >
               <v-btn color="blue darken-1" text @click="deleteItemConfirm"
                 >OK</v-btn
@@ -95,13 +95,13 @@ export default {
         sortable: true,
         value: "id",
       },
-      { text: "Name", value: "real_name" },
-      { text: "User Bio", value: "description" },
-      { text: "Created At", value: "created_at" },
-      { text: "Updated At", value: "updated_at" },
-      { text: "Likes", value: "likes", sortable: false },
-      { text: "Available", value: "available", sortable: false },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Nombre", value: "real_name" },
+      { text: "Biografia Usuario", value: "description" },
+      { text: "Creado en", value: "created_at" },
+      { text: "Actualizado en", value: "updated_at" },
+      { text: "Me Gusta", value: "likes", sortable: false },
+      { text: "Disponible", value: "available", sortable: false },
+      { text: "Acciones", value: "actions", sortable: false },
     ],
     managers: [],
     editedIndex: -1,

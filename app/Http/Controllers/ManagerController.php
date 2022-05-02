@@ -8,8 +8,8 @@ use App\Models\Manager;
 class ManagerController extends Controller
 {
     //
-        /**
-     * Show the form for editing the specified resource.
+    /**
+     * Funcion para editar la informacion de un Administrador de contenido. Esta llamada se utiliza desde la pagina de Administracion Total de la plataforma.
      *
      * @param  Request  $request
      * @return \App\Models\ContentCreator->id

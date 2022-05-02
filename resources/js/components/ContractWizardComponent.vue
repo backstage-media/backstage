@@ -2,14 +2,14 @@
   <v-stepper v-model="e1">
     <v-stepper-header>
       <v-stepper-step :complete="e1 > 1" step="1">
-        Confirm Manager
+        Confirmar Manager
       </v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step :complete="e1 > 2" step="2">
-        Plan details
+        Detalles de la suscripcion
       </v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="3"> Name of step 3 </v-stepper-step>
+      <v-stepper-step step="3"> Finalizar contrato </v-stepper-step>
     </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
@@ -21,10 +21,6 @@
               indeterminate
             ></v-progress-linear>
           </template>
-          <v-img
-            height="250"
-            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-          ></v-img>
           <v-card-title>{{ agreement[0].manager.real_name }}</v-card-title>
           <v-card-text>
             <v-row align="center">
@@ -34,25 +30,25 @@
               </div>
             </v-row>
             <div class="my-4 text-subtitle-1">
-              Member since {{ agreement[0].manager.created_at }}
+              Miembro en Backstage desde {{ agreement[0].manager.created_at }}
             </div>
             <div>
               {{ agreement[0].manager.description }}
             </div>
           </v-card-text>
         </v-card>
-        <v-btn color="primary" @click="e1 = 2"> Continue </v-btn>
-        <v-btn text> Cancel </v-btn>
+        <v-btn color="primary" @click="e1 = 2"> Continuar </v-btn>
+        <v-btn @click="cancel" text> Cancel </v-btn>
       </v-stepper-content>
       <v-stepper-content step="2">
         <v-card class="mx-auto my-12" max-width="374">
-          <v-card-title>{{ agreement[0].months }} Months plan</v-card-title>
-          <v-card-text> suscription start: {{ current_date() }} </v-card-text>
+          <v-card-title>Plan de {{ agreement[0].months }} meses</v-card-title>
+          <v-card-text> Comienzo suscripcion: {{ current_date() }} </v-card-text>
           <v-card-text>
-            suscription end: {{ suscription_end(agreement[0].months) }}
+            Fecha de fin suscripcion: {{ suscription_end(agreement[0].months) }}
           </v-card-text>
           <v-card-title
-            >Total cost
+            >Coste Total
             {{
               total_with_discount(
                 agreement[0].months,
@@ -63,15 +59,34 @@
             $</v-card-title
           >
         </v-card>
-        <v-btn color="primary" @click="e1 = 3"> Continue </v-btn>
-        <v-btn text> Cancel </v-btn>
+        <v-btn color="primary" @click="e1 = 3"> Continuar </v-btn>
+        <v-btn @click="cancel" text> Cancelar </v-btn>
       </v-stepper-content>
       <v-stepper-content step="3">
-        <v-card class="mb-12" color="grey lighten-1" height="200px"></v-card>
-        <v-btn color="primary" @click="e1 = 1" v-on:click="submit()">
-          Accept Contract
-        </v-btn>
-        <v-btn text> Cancel </v-btn>
+        <v-list>
+          <v-list-item-title class="text-h4"
+            >Cosas que considerar antes de formalizar el contrato:</v-list-item-title
+          >
+          <v-list-item>
+            <mark>{{ agreement[0].manager.real_name }}</mark> tendra acceso a todo tu canal de youtube, ver tus videos, comentar sobre ellos (dentro de backstage) y cambiar la visibilidad del contenido.
+          </v-list-item>
+          <v-list-item>
+            <mark>{{ agreement[0].manager.real_name }} </mark> Puede estar trabajando con otros creadores de contenido, por favor entienda el tiempo que le puede llevar trabajar sobre tu canal.
+          </v-list-item>
+          <v-list-item>
+            <mark>{{ suscription_end(agreement[0].months) }}</mark> es la fecha de fin de contrato.
+          </v-list-item>
+          <v-list-item-group>
+            <v-list-item-action>
+              <v-btn color="primary" @click="e1 = 1" v-on:click="submit()">
+                Aceptar Contrato
+              </v-btn>
+            </v-list-item-action>
+            <v-list-item-action>
+              <v-btn @click="cancel" text> Cancelar </v-btn>
+            </v-list-item-action>
+          </v-list-item-group>
+        </v-list>
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>
@@ -93,6 +108,9 @@ export default {
     console.log(this);
   },
   methods: {
+    cancel: function () {
+      window.location = "/dashboard";
+    },
     total_with_discount: function (months, price, discount) {
       var final_discount = 0;
       var total_price = 0;
@@ -156,15 +174,37 @@ export default {
         emulateJSON: true,
         _method: "post",
         _token: token.content,
-        start_date: year + "-" + month+ "-" + day + " " + hours + ":" + minutes + ":" + seconds,
-        end_date: year + "-" + (month + this.agreement[0].months)+ "-" + day + " " + hours + ":" + minutes + ":" + seconds,
+        start_date:
+          year +
+          "-" +
+          month +
+          "-" +
+          day +
+          " " +
+          hours +
+          ":" +
+          minutes +
+          ":" +
+          seconds,
+        end_date:
+          year +
+          "-" +
+          (month + this.agreement[0].months) +
+          "-" +
+          day +
+          " " +
+          hours +
+          ":" +
+          minutes +
+          ":" +
+          seconds,
         agreement: this.agreement[0],
         manager: this.agreement[0].manager,
         test: 1,
         status: true,
         automatic_renewal: true,
       });
-       window.location = "/contract";
+      window.location = "/contract";
     },
   },
 };

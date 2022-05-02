@@ -10,7 +10,7 @@ class ActivityController extends Controller
 {
 
     /**
-     * Create a new controller instance.
+     * Constructor de ActivityController
      *
      * @return void
      */
@@ -21,7 +21,8 @@ class ActivityController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Devuelve la vista con la actividad principal del canal de youtube, en caso de no tener una cuenta de
+     * Youtube Iniciada no devolveria ningun contenido.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */

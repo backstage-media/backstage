@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ContentCreatorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Constructor del controlador del creador de contenido
      *
      * @return \Illuminate\Http\Response
      */
@@ -19,16 +19,11 @@ class ContentCreatorController extends Controller
         $this->creatorController = $profile;
     }
 
-
-    public function index()
-    {
-        //
-    }
-
     /**
-     * Show the form for creating a new resource.
+     * Crear un nuevo Creador de contenido con esta funcion en la base de datos.
      *
      * @return \Illuminate\Http\Response
+     * @param \App\Models\Creator
      */
     public function create(Creator $creator)
     {
@@ -36,7 +31,7 @@ class ContentCreatorController extends Controller
     }
 
     /**
-     * Store Google credetials for a Content Creator.
+     * Funcion para saber si un creador de contenido tiene conectada su cuenta de Youtube.
      *
      */
 
@@ -50,6 +45,11 @@ class ContentCreatorController extends Controller
         return $isConnected;
     }
 
+    /**
+     * Funcion para guardar las credenciales de Google en la base de datos.
+     *
+     */
+
     public function storeGoogleCredentials($access_key, $refresh_token)
     {
         $this->creatorController->google_access_token = $access_key;
@@ -57,10 +57,20 @@ class ContentCreatorController extends Controller
         $this->creatorController->save();
     }
 
+     /**
+     * Funcion para obtener el AccessToken de Google sobre un creador de contenido.
+     *
+     */
+
     public function getGoogleAccessToken()
     {
         return $this->creatorController->google_access_token;
     }
+
+      /**
+     * Funcion para obtener el RefreshToken (Necesario para actualizar los Token de la API) de Google sobre un creador de contenido.
+     *
+     */
 
     public function getGoogleRefreshToken()
     {
@@ -68,10 +78,10 @@ class ContentCreatorController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Buscar en la base de datos un creador de contenido basandose en el ID.
      *
-     * @param  \App\Models\ContentCreator  $contentCreator
-     * @return \Illuminate\Http\Response
+     * @param  Integer  $creator:id
+     * @return \App\Models\Creator
      */
     public function get($creator_id)
     {
@@ -79,12 +89,12 @@ class ContentCreatorController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Editar los valores de un Creador de contenido en la base de datos.
      *
      * @param  Request  $request
      * @return \App\Models\ContentCreator->id
      */
-    // Edit user on the database based on POST values.
+    // Edito los valores recogiendo una peticion POST.
     public function edit(Request $request)
     {
         $user_id = $request->post('creator_id');

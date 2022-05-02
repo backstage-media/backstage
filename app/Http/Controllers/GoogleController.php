@@ -8,6 +8,13 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
 use App\Models\Notification;
 
+
+/*
+* La funcion de esta clase es tener todas las llamadas que necesita la plataforma de BackStage a Youtube en una unica clase. 
+* Desde aqui puedo obtener estadisticas basicas de Youtube, informacion concreta de un video especifico, sacar la actividad del canal, etc.
+* Mas informacion disponible desde la documentacion oficial de Youtube - https://developers.google.com/youtube/analytics/sample-requests#Channel_Reports
+*/
+
 class GoogleController extends Controller
 {
     public function __construct(GoogleProvider $google)

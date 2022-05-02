@@ -11,10 +11,14 @@ use App\Http\Controllers\UserController;
 
 class ManageContentController extends Controller
 {
+    /*
+    * Esta Clase tiene la principal funcion de permitir al Administrador de contenido, gestionar el contenido del creador que ha establecido con el.
+    * Sera Capaz de cambiar la visibilidad de los videos, ver todo el contenido y ademas añadir comentario sobre el.
+    */
 
     public function manage(Request $request)
     {
-        //First we need to confirm manager permission over content creator.
+        //Primero confirmamos que el administrador de contenido tiene permisos sobre ese creador de contenido.
         $creator_id = $request->creator_id;
         $profile = $request->session()->get("profile");
         $contract = new ContractController();
@@ -25,7 +29,7 @@ class ManageContentController extends Controller
             $creatorController = new ContentCreatorController($creator_profile['creator']);
             if ($creatorController->isGoogleConnected()) {
                 $request->session()->put('youtubeHandler', $creatorController);
-                //Get some context from our creator channel.
+                //Inicializamos todo lo necesario para ver y administrar el contenido del creador.
                 $googleProvider = new GoogleProvider();
                 $youtubeController = new GoogleController($googleProvider);
                 $userController = new UserController;
@@ -44,11 +48,6 @@ class ManageContentController extends Controller
 
         return $final_redirect;
         
-    }
-
-    public function update(Request $request, Media $media)
-    {
-
     }
 
     public function exit(Request $request){

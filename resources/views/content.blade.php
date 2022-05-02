@@ -6,7 +6,7 @@
       @if(session()->get('youtube_name'))
       {{ session()->get('youtube_name') }} channel
       @else
-      Connect your Youtube Account to see content.
+      Conecta tu cuenta de Youtube para ver contenido
       @endif
     </div>
     <v-layout row wrap>

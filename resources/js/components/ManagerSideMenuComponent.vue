@@ -23,7 +23,7 @@
           <v-list-item-subtitle>
             <v-chip color="pink" class="pa-1" label text-color="white">
               <v-icon class="mr-2">mdi-account-supervisor</v-icon>
-              Content Manager
+              Gestor de contenido
             </v-chip>
           </v-list-item-subtitle>
         </v-list-item-content>
@@ -36,19 +36,19 @@
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-account-group</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Your Content Creators</v-list-item-title>
+        <v-list-item-title>Tus Creadores</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/plans">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-currency-usd</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Plans</v-list-item-title>
+        <v-list-item-title>Planes</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/notifications">
         <v-list-item-icon>
           <v-icon class="mr-4" >mdi-bell</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Notifications</v-list-item-title>
+        <v-list-item-title>Notificaciones</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

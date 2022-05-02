@@ -19,8 +19,8 @@ class ContentController extends Controller
     }
 
     /**
-     * Show user content.
-     *
+     * Funcion para mostrar todo el contenido multimedia de un canal de youtube, aqui se consulta mediante la API de Youtube el contenido
+     * y se presenta en la web.
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request)

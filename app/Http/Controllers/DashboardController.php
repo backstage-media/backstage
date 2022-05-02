@@ -21,7 +21,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Funcion creada para mostrar toda la actividad principal de un usuario cuando tiene la cuenta de Youtube Conectada.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */

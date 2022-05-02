@@ -47,21 +47,21 @@
               v-on="on"
               v-on:click="update_video(video_data.items[0].id, 'unlisted')"
             >
-              Change to Hidden
+              Cambiar a oculto
             </v-btn>
           </v-badge>
         </template>
         <template v-slot:default="dialog">
           <v-card>
-            <v-toolbar color="primary" dark>Video Privacy Changed</v-toolbar>
+            <v-toolbar color="primary" dark>La privacidad del video ha cambiado</v-toolbar>
             <v-card-text>
               <div class="text-h4 pa-12">
-                Video Privacy changed to Hidden for
-                <a :href="'/media/' + video_data.items[0].id">this</a> video
+                La privacidad del video ha cambiado a <mark>oculto</mark> en
+                <a :href="'/media/' + video_data.items[0].id">este</a> video
               </div>
             </v-card-text>
             <v-card-actions class="justify-end">
-              <v-btn text @click="dialog.value = false">Close</v-btn>
+              <v-btn text @click="dialog.value = false">Cerrar</v-btn>
             </v-card-actions>
           </v-card>
         </template>
@@ -89,15 +89,15 @@
         </template>
         <template v-slot:default="dialog">
           <v-card>
-            <v-toolbar color="primary" dark>Video Privacy Changed</v-toolbar>
+            <v-toolbar color="primary" dark>La privacidad del video ha cambiado</v-toolbar>
             <v-card-text>
               <div class="text-h4 pa-12">
-                Video Privacy changed to Published for
-                <a :href="'/media/' + video_data.items[0].id">this</a> video
+                La privacidad del video ha cambiado a <mark>publico</mark> en
+                <a :href="'/media/' + video_data.items[0].id">este</a> video
               </div>
             </v-card-text>
             <v-card-actions class="justify-end">
-              <v-btn text @click="dialog.value = false">Close</v-btn>
+              <v-btn text @click="dialog.value = false">Cerrar</v-btn>
             </v-card-actions>
           </v-card>
         </template>

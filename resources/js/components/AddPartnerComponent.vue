@@ -13,7 +13,7 @@
             v-model="lastname"
             :rules="nameRules"
             :counter="10"
-            label="Last name"
+            label="Nombre Completo"
             id="partner-name"
             name="partner-name"
             required
@@ -34,14 +34,14 @@
         <v-col cols="12" md="4">
           <v-file-input
             show-size
-            label="File input"
+            label="Contrato Partner"
             id="partner-file"
             name="partner-file"
             accept="application/pdf"
             @change="file_to_blob"
           ></v-file-input>
         </v-col>
-        <v-btn type="submit">Create partner</v-btn>
+        <v-btn type="submit">Crear Partner</v-btn>
       </v-row>
     </v-container>
   </v-form>

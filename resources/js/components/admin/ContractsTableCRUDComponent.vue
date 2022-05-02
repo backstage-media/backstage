@@ -7,7 +7,7 @@
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>Contracts Admin</v-toolbar-title>
+        <v-toolbar-title>Administracion de Contratos</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
@@ -46,7 +46,7 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5"
-              >Are you sure you want to delete this item?</v-card-title
+              >¿Estas seguro de eliminar el elemento?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -98,16 +98,16 @@ export default {
         sortable: true,
         value: "id",
       },
-      { text: "Created At", value: "created_at" },
+      { text: "Creado en", value: "created_at" },
       { text: "Manager", value: "manager.real_name" },
-      { text: "Creator", value: "creator.real_name" },
-      { text: "Agreement Duration (Months)", value: "agreement.months" },
-      { text: "Agreement Price (€)", value: "agreement.price_per_month" },
-      { text: "Contract Start Date", value: "start_date" },
-      { text: "Contract End Date", value: "end_date" },
-      { text: "Automatic Renewal", value: "automatic_renewal" },
-      { text: "Contract Status", value: "status" },
-      { text: "Actions", value: "contract_actions", sortable: false },
+      { text: "Creador", value: "creator.real_name" },
+      { text: "Duracion del acuerdo (meses)", value: "agreement.months" },
+      { text: "Precio del Acuerdo (€)", value: "agreement.price_per_month" },
+      { text: "Fecha inicio del contrato", value: "start_date" },
+      { text: "Fecha final del contrato", value: "end_date" },
+      { text: "Renovacion automatica", value: "automatic_renewal" },
+      { text: "Estado del contrato", value: "status" },
+      { text: "Acciones", value: "contract_actions", sortable: false },
     ],
     contracts: [],
     editedIndex: -1,

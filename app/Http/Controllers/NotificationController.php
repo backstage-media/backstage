@@ -5,51 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Http;
 
 class NotificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Enviar notificacion al usuario.
      *
      * @param  \App\Models\Notification  $notification
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function send(Notification $notification)
     {
         $notification->from()->save();
         $notification->to()->save();
     }
+
+    /**
+     * Listar todas las notificaciones recibidas que esten en estado "No leido"
+     *  @param  \Illuminate\Http\Request
+     *  @return \Illuminate\Http\View
+     */
 
     public function list_received(Request $request)
     {
@@ -71,40 +48,37 @@ class NotificationController extends Controller
 
         //print("<pre>" . print_r($notifications, true) . "</pre>");
 
-        return view('notifications')->with('notifications',$notifications);
+        return view('notifications')->with('notifications', $notifications);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Notification  $notification
-     * @return \Illuminate\Http\Response
+     * Llevar al usuario a la notificacion en concreto y marcarla como vista.
+     *  @param  \Illuminate\Http\Request
+     *  
      */
-    public function edit(Notification $notification)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Notification  $notification
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Notification $notification)
+    public function goto(Request $request)
     {
-        //
-    }
+        $notification_id = $request->id;
+        $user_type = $request->session()->get('profile_type');
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Notification  $notification
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Notification $notification)
-    {
-        //
+        $notification = Notification::find($notification_id);
+        $notification->read = true;
+        $notification->save();
+        // Si el usuario es gestor de contenidos.
+
+        $userController = New UserController;
+        if ($user_type == 2) {
+            $creator = $userController->get_creator_from_user($notification->from_user);
+            $response = Http::get('http://localhost/manage/'. $creator->id);
+            // Notificacion del tipo comentario en video
+            if ($notification->type == 1) {
+                $parts = explode(":", $notification->target_id);
+                return redirect('http://localhost/media/'.$parts[0].'?comment='.$parts[1]);
+            }else if($notification->type == 2){
+
+            }
+        } else if ($user_type == 1) {
+        }
     }
 }

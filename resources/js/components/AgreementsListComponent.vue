@@ -4,16 +4,16 @@
       <thead>
         <tr>
           <th class="text-left">
-            Price
+            Precio
           </th>
           <th class="text-left">
-            Months
+            Meses
           </th>
           <th class="text-left">
-            Discount
+            Descuento
           </th>
           <th class="text-left">
-            Total Cost
+            Coste Total
           </th>
         </tr>
       </thead>

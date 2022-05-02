@@ -10,10 +10,16 @@ use App\Http\Controllers\NotificationController;
 
 class CommentsController extends Controller
 {
-    //
-    public function index(Request $request)
-    {
-    }
+
+    /*
+    * Clase CommentsController es el encargado principal de gestionar todo lo relativo a comentarios en la plataforma.
+    */
+    
+    /*
+    * Crea una nueva instancia de Comment en la base de datos y ademas manda una notificacion.
+    * @param  \Illuminate\Http\Request  $request
+    */
+
 
     public function add(Request $request)
     {
@@ -71,6 +77,11 @@ class CommentsController extends Controller
         }
         return $comment->id;
     }
+
+    /*
+    * Lista todos los comentarios asociados a un video concreto del Canal, esto hace referencia a comentarios internos de backstage.
+    * @param  Integer  $video_id
+    */
 
     public function list_by_id($video_id)
     {

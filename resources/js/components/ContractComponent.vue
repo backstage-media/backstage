@@ -16,14 +16,14 @@
             </v-list-item>
             <v-card-actions>
               <v-btn depressed v-on:click="download_contract(contract.id)"
-                >Download Invoce</v-btn
+                >Descargar Factura</v-btn
               >
               <v-btn
                 depressed
                 color="error"
                 v-if="contract.status"
                 v-on:click="cancel_contract(contract.id)"
-                >Cancel Subscription
+                >Cancelar Suscripcion
               </v-btn>
               <v-chip
                 v-if="contract.status == false"
@@ -31,7 +31,7 @@
                 color="red"
                 text-color="white"
               >
-                Subscription cancelled
+                Suscripcion Cancelada
               </v-chip>
             </v-card-actions>
           </v-card>
@@ -70,8 +70,8 @@
             <v-list-item-content>
               <v-list-item-title>{{
                 contract.automatic_renewal
-                  ? "Auto-Renewal Enabled"
-                  : "Auto-Renewal Disabled"
+                  ? "Renovacion Automatica Habilitada"
+                  : "Renovacion Automatica Deshabilitada"
               }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>

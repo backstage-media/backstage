@@ -10,7 +10,7 @@
           <v-list-item-subtitle>
             <v-chip color="pink" class="pa-1" label text-color="white">
               <v-icon class="mr-2">mdi-hammer-screwdriver</v-icon>
-              Administrator
+              Administrador
             </v-chip>
           </v-list-item-subtitle>
         </v-list-item-content>
@@ -22,25 +22,25 @@
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-account-group</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Users</v-list-item-title>
+        <v-list-item-title>Usuarios</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/admin/profiles">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-script-text</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Profiles</v-list-item-title>
+        <v-list-item-title>Perfiles</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/admin/contracts">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-currency-usd</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Contracts</v-list-item-title>
+        <v-list-item-title>Contratos</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/admin/comments">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-comment</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Comments</v-list-item-title>
+        <v-list-item-title>Comentarios</v-list-item-title>
       </v-list-item>
       <v-list-item link href="/partners">
         <v-list-item-icon>

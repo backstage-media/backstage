@@ -2,11 +2,11 @@
   <v-container fluid>
     <v-row v-for="entry in stats.rows" :key="entry.value">
       <v-col v-for="(field, index) in entry" :key="index">
-        <v-sheet color="#673ab7" elevation="2" rounded>
-          <div class="stat-title-text">
+        <v-sheet color="#673ab7" elevation="2" rounded >
+          <div class="stat-title-text pa-2">
             {{ stats.columnHeaders[index].name }}
+             <div class="stat-text">{{ field }}</div>
           </div>
-          <div class="stat-text">{{ field }}</div>
         </v-sheet>
       </v-col>
     </v-row>

@@ -40,8 +40,8 @@
     <v-app>
       <!-- End Side menu -->
       <!-- Header bar -->
-      <v-app-bar app hide-on-scroll color="#673AB7">
-        <h1 class="text-white">Backstage</h1>
+      <v-app-bar app hide-on-scroll color="#673AB7" >
+        <v-toolbar-title class="white--text text-center mx-auto">Backstage (Codename - Version 1.0.0)</v-toolbar-title>
       </v-app-bar>
       <!-- End header bar -->
       <!-- Sizes your content based upon application components -->

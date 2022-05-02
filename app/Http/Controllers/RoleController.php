@@ -7,7 +7,10 @@ use App\Models\User;
 
 class RoleController extends Controller
 {
-    //Let's stablish the user type for the entire session under a global Controller.
+    /**
+     * En esta Clase Inicializamos al usuario guardando en la sesion que tipo de perfil tiene (Creador de contenido, Administrador de contenido, Administrador de la plataforma)
+     * Esta informacion es necesaria para que el flujo de la aplicacion sea el correcto.
+     */
     public function initialize(Request $request)
     {
         $id = $request->user()->id;

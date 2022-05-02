@@ -1,22 +1,17 @@
 <template>
   <v-card elevation="1">
+    <v-card class="mx-auto pa-2" max-width="350px">
+      <v-card-title>Establecer Momento del video (en Segundos)</v-card-title>
+      <v-text-field v-model="second" hide-details single-line type="number" />
+    </v-card>
     <v-textarea
       name="input-comment"
       label="Comment"
       v-model="text"
     ></v-textarea>
-    <v-card class="mx-auto pa-4" max-width="350px">
-      <v-card-title>Set Video minute (seconds)</v-card-title>
-    <v-text-field
-      v-model="second"
-      hide-details
-      single-line
-      type="number"
-    />
-    </v-card>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn v-on:click="submit()">Add Comment</v-btn>
+      <v-btn v-on:click="submit()">Agregar Comentario</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -66,7 +61,7 @@ export default {
           text: this.text,
           video_id: this.video_id,
           video_title: this.video_metadata.items[0].snippet.title,
-          second: this.second
+          second: this.second,
         })
         .then((res) => res.json())
         .then((res) => {

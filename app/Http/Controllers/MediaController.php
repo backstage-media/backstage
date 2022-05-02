@@ -9,6 +9,9 @@ use App\Models\Media;
 
 class MediaController extends Controller
 {
+    /*
+    * Clase Creada para gestionar los Videos asociados a una cuenta de Youtube de un Creador de contenido.
+    */
 
     public function __construct()
     {
@@ -31,6 +34,14 @@ class MediaController extends Controller
     {
 
     }
+
+    /**
+     * Obtener todos los detalles asociados a un Video de Youtube y mostrarlo en la vista.
+     *
+     * @return \Illuminate\Http\View
+     * @param \Illuminate\Http\Request
+     * 
+     */
 
     public function view(Request $request)
     {

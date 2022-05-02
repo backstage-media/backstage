@@ -3,11 +3,11 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left">Partner Name</th>
-          <th class="text-left">Partner Email</th>
-          <th class="text-left">Description</th>
-          <th class="text-left">Joined on</th>
-          <th class="text-left">Condition/Agreement file</th>
+          <th class="text-left">Nombre del partner</th>
+          <th class="text-left">Email del partner</th>
+          <th class="text-left">Descripcion</th>
+          <th class="text-left">Se unio en</th>
+          <!-- <th class="text-left">Contrato adjunto</th> -->
         </tr>
       </thead>
       <tbody>
@@ -16,9 +16,9 @@
           <td>{{ item.contact }}</td>
           <td>{{ item.description }}</td>
           <td>{{ item.created_at }}</td>
-          <td>
-            <v-btn v-on:click="download_file(item.id)">Download Contract</v-btn>
-          </td>
+          <!--<td>
+            <v-btn v-on:click="download_file(item.id)">Descargar Contrato</v-btn>
+          </td>-->
         </tr>
       </tbody>
     </template>

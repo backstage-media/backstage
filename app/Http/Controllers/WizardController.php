@@ -10,6 +10,13 @@ use App\Models\Role;
 
 class WizardController extends Controller
 {
+    /**
+     * Clase encargada de añadir un tipo de perfil al usuario cuando se registra en la plataforma, a modo de recordatorio existen dos perfiles principales:
+     * - Creador de contenido
+     * - Administrador de contenido
+     * Cuando el usuario se registra se le lleva directamente a un Wizard donde seleccionara que perfil quiere y que añada algo de informacion extra.
+     */
+
     public function index(Request $request)
     {
         $view = "wizard";

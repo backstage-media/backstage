@@ -9,6 +9,10 @@ use App\Http\Controllers\ContractController;
 
 class FindContentManagerController extends Controller
 {
+    /*
+    * Funcion principal para listar Administradores de Contenido en la plataforma con sus respectivos planes de precio.
+    */
+    
     public function index(Request $request)
     {
         $users = array();

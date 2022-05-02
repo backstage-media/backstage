@@ -7,6 +7,15 @@ use App\Models\Partner;
 
 class PartnerController extends Controller
 {
+    /**
+     * Clase Creada para una implementacion futura, ya que esta funcionalidad no ha podido ser añadida por completa por falta de tiempo.
+     * Son todas las acciones necesarias para trabajar con Partners en la plataforma, de manera que un administrador de contenido podria tener 
+     * una oferta mas interesante si alguna empresa importante, por ejemplo: Asus. Trabajase con ellos.
+     */
+
+     /*
+     * Funcion para dar de alta un nuevo Partner
+     */
     public function submit(Request $request)
     {
         $partner_name = $request->post('partner-name');
@@ -26,7 +35,9 @@ class PartnerController extends Controller
 
         return view('partners');
     }
-
+    /*
+     * Listar todos los Partners de la plataforma
+     */
     public function index()
     {
         //Add query to retrieve all the partners
@@ -35,7 +46,7 @@ class PartnerController extends Controller
         return view('partners')->with('partners', $partners);
     }
 
-    // On click for each partner, generate the PDF document, content already working on blob 
+    // Obtener documentacion asociado al partner, esta funcionalidad no esta todavia completa por ser esto una caracteristica que tiene trabajo pendiente.
 
     public function get_document($file_id)
     {
