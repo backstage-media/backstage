@@ -23,12 +23,12 @@ class FindContentManagerController extends Controller
 
         if ($profile_type == 1) {
 
-            $contract = $contractController->creator_has_contract($profile);
+            $contract_count = $contractController->creator_has_contract($profile);
             /**  En caso de no tener contrato vigente, mostramos los content creators disponibles
             * Si ya tiene contrato con alguno, no tiene sentido que su contenido sea gestionado por varios
             * manager simultaneamente
             */
-            if (!$contract) {
+            if ($contract_count == 0) {
 
                 $roles = Role::with('user', 'manager')->where('user_type_id', 2)->get();
 

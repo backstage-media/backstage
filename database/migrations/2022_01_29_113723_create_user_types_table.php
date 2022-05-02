@@ -22,8 +22,14 @@ class CreateUserTypesTable extends Migration
 
         // Insert some production data
         DB::table('user_types')->insert(
-            ['type_name' => 'Creator'],
-            ['type_name' => 'Manager'],
+            ['type_name' => 'Creator']
+        );
+
+        DB::table('user_types')->insert(
+            ['type_name' => 'Manager']
+        );
+        
+        DB::table('user_types')->insert(
             ['type_name' => 'Admin']
         );
     }

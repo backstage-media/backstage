@@ -195,12 +195,9 @@ class ContractController extends Controller
 
     public function creator_has_contract(Creator $creator)
     {
-        $hasContract = false;
         $contract = Contract::where('creator_id', $creator->id)->where('status',true)->count();
-        if ($contract > 0) {
-            $hasContract = true;
-        }
-        return $hasContract;
+
+        return $contract;
     }
 
     /**
