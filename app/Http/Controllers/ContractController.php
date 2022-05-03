@@ -83,7 +83,7 @@ class ContractController extends Controller
         $notification->from_user = $user->id;
         $notification->to_user = $manager_user->id;
         $notification->notification_type = 4;
-        $notification->message = $user->name . ' Started a new contract with you until ' . $request->end_date;
+        $notification->message = $user->name . ' Ha comenzado un nuevo contrato hasta ' . $request->end_date;
         $notification->target_id = $contract->id;
         $notification->save();
 
@@ -196,6 +196,21 @@ class ContractController extends Controller
     public function creator_has_contract(Creator $creator)
     {
         $contract = Contract::where('creator_id', $creator->id)->where('status',true)->count();
+
+        return $contract;
+    }
+
+    /**
+     * Funcion que comprueba si como gestor de contenido tienes algun contrato en la plataforma.
+     *
+     * @return boolean
+     * @param \\App\Models\Creator
+     * 
+     */
+
+    public function manager_has_contract(Manager $manager)
+    {
+        $contract = Contract::where('manager-id', $manager->id)->where('status',true)->count();
 
         return $contract;
     }

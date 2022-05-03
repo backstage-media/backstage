@@ -10,7 +10,7 @@
           >
             <v-avatar color="primary" size="123" class="ma-2">
               <v-img
-                src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+                :src="'https://ui-avatars.com/api/?name='+user_data.creator.real_name"
               ></v-img>
             </v-avatar>
             <v-card-title>{{ user_data.creator.real_name }}</v-card-title>

@@ -8,7 +8,7 @@
           >
             <v-avatar color="primary" size="123" class="ma-2">
               <v-img
-                src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+                :src="'https://ui-avatars.com/api/?name='+manager_data.user.name"
               ></v-img>
             </v-avatar>
             <v-card-title>{{ manager_data.user.name }}</v-card-title>

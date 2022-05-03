@@ -227,7 +227,7 @@ class GoogleController extends Controller
                     $notification->from_user = $user->id;
                     $notification->to_user = $manager_user->id;
                     $notification->notification_type = 2;
-                    $notification->message = 'Your video "' . $videoDetails->title . '" changed visibility to ' . $visibility;
+                    $notification->message = 'Tu video "' . $videoDetails->title . '" ha cambiado su visibilidad a ' . $visibility;
                     $notification->target_id = $id;
                     $notification->save();
 
@@ -239,7 +239,7 @@ class GoogleController extends Controller
                     $notification->from_user = $user->id;
                     $notification->to_user = $creator_user->id;
                     $notification->notification_type = 2;
-                    $notification->message = 'Your video "' . $videoDetails->title . '" changed visibility to ' . $visibility;
+                    $notification->message = 'Your video "' . $videoDetails->title . '" tu video a cambiado su visibilidad a ' . $visibility;
                     $notification->target_id = $id;
                     $notification->save();
                 }
