@@ -73,6 +73,12 @@
         </v-list-item-icon>
         <v-list-item-title>Mi Contrato</v-list-item-title>
       </v-list-item>
+            <v-list-item link href="/logout">
+        <v-list-item-icon>
+          <v-icon class="mr-4">mdi-logout</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Salir</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>

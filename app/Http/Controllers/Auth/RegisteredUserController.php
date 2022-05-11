@@ -47,10 +47,10 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
         $request->session()->put('wizard', true);
 
-        return redirect()->intended('/wizard');
+        Auth::login($user);
+
+        return redirect('/wizard');
     }
 }

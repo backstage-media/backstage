@@ -210,7 +210,7 @@ class ContractController extends Controller
 
     public function manager_has_contract(Manager $manager)
     {
-        $contract = Contract::where('manager-id', $manager->id)->where('status',true)->count();
+        $contract = Contract::where('manager_id', $manager->id)->where('status',true)->count();
 
         return $contract;
     }
