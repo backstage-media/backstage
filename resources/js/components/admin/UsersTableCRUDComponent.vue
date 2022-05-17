@@ -23,6 +23,12 @@
 
             <v-card-text>
               <v-container>
+                  <p v-if="errors.length">
+    <b>Revisa los siguientes errores:</b>
+    <ul>
+      <li v-for="error in errors" v-bind="error">{{ error }}</li>
+    </ul>
+  </p>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field
@@ -43,13 +49,6 @@
                       type="password"
                       v-model="password"
                       label="Contraseña"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="auto">
-                    <v-text-field
-                      type="password"
-                      v-model="confirm_password"
-                      label="Confirm Password"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -96,8 +95,8 @@
 export default {
   props: ["users"],
   data: () => ({
-    password: "",
-    confirm_password: "",
+    errors: [],
+    validated: true,
     token: "{{ csrf_token() }}",
     dialog: false,
     dialogDelete: false,
@@ -113,7 +112,7 @@ export default {
       { text: "Email", value: "email" },
       { text: "Creado En", value: "created_at" },
       { text: "Actualizado En", value: "updated_at" },
-      { text: "Contraseña", value: "password"},
+      { text: "Contraseña", value: "password" },
       {
         text: "Tipo de Rol",
         value: "role.user_type.type_name",
@@ -126,14 +125,15 @@ export default {
     editedItem: {
       name: "",
       password: "",
+      email: "",
       confirm_password: "",
       carbs: 0,
       protein: 0,
     },
     defaultItem: {
       name: "",
-      calories: 0,
-      fat: 0,
+      email: "",
+      password: "",
       carbs: 0,
       protein: 0,
     },
@@ -162,6 +162,8 @@ export default {
 
   methods: {
     create_data: function (item) {
+      this.validated = true;
+      this.errors = [];
       let token = document.head.querySelector('meta[name="csrf-token"]');
 
       if (token) {
@@ -172,26 +174,38 @@ export default {
         );
       }
 
-      console.log("creating dataaa...");
-      console.log(item.name);
-      console.log(item.email);
-      console.log(this.password);
+      if (item.name.length < 4) {
+        this.errors.push("El usuario debe tener al menos 4 caracteres");
+        this.validated = false;
+      }
 
-      this.$http
-        .post("/admin/users/add", {
-          headers: {
-            "Content-Type": "application/json",
-            "X-Requested-With": "XMLHttpRequest",
-          },
-          _method: "post",
-          _token: token.content,
-          name: item.name,
-          email: item.email,
-          password: this.password
-        })
-        .then((res) => {
-          window.reload;
-        });
+      if (item.email.length < 4) {
+        this.errors.push("El email debe tener al menos 4 caracteres");
+        this.validated = false;
+      }
+
+      if (this.password.length < 8) {
+        this.errors.push("El password debe tener al menos 8 caracteres");
+        this.validated = false;
+      }
+
+      if (this.validated) {
+        this.$http
+          .post("/admin/users/add", {
+            headers: {
+              "Content-Type": "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+            _method: "post",
+            _token: token.content,
+            name: item.name,
+            email: item.email,
+            password: this.password,
+          })
+          .then((res) => {
+            window.reload;
+          });
+      }
     },
     update_data: function (item) {
       let token = document.head.querySelector('meta[name="csrf-token"]');
@@ -293,7 +307,9 @@ export default {
         this.users.push(this.editedItem);
         this.create_data(this.editedItem);
       }
-      this.close();
+      if (this.validated) {
+        this.close();
+      }
     },
   },
 };
