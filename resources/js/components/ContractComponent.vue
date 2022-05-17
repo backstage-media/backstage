@@ -117,7 +117,6 @@ export default {
           _method: "get",
           _token: token.content,
         })
-        .then((res) => res.json())
         .then((res) => {
         location.reload();
         });

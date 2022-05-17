@@ -34,7 +34,8 @@
             No hay cuenta de Youtube conectada.
           </v-list-item-subtitle>
           <v-list-item-subtitle v-if="!youtube_name">
-            <v-icon link href="/login/google">mdi-youtube</v-icon> <a href="/login/google">click</a> para conectarla
+            <v-icon link href="/login/google">mdi-youtube</v-icon>
+            <a href="/login/google">click</a> para conectarla
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -73,7 +74,7 @@
         </v-list-item-icon>
         <v-list-item-title>Mi Contrato</v-list-item-title>
       </v-list-item>
-            <v-list-item link href="/logout">
+      <v-list-item link href="/logout">
         <v-list-item-icon>
           <v-icon class="mr-4">mdi-logout</v-icon>
         </v-list-item-icon>

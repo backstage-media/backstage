@@ -20,7 +20,7 @@
               No hay suscripciones disponibles
             </div>
             <div width="100px">
-            <v-list v-for="item in manager_data.manager.agreement" :key="item">
+            <v-list v-for="(item, index) in manager_data.manager.agreement" :key="index">
               <v-list-item>
                {{ item.months }} Meses -
                     {{ total(item.months, item.price_per_month) }} $ ({{
@@ -28,13 +28,13 @@
                     }}
                     % Descuento)
                     <v-spacer></v-spacer>
-              <v-dialog transition="dialog-top-transition" max-width="600px">
+              <v-dialog transition="dialog-top-transition" max-width="600px" v-model="confirm_dialog[index]" :key="item">
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon color="accent" v-bind="attrs" v-on="on"
                     >mdi-cart-arrow-right</v-icon
                   >
                 </template>
-                <template v-slot:default="dialog">
+                <template>
                   <v-card>
                     <v-card-title class="text-h6">
                       Confirmacion del contrato
@@ -57,7 +57,7 @@
                       <v-btn
                         color="green darken-1"
                         text
-                        @click="dialog = false"
+                        @click="confirm_dialog[index] = false"
                       >
                         Cancelar
                       </v-btn>
@@ -92,7 +92,7 @@ export default {
     console.log(this.manager_data.manager);
   },
   data: () => ({
-    dialog: false,
+    confirm_dialog: {},
   }),
   methods: {
     total: function (months, price) {

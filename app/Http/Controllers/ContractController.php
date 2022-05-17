@@ -273,10 +273,26 @@ class ContractController extends Controller
 
     public function cancel_subscription(Request $request){
         if (isset($request->id)) {
-            $contract = Contract::find($request->id);
+            $contract = Contract::with('manager')->find($request->id);
+            $user_id = $request->user()->id;
             $contract->status = false;
             $contract->automatic_renewal = false;
             $contract->save();
+
+            //Enviar notificacion al Manager de su nuevo contrato.
+
+            $notification = new Notification;
+            $userController = new UserController;
+    
+            $manager_user = $userController->get_user_from_manager($contract->manager);
+            $user = $userController->get_user_from_id($user_id);
+    
+            $notification->from_user = $user->id;
+            $notification->to_user = $manager_user->id;
+            $notification->notification_type = 5;
+            $notification->message = $user->name . ' ha cancelado su contrato que contenia el periodo '.$contract->start_date.' - '.$contract->end_date;
+            $notification->target_id = $contract->id;
+            $notification->save();
         }
     }
 }

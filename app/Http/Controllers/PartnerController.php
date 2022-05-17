@@ -33,7 +33,9 @@ class PartnerController extends Controller
 
         $partner->save();
 
-        return view('partners');
+        $partners = Partner::all('id','name', 'contact', 'description', 'created_at');
+
+        return view('partners')->with('partners', $partners);
     }
     /*
      * Listar todos los Partners de la plataforma

@@ -10,7 +10,10 @@
           >
             <v-avatar color="primary" size="123" class="ma-2">
               <v-img
-                :src="'https://ui-avatars.com/api/?name='+user_data.creator.real_name"
+                :src="
+                  'https://ui-avatars.com/api/?name=' +
+                  user_data.creator.real_name
+                "
               ></v-img>
             </v-avatar>
             <v-card-title>{{ user_data.creator.real_name }}</v-card-title>
@@ -33,6 +36,10 @@
             >
               Administrar Contenido
             </v-btn>
+            <v-btn depressed v-on:click="download_contract(user_data.id)"
+              >Contrato
+              <v-icon color="accent">mdi-download-outline</v-icon></v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-col>
@@ -65,6 +72,10 @@ export default {
         total_price = total_price - total_price * final_discount;
       }
       return total_price;
+    },
+    download_contract: function (id) {
+      console.log(id);
+      window.open("/contract/download/" + id, "_blank").focus();
     },
   },
 };
