@@ -312,9 +312,10 @@ CREATE TABLE `notification_types` (
 
 LOCK TABLES `notification_types` WRITE;
 /*!40000 ALTER TABLE `notification_types` DISABLE KEYS */;
-INSERT INTO `notification_types` VALUES (1,NULL,NULL,'Content Comment'),(2,NULL,NULL,'Content Change'),(3,NULL,NULL,'Private Message'),(4,NULL,NULL,'Contract Created');
+INSERT INTO `notification_types` VALUES (1,NULL,NULL,'Content Comment'),(2,NULL,NULL,'Content Change'),(3,NULL,NULL,'Private Message'),(4,NULL,NULL,'Contract Created'),(5,NULL,NULL,'Contract Cancelled');
 /*!40000 ALTER TABLE `notification_types` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 --
 -- Table structure for table `notifications`
